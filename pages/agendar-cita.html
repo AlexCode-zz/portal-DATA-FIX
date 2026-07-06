@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar cita — TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+<style>
+    @media (max-width: 900px) {
+        .seccion .contenedor[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="../index.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix</a>
+        <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
+        <ul class="navbar-menu">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="agendar-cita.html" class="activo">Agendar cita</a></li>
+            <li id="nav-invitado" style="display:contents;">
+                <a href="login.html" class="btn btn-secundario btn-sm">Iniciar sesión</a>
+                <a href="registro.html" class="btn btn-primario btn-sm">Crear cuenta</a>
+            </li>
+            <li id="nav-usuario" style="display:none;">
+                <a href="dashboard.html" class="btn btn-secundario btn-sm">Mi Panel</a>
+                <a href="#" id="link-logout-publico" class="btn btn-primario btn-sm">Cerrar sesión</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="seccion" style="padding-top:48px;">
+    <div class="contenedor" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:40px; align-items:flex-start;">
+
+        <div>
+            <div class="encabezado-seccion">
+                <span class="eyebrow">Reserva tu turno</span>
+                <h2>Agenda tu cita de diagnóstico</h2>
+                <p>Cuéntanos qué le pasa a tu equipo y elige el día que mejor te convenga.
+                   El diagnóstico inicial no tiene costo.</p>
+            </div>
+
+            <div class="caja" id="caja-necesita-cuenta" style="display:none; text-align:center;">
+                <span style="font-size:2rem;">🔒</span>
+                <h3 style="border:none; margin-bottom:8px;">Necesitas una cuenta para agendar</h3>
+                <p style="color:var(--pizarra); margin-bottom:18px;">Así podemos darte seguimiento en tiempo real a tu reparación una vez que dejes el equipo.</p>
+                <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                    <a href="login.html" class="btn btn-secundario">Iniciar sesión</a>
+                    <a href="registro.html" class="btn btn-primario">Crear cuenta gratis</a>
+                </div>
+            </div>
+
+            <div class="caja" id="caja-formulario-cita" style="display:none;">
+                <div class="alerta mensaje-formulario" style="display:none;"></div>
+
+                <form id="form-agendar-cita">
+                    <div class="campo-fila">
+                        <div class="campo">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="campo">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="correo">Correo electrónico</label>
+                        <input type="email" id="correo" name="correo" required>
+                    </div>
+
+                    <div class="campo-fila">
+                        <div class="campo">
+                            <label for="tipo_dispositivo">Tipo de dispositivo</label>
+                            <select id="tipo_dispositivo" name="tipo_dispositivo" required>
+                                <option value="">Selecciona…</option>
+                                <option>Laptop</option>
+                                <option>PC de escritorio</option>
+                                <option>Celular</option>
+                                <option>Tablet</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="servicio">Servicio de interés</label>
+                            <select id="servicio" name="servicio">
+                                <option value="">No estoy seguro / diagnóstico general</option>
+                                <option>Formateo e instalación de SO</option>
+                                <option>Cambio de pantalla</option>
+                                <option>Limpieza interna</option>
+                                <option>Eliminación de virus</option>
+                                <option>Cambio a SSD</option>
+                                <option>Reparación de placa madre</option>
+                                <option>Recuperación de datos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="descripcion">Describe el problema</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="Ej: la laptop no enciende, la pantalla tiene líneas, va muy lenta..." required></textarea>
+                    </div>
+
+                    <div class="campo-fila">
+                        <div class="campo">
+                            <label for="fecha">Fecha preferida</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="campo">
+                            <label for="hora">Hora preferida</label>
+                            <select id="hora" name="hora" required>
+                                <option value="">Selecciona…</option>
+                                <option>09:00 AM</option>
+                                <option>10:30 AM</option>
+                                <option>12:00 PM</option>
+                                <option>02:00 PM</option>
+                                <option>03:30 PM</option>
+                                <option>05:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primario btn-block mt-1" id="btn-agendar-cita">Confirmar cita</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Panel lateral informativo -->
+        <div>
+            <div class="caja" style="background-color: var(--tinta); border:none;">
+                <h3 style="color:#fff; border-color: rgba(255,255,255,0.12);">📍 Detalles del taller</h3>
+                <div class="fila-dato" style="border-color: rgba(255,255,255,0.1);"><span class="etiqueta" style="color:#8791AE;">Dirección</span><span class="valor" style="color:#fff;">Av. Principal 123</span></div>
+                <div class="fila-dato" style="border-color: rgba(255,255,255,0.1);"><span class="etiqueta" style="color:#8791AE;">Horario</span><span class="valor" style="color:#fff;">Lun–Sáb 9:00–18:00</span></div>
+                <div class="fila-dato" style="border-color: rgba(255,255,255,0.1);"><span class="etiqueta" style="color:#8791AE;">Teléfono</span><span class="valor" style="color:#fff;">099 000 0000</span></div>
+                <div class="fila-dato"><span class="etiqueta" style="color:#8791AE;">Diagnóstico</span><span class="valor" style="color: var(--led-verde);">Sin costo</span></div>
+            </div>
+
+            <div class="resumen-cita">
+                <div class="titulo">Qué sucede después</div>
+                <div class="timeline" style="padding-left:22px;">
+                    <div class="timeline-item"><strong>Confirmación</strong><div class="fecha-timeline">Te contactamos en menos de 2 horas hábiles</div></div>
+                    <div class="timeline-item"><strong>Recepción del equipo</strong><div class="fecha-timeline">Registramos tu dispositivo y generamos tu ticket</div></div>
+                    <div class="timeline-item"><strong>Seguimiento en línea</strong><div class="fecha-timeline">Ves el avance desde tu cuenta TechFix</div></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <div class="contenedor footer-bottom" style="border:none; padding-top:0;">
+        <span>© <span class="anio-actual"></span> TechFix</span>
+        <a href="../index.html" style="color:#8791AE;">&larr; Volver al inicio</a>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/nav-session.js"></script>
+<script src="../js/whatsapp.js"></script>
+<script>
+    (async function () {
+        const cajaNecesitaCuenta = document.getElementById('caja-necesita-cuenta');
+        const cajaFormulario = document.getElementById('caja-formulario-cita');
+
+        const sesion = await obtenerSesionActual();
+
+        if (!sesion) {
+            cajaNecesitaCuenta.style.display = 'block';
+            return;
+        }
+
+        cajaFormulario.style.display = 'block';
+
+        // Precargamos nombre/correo/teléfono desde el perfil del cliente
+        const { data: perfil } = await supabaseClient
+            .from('clientes')
+            .select('nombre, apellido, correo, telefono')
+            .eq('id_cliente', sesion.user.id)
+            .single();
+
+        if (perfil) {
+            document.getElementById('nombre').value = `${perfil.nombre} ${perfil.apellido}`;
+            document.getElementById('correo').value = perfil.correo;
+            if (perfil.telefono) document.getElementById('telefono').value = perfil.telefono;
+        }
+
+        document.getElementById('form-agendar-cita').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const caja = document.querySelector('.mensaje-formulario');
+            const btn = document.getElementById('btn-agendar-cita');
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
+            const fd = new FormData(this);
+
+            const { error } = await supabaseClient.from('citas').insert([{
+                id_cliente: sesion.user.id,
+                nombre: fd.get('nombre').trim(),
+                telefono: fd.get('telefono').trim(),
+                correo: fd.get('correo').trim(),
+                tipo_dispositivo: fd.get('tipo_dispositivo'),
+                servicio_interes: fd.get('servicio') || null,
+                descripcion: fd.get('descripcion').trim(),
+                fecha_preferida: fd.get('fecha'),
+                hora_preferida: fd.get('hora')
+            }]);
+
+            btn.disabled = false;
+            btn.textContent = 'Confirmar cita';
+
+            if (error) {
+                mostrarMensajeFormulario(caja, 'No se pudo agendar la cita: ' + error.message, false);
+            } else {
+                mostrarMensajeFormulario(caja, '¡Cita agendada! Ya quedó registrada en tu cuenta.', true);
+
+                // Botón para escribir directo por WhatsApp, con el mensaje ya redactado
+                const nombreCliente = fd.get('nombre').trim();
+                const fechaTexto = formatoFecha(fd.get('fecha'));
+                const mensajeWpp = `Hola, soy ${nombreCliente}. Acabo de agendar una cita en TechFix para el ${fechaTexto} a las ${fd.get('hora')} (equipo: ${fd.get('tipo_dispositivo')}). Quisiera confirmar los detalles.`;
+                const linkWpp = construirLinkWhatsApp(WHATSAPP_NEGOCIO, mensajeWpp);
+
+                let botonWpp = document.getElementById('boton-whatsapp-cita');
+                if (!botonWpp) {
+                    botonWpp = document.createElement('a');
+                    botonWpp.id = 'boton-whatsapp-cita';
+                    botonWpp.className = 'btn btn-primario btn-block mt-1';
+                    botonWpp.target = '_blank';
+                    caja.insertAdjacentElement('afterend', botonWpp);
+                }
+                botonWpp.href = linkWpp;
+                botonWpp.textContent = '💬 Escríbenos por WhatsApp para coordinar más rápido';
+
+                this.reset();
+            }
+        });
+    })();
+</script>
+</body>
+</html>

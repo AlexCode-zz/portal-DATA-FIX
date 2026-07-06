@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispositivos — Panel Admin TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="dashboard.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix <span style="font-weight:400; color:var(--pizarra); font-size:0.85rem;">/ Admin</span></a>
+        <ul class="navbar-menu" style="display:flex;">
+            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
+            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="layout-admin">
+    <aside class="sidebar">
+        <span class="grupo-titulo">Gestión</span>
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="clientes.html">👥 Clientes</a>
+        <a href="dispositivos.html" class="activo">💻 Dispositivos</a>
+        <a href="servicios.html">🧰 Servicios</a>
+        <a href="reparaciones.html">🔧 Reparaciones</a>
+        <a href="citas.html">📅 Citas</a>
+    </aside>
+
+    <main class="contenido-admin">
+        <h1>Gestión de Dispositivos</h1>
+        <p class="descripcion-pagina">Registra dispositivos y cambia su estado (cambio visual, sin lógica real todavía)</p>
+
+        <div class="caja">
+            <h3>➕ Registrar nuevo dispositivo</h3>
+            <div class="alerta mensaje-formulario" style="display:none;"></div>
+            <form id="form-crear-dispositivo">
+               <div class="campo-fila">
+                 <div class="campo">
+                     <label>Cliente</label>
+                       <select name="cliente" id="select-cliente-dispositivo" required>
+                        <option value="">-- Selecciona un cliente --</option>
+                  </select>
+             </div>
+                    <div class="campo">
+                        <label>Tipo de dispositivo</label>
+                        <input type="text" name="tipo" placeholder="Laptop, PC, Celular..." required>
+                    </div>
+                </div>
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label>Marca</label>
+                        <input type="text" name="marca">
+                    </div>
+                    <div class="campo">
+                        <label>Modelo</label>
+                        <input type="text" name="modelo">
+                    </div>
+                </div>
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label>Fecha de ingreso</label>
+                        <input type="date" name="fecha_ingreso" required>
+                    </div>
+                    <div class="campo">
+                        <label>Entrega estimada</label>
+                        <input type="date" name="fecha_estimada">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label>Descripción del problema</label>
+                    <textarea name="problema" placeholder="Describe la falla reportada..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primario mt-1">Registrar dispositivo</button>
+            </form>
+        </div>
+
+        <div class="barra-superior-admin">
+            <h3 style="font-family:var(--fuente-display); color:var(--tinta); font-size:1.05rem;">Dispositivos registrados</h3>
+            <div class="buscador-admin">
+                🔍 <input type="text" id="buscador-dispositivos" placeholder="Buscar por ticket o cliente...">
+            </div>
+        </div>
+
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Cliente</th>
+                        <th>Dispositivo</th>
+                        <th>Ingreso</th>
+                        <th>Entrega estimada</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-dispositivos-admin">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/admin-guard.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

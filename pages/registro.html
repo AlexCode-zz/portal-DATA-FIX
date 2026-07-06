@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear cuenta — TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="../index.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix</a>
+        <ul class="navbar-menu" style="display:flex;">
+            <li><a href="login.html">¿Ya tienes cuenta? Inicia sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="panel-formulario">
+    <div class="marca-formulario"><span class="logo-chip">TF</span> TechFix</div>
+    <h2>Crea tu cuenta</h2>
+    <p class="subtitulo">Regístrate para dar seguimiento a tus reparaciones</p>
+
+    <div class="alerta mensaje-formulario" style="display:none;"></div>
+
+    <form id="form-registro">
+        <div class="campo-fila">
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="campo">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+        </div>
+
+        <div class="campo">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+        </div>
+
+        <div class="campo">
+            <label for="telefono">Teléfono <span style="font-weight:400; color:var(--pizarra);">(opcional)</span></label>
+            <input type="tel" id="telefono" name="telefono" placeholder="099 000 0000">
+        </div>
+
+        <div class="campo-fila">
+            <div class="campo">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" minlength="6" required>
+            </div>
+            <div class="campo">
+                <label for="confirmar">Confirmar contraseña</label>
+                <input type="password" id="confirmar" name="confirmar" minlength="6" required>
+            </div>
+        </div>
+        <p class="campo ayuda" style="margin-top:-10px;">Mínimo 6 caracteres.</p>
+
+        <button type="submit" class="btn btn-primario btn-block mt-1" id="btn-registro">Registrarme</button>
+    </form>
+
+    <p class="enlace-secundario">¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+    document.getElementById('form-registro').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const caja = document.querySelector('.mensaje-formulario');
+        const btn = document.getElementById('btn-registro');
+
+        const contrasena = document.getElementById('contrasena').value;
+        const confirmar = document.getElementById('confirmar').value;
+
+        if (contrasena !== confirmar) {
+            caja.textContent = 'Las contraseñas no coinciden.';
+            caja.className = 'alerta alerta-info mensaje-formulario';
+            caja.style.display = 'flex';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Creando cuenta...';
+
+        const resultado = await registrarCliente({
+            nombre: document.getElementById('nombre').value.trim(),
+            apellido: document.getElementById('apellido').value.trim(),
+            correo: document.getElementById('correo').value.trim(),
+            telefono: document.getElementById('telefono').value.trim(),
+            contrasena
+        });
+
+        btn.disabled = false;
+        btn.textContent = 'Registrarme';
+
+        caja.textContent = resultado.mensaje;
+        caja.className = resultado.ok ? 'alerta alerta-exito mensaje-formulario' : 'alerta alerta-info mensaje-formulario';
+        caja.style.display = 'flex';
+
+        if (resultado.ok) {
+            setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+        }
+    });
+</script>
+</body>
+</html>
+

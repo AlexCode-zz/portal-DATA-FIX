@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citas — Panel Admin TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="dashboard.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix <span style="font-weight:400; color:var(--pizarra); font-size:0.85rem;">/ Admin</span></a>
+        <ul class="navbar-menu" style="display:flex;">
+            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
+            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="layout-admin">
+    <aside class="sidebar">
+        <span class="grupo-titulo">Gestión</span>
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="clientes.html">👥 Clientes</a>
+        <a href="dispositivos.html">💻 Dispositivos</a>
+        <a href="servicios.html">🧰 Servicios</a>
+        <a href="reparaciones.html">🔧 Reparaciones</a>
+        <a href="citas.html" class="activo">📅 Citas</a>
+    </aside>
+
+    <main class="contenido-admin">
+        <h1>Citas agendadas</h1>
+        <p class="descripcion-pagina">Solicitudes de cita hechas por clientes desde el portal</p>
+
+        <div class="barra-superior-admin">
+            <div class="tabs" style="border:none; margin-bottom:0;">
+                <button class="tab-btn activo" data-filtro-estado="todas">Todas</button>
+                <button class="tab-btn" data-filtro-estado="Pendiente">Pendientes</button>
+                <button class="tab-btn" data-filtro-estado="Confirmada">Confirmadas</button>
+                <button class="tab-btn" data-filtro-estado="Atendida">Atendidas</button>
+                <button class="tab-btn" data-filtro-estado="Cancelada">Canceladas</button>
+            </div>
+            <div class="buscador-admin">
+                🔍 <input type="text" id="buscador-citas" placeholder="Buscar por nombre o correo...">
+            </div>
+        </div>
+
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Contacto</th>
+                        <th>Dispositivo / Servicio</th>
+                        <th>Fecha y hora preferida</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-citas">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/whatsapp.js"></script>
+<script src="../js/admin-guard.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

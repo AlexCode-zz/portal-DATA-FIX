@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle del dispositivo — TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="../index.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix</a>
+        <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
+        <ul class="navbar-menu">
+            <li><a href="dashboard.html">Mi Panel</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="agendar-cita.html">Agendar cita</a></li>
+            <li><a href="#" id="link-logout">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="contenedor" style="padding-top:32px;">
+    <a href="dashboard.html" class="volver">&larr; Volver a mis dispositivos</a>
+
+    <div class="detalle-encabezado">
+        <div>
+            <span class="ticket-id mono" id="detalle-ticket">#TF-2026-0000</span>
+            <h1 id="detalle-titulo">Dispositivo</h1>
+        </div>
+        <span class="led-estado" id="detalle-led"><span class="punto"></span><span id="detalle-estado-texto">—</span></span>
+    </div>
+
+    <!-- Barra de progreso del flujo de estados -->
+    <div class="caja">
+        <h3>📶 Progreso de la reparación</h3>
+        <div class="progreso-estados" id="progreso-estados">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+
+    <div class="caja">
+        <h3>ℹ️ Información general</h3>
+        <div id="info-general">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+
+    <div class="caja">
+        <h3>🧰 Servicios aplicados</h3>
+        <div id="servicios-aplicados">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+
+    <div class="caja">
+        <h3>🕒 Línea de tiempo</h3>
+        <div class="timeline" id="timeline-estados">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<footer style="margin-top:20px;">
+    <div class="contenedor footer-bottom" style="border:none; padding-top:0;">
+        <span>© <span class="anio-actual"></span> TechFix</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/dispositivo.js"></script>
+</body>
+</html>

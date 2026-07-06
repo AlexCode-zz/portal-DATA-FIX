@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientes — Panel Admin TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="dashboard.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix <span style="font-weight:400; color:var(--pizarra); font-size:0.85rem;">/ Admin</span></a>
+        <ul class="navbar-menu" style="display:flex;">
+            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
+            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="layout-admin">
+    <aside class="sidebar">
+        <span class="grupo-titulo">Gestión</span>
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="clientes.html" class="activo">👥 Clientes</a>
+        <a href="dispositivos.html">💻 Dispositivos</a>
+        <a href="servicios.html">🧰 Servicios</a>
+        <a href="reparaciones.html">🔧 Reparaciones</a>
+        <a href="citas.html">📅 Citas</a>
+    </aside>
+
+    <main class="contenido-admin">
+        <h1>Gestión de Clientes</h1>
+        <p class="descripcion-pagina">Registra, edita o elimina cuentas de clientes (solo interfaz por ahora)</p>
+
+        <!-- Formulario de registro rápido -->
+        <div class="caja">
+            <h3>➕ Registrar nuevo cliente</h3>
+            <div class="alerta mensaje-formulario" style="display:none;"></div>
+            <form id="form-crear-cliente"></form>
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label>Nombre completo</label>
+                        <input type="text" name="nombre" required>
+                    </div>
+                    <div class="campo">
+                        <label>Correo electrónico</label>
+                        <input type="email" name="correo" required>
+                    </div>
+                </div>
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label>Teléfono</label>
+                        <input type="tel" name="telefono">
+                    </div>
+                    <div class="campo">
+                        <label>Contraseña temporal</label>
+                        <input type="password" name="contrasena" minlength="6" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primario mt-1">Registrar cliente</button>
+            </form>
+        </div>
+
+        <div class="barra-superior-admin">
+            <h3 style="font-family:var(--fuente-display); color:var(--tinta); font-size:1.05rem;">Clientes registrados</h3>
+            <div class="buscador-admin">
+                🔍 <input type="text" id="buscador-clientes" placeholder="Buscar por nombre o correo...">
+            </div>
+        </div>
+
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Dispositivos</th>
+                        <th>Cliente desde</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-clientes">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/admin-guard.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

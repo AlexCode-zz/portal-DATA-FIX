@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso Administrador — TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="../index.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix <span style="font-weight:400; color:var(--pizarra); font-size:0.85rem;">/ Admin</span></a>
+    </div>
+</nav>
+
+<div class="panel-formulario" style="margin-top:70px;">
+    <div class="marca-formulario"><span class="logo-chip">TF</span> TechFix</div>
+    <h2>Panel administrativo</h2>
+    <p class="subtitulo">Acceso exclusivo para personal del taller</p>
+
+    <div class="alerta mensaje-formulario" style="display:none;"></div>
+
+    <form id="form-login-admin">
+        <div class="campo">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" placeholder="admin@techfix.com" required>
+        </div>
+        <div class="campo">
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-oscuro btn-block">Ingresar al panel</button>
+    </form>
+
+    <p class="enlace-secundario"><a href="../index.html">&larr; Volver al sitio</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+    document.getElementById('form-login-admin').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const caja = document.querySelector('.mensaje-formulario');
+        const btn = e.target.querySelector('[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Verificando...';
+
+        const resultado = await iniciarSesionAdmin({
+            correo: document.getElementById('correo').value.trim(),
+            contrasena: document.getElementById('contrasena').value
+        });
+
+        btn.disabled = false;
+        btn.textContent = 'Ingresar al panel';
+
+        if (resultado.ok) {
+            caja.textContent = `Bienvenido, ${resultado.admin.nombre}. Redirigiendo...`;
+            caja.className = 'alerta alerta-exito mensaje-formulario';
+            caja.style.display = 'flex';
+            setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+        } else {
+            caja.textContent = resultado.mensaje;
+            caja.className = 'alerta alerta-info mensaje-formulario';
+            caja.style.display = 'flex';
+        }
+    });
+</script>
+
+</body>
+</html>

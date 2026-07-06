@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servicios — TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="../index.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix</a>
+        <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
+        <ul class="navbar-menu">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="servicios.html" class="activo">Servicios</a></li>
+            <li><a href="agendar-cita.html">Agendar cita</a></li>
+            <li id="nav-invitado" style="display:contents;">
+                <a href="login.html" class="btn btn-secundario btn-sm">Iniciar sesión</a>
+                <a href="registro.html" class="btn btn-primario btn-sm">Crear cuenta</a>
+            </li>
+            <li id="nav-usuario" style="display:none;">
+                <a href="dashboard.html" class="btn btn-secundario btn-sm">Mi Panel</a>
+                <a href="#" id="link-logout-publico" class="btn btn-primario btn-sm">Cerrar sesión</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="seccion" style="padding-bottom:0;">
+    <div class="contenedor">
+        <div class="encabezado-seccion">
+            <span class="eyebrow">Catálogo completo</span>
+            <h2>Nuestros servicios</h2>
+            <p>Precios referenciales. El costo final se confirma después del diagnóstico gratuito.</p>
+        </div>
+
+        <div class="tabs" id="filtro-tipos">
+            <button class="tab-btn activo" data-filtro="todos">Todos</button>
+            <button class="tab-btn" data-filtro="hardware">Hardware</button>
+            <button class="tab-btn" data-filtro="software">Software</button>
+            <button class="tab-btn" data-filtro="mantenimiento">Mantenimiento</button>
+        </div>
+
+        <div class="grid" id="lista-servicios" style="padding-bottom:70px;">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="contenedor footer-bottom" style="border:none; padding-top:0;">
+        <span>© <span class="anio-actual"></span> TechFix</span>
+        <a href="../index.html" style="color:#8791AE;">&larr; Volver al inicio</a>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/nav-session.js"></script>
+<script>
+    const listaServicios = document.getElementById('lista-servicios');
+    const botonesFiltro = document.querySelectorAll('#filtro-tipos .tab-btn');
+
+    // Como la tabla "servicios" no guarda un emoji, lo elegimos según el tipo
+    const ICONO_POR_TIPO = {
+        hardware: '🖥️',
+        software: '💽',
+        mantenimiento: '🧹',
+        otro: '🧰'
+    };
+
+    let serviciosCargados = [];
+
+    async function cargarServicios() {
+        listaServicios.innerHTML = `<p class="vacio">Cargando servicios...</p>`;
+
+        const { data, error } = await supabaseClient
+            .from('servicios')
+            .select('*')
+            .eq('activo', true)
+            .order('tipo', { ascending: true });
+
+        if (error) {
+            listaServicios.innerHTML = `<p class="vacio">No se pudieron cargar los servicios: ${error.message}</p>`;
+            return;
+        }
+
+        serviciosCargados = data;
+        renderServicios('todos');
+    }
+
+    function renderServicios(filtro) {
+        const items = filtro === 'todos'
+            ? serviciosCargados
+            : serviciosCargados.filter(s => s.tipo === filtro);
+
+        if (items.length === 0) {
+            listaServicios.innerHTML = `<p class="vacio">No hay servicios en esta categoría.</p>`;
+            return;
+        }
+
+        listaServicios.innerHTML = items.map(s => `
+            <div class="tarjeta-servicio">
+                <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '🧰'}</div>
+                <span class="etiqueta-tipo">${s.tipo}</span>
+                <h3>${s.nombre_servicio}</h3>
+                <p>${s.descripcion ?? ''}</p>
+                <div class="pie-servicio">
+                    <span class="precio">$${Number(s.precio).toFixed(2)}</span>
+                    <a href="agendar-cita.html" class="btn btn-secundario btn-sm">Solicitar</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    botonesFiltro.forEach(btn => {
+        btn.addEventListener('click', () => {
+            botonesFiltro.forEach(b => b.classList.remove('activo'));
+            btn.classList.add('activo');
+            renderServicios(btn.dataset.filtro);
+        });
+    });
+
+    cargarServicios();
+</script>
+</body>
+</html>
+

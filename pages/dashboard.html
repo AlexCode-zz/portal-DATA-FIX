@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Panel — TechFix</title>
+<link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="contenedor">
+        <a href="../index.html" class="navbar-marca"><span class="logo-chip">TF</span> TechFix</a>
+        <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
+        <ul class="navbar-menu">
+            <li><a href="dashboard.html" class="activo">Mi Panel</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="agendar-cita.html">Agendar cita</a></li>
+            <li><a href="#" id="link-logout">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="franja-usuario">
+    <div class="contenedor">
+        <div>
+            <span class="bienvenida-mono">SESIÓN DE CLIENTE</span>
+            <h1 id="saludo-usuario">Hola</h1>
+            <p>Aquí puedes ver el estado de tus dispositivos y tu historial de reparaciones.</p>
+        </div>
+        <a href="agendar-cita.html" class="btn btn-primario">+ Agendar nueva cita</a>
+    </div>
+</div>
+
+<div class="contenedor">
+
+    <div class="resumen-grid" id="resumen-grid">
+        <!-- Se llena dinámicamente -->
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn activo" data-tab="tab-dispositivos">Mis dispositivos</button>
+        <button class="tab-btn" data-tab="tab-historial">Historial de reparaciones</button>
+        <button class="tab-btn" data-tab="tab-perfil">Mi perfil</button>
+    </div>
+
+    <!-- TAB: DISPOSITIVOS -->
+    <div class="tab-panel activo" id="tab-dispositivos">
+        <div class="grid" id="lista-dispositivos" style="padding-bottom:60px;">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+
+    <!-- TAB: HISTORIAL -->
+    <div class="tab-panel" id="tab-historial">
+        <div class="tabla-wrapper mb-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Dispositivo</th>
+                        <th>Servicio</th>
+                        <th>Costo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-historial">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB: PERFIL -->
+    <div class="tab-panel" id="tab-perfil">
+        <div class="caja" style="max-width:480px;">
+            <h3>👤 Datos personales</h3>
+            <div id="datos-perfil">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer style="margin-top:20px;">
+    <div class="contenedor footer-bottom" style="border:none; padding-top:0;">
+        <span>© <span class="anio-actual"></span> TechFix</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>
