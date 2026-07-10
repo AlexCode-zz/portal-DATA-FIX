@@ -42,19 +42,124 @@ document.addEventListener('DOMContentLoaded', function () {
     const resumenAdmin = document.getElementById('resumen-admin');
     if (resumenAdmin) {
         (async () => {
-            const [{ count: totalClientes }, { count: totalDispositivos }, { count: pendientes }, { count: totalServicios }] = await Promise.all([
+            const [
+                { count: totalClientes },
+                { data: todosDispositivos },
+                { count: totalServicios },
+                { count: citasPendientes },
+                { data: todasReparaciones }
+            ] = await Promise.all([
                 supabaseClient.from('clientes').select('*', { count: 'exact', head: true }),
-                supabaseClient.from('dispositivos').select('*', { count: 'exact', head: true }),
-                supabaseClient.from('dispositivos').select('*', { count: 'exact', head: true }).neq('estado', 'Entregado'),
-                supabaseClient.from('servicios').select('*', { count: 'exact', head: true }).eq('activo', true)
+                supabaseClient.from('dispositivos').select('estado'),
+                supabaseClient.from('servicios').select('*', { count: 'exact', head: true }).eq('activo', true),
+                supabaseClient.from('citas').select('*', { count: 'exact', head: true }).eq('estado', 'Pendiente'),
+                supabaseClient.from('reparaciones').select('costo_final, servicios(tipo)')
             ]);
 
+            const totalClientesVal = totalClientes ?? 0;
+            const totalServiciosVal = totalServicios ?? 0;
+            const totalDispositivosVal = todosDispositivos ? todosDispositivos.length : 0;
+            const citasPendientesVal = citasPendientes ?? 0;
+
+            // Calcular dispositivos en proceso (taller) - no entregados
+            const pendientes = todosDispositivos ? todosDispositivos.filter(d => d.estado !== 'Entregado').length : 0;
+
+            // Calcular ventas totales
+            const totalVentas = todasReparaciones ? todasReparaciones.reduce((suma, r) => suma + Number(r.costo_final || 0), 0) : 0;
+
+            // Renderizar las 6 tarjetas en el Dashboard
             resumenAdmin.innerHTML = `
-                <div class="resumen-card"><div class="top"><span class="icono">👥</span></div><div class="numero">${totalClientes ?? 0}</div><div class="etiqueta">Clientes registrados</div></div>
-                <div class="resumen-card"><div class="top"><span class="icono">💻</span></div><div class="numero">${totalDispositivos ?? 0}</div><div class="etiqueta">Dispositivos totales</div></div>
-                <div class="resumen-card"><div class="top"><span class="icono">🔧</span></div><div class="numero">${pendientes ?? 0}</div><div class="etiqueta">Reparaciones en proceso</div></div>
-                <div class="resumen-card"><div class="top"><span class="icono">🧰</span></div><div class="numero">${totalServicios ?? 0}</div><div class="etiqueta">Servicios activos</div></div>
+                <div class="resumen-card"><div class="top"><span class="icono">👥</span></div><div class="numero">${totalClientesVal}</div><div class="etiqueta">Clientes registrados</div></div>
+                <div class="resumen-card"><div class="top"><span class="icono">💻</span></div><div class="numero">${totalDispositivosVal}</div><div class="etiqueta">Dispositivos totales</div></div>
+                <div class="resumen-card"><div class="top"><span class="icono">🔧</span></div><div class="numero">${pendientes}</div><div class="etiqueta">En proceso taller</div></div>
+                <div class="resumen-card"><div class="top"><span class="icono">🧰</span></div><div class="numero">${totalServiciosVal}</div><div class="etiqueta">Servicios activos</div></div>
+                <div class="resumen-card"><div class="top"><span class="icono">💵</span></div><div class="numero">$${totalVentas.toFixed(2)}</div><div class="etiqueta">Ventas totales</div></div>
+                <div class="resumen-card"><div class="top"><span class="icono">📅</span></div><div class="numero">${citasPendientesVal}</div><div class="etiqueta">Citas pendientes</div></div>
             `;
+
+            // --- REPORTE 1: Distribución de Dispositivos por Estado ---
+            const graficoDispositivos = document.getElementById('grafico-dispositivos');
+            if (graficoDispositivos) {
+                const estadosPosibles = [
+                    { nombre: 'Recibido', color: 'var(--led-azul)' },
+                    { nombre: 'En diagnóstico', color: 'var(--led-ambar)' },
+                    { nombre: 'En espera', color: 'var(--led-rojo)' },
+                    { nombre: 'En mantenimiento', color: 'var(--led-morado)' },
+                    { nombre: 'En pruebas', color: '#14B8A6' },
+                    { nombre: 'Listo para entregar', color: 'var(--led-verde)' },
+                    { nombre: 'Entregado', color: 'var(--led-gris)' }
+                ];
+
+                const conteos = {};
+                estadosPosibles.forEach(e => conteos[e.nombre] = 0);
+                
+                if (todosDispositivos) {
+                    todosDispositivos.forEach(d => {
+                        if (conteos[d.estado] !== undefined) {
+                            conteos[d.estado]++;
+                        }
+                    });
+                }
+
+                graficoDispositivos.innerHTML = estadosPosibles.map(e => {
+                    const cant = conteos[e.nombre];
+                    const porcentaje = totalDispositivosVal > 0 ? ((cant / totalDispositivosVal) * 100).toFixed(1) : 0;
+                    
+                    return `
+                        <div>
+                            <div class="d-flex justify-content-between mb-1" style="font-size:0.86rem; font-weight:500;">
+                                <span style="display:flex; align-items:center; gap:6px;">
+                                    <span style="width:8px; height:8px; border-radius:50%; background:${e.color}; display:inline-block;"></span>
+                                    ${e.nombre}
+                                </span>
+                                <span class="mono">${cant} <span style="color:var(--pizarra); font-size:0.78rem;">(${porcentaje}%)</span></span>
+                            </div>
+                            <div class="progress" style="height: 6px; background-color: var(--papel-alt); border-radius: 4px; overflow: hidden;">
+                                <div class="progress-bar" style="width: ${porcentaje}%; background-color: ${e.color}; height: 100%; transition: width 0.3s ease;"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // --- REPORTE 2: Ventas por Categoría de Servicio ---
+            const graficoVentas = document.getElementById('grafico-ventas-categoria');
+            if (graficoVentas) {
+                const categorias = [
+                    { id: 'hardware', label: 'Hardware', color: 'var(--azul-senal)' },
+                    { id: 'software', label: 'Software', color: 'var(--led-morado)' },
+                    { id: 'mantenimiento', label: 'Mantenimiento', color: 'var(--led-ambar)' },
+                    { id: 'otro', label: 'Otro / General', color: 'var(--led-gris)' }
+                ];
+
+                const ventasPorCat = {};
+                categorias.forEach(c => ventasPorCat[c.id] = 0);
+
+                if (todasReparaciones) {
+                    todasReparaciones.forEach(r => {
+                        const tipo = r.servicios?.tipo || 'otro';
+                        const cat = ventasPorCat[tipo] !== undefined ? tipo : 'otro';
+                        ventasPorCat[cat] += Number(r.costo_final || 0);
+                    });
+                }
+
+                graficoVentas.innerHTML = categorias.map(c => {
+                    const totalCat = ventasPorCat[c.id];
+                    const porcentaje = totalVentas > 0 ? ((totalCat / totalVentas) * 100).toFixed(1) : 0;
+
+                    return `
+                        <div>
+                            <div class="d-flex justify-content-between mb-1" style="font-size:0.86rem; font-weight:500;">
+                                <span>${c.label}</span>
+                                <span class="mono">$${totalCat.toFixed(2)} <span style="color:var(--pizarra); font-size:0.78rem;">(${porcentaje}%)</span></span>
+                            </div>
+                            <div class="progress" style="height: 6px; background-color: var(--papel-alt); border-radius: 4px; overflow: hidden;">
+                                <div class="progress-bar" style="width: ${porcentaje}%; background-color: ${c.color}; height: 100%; transition: width 0.3s ease;"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
         })();
     }
 
