@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (error || !dispositivo) {
         document.querySelector('.contenedor').innerHTML = `
-            <p class="vacio"><span class="icono-vacio">🔍</span><br>No se encontró el dispositivo o no tienes acceso a él.</p>
-            <div class="texto-centro"><a href="dashboard.html" class="btn btn-secundario">&larr; Volver a mis dispositivos</a></div>
+            <p class="vacio"><span class="icono-vacio text-muted" style="font-size: 2rem;"><i class="bi bi-search"></i></span><br>No se encontró el dispositivo o no tienes acceso a él.</p>
+            <div class="texto-centro"><a href="dashboard.html" class="btn btn-secondary"><i class="bi bi-arrow-left me-1"></i> Volver a mis dispositivos</a></div>
         `;
         return;
     }

@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (errorDispositivos) {
         listaDispositivos.innerHTML = `<p class="vacio">Error al cargar tus dispositivos: ${errorDispositivos.message}</p>`;
     } else if (!dispositivos || dispositivos.length === 0) {
-        listaDispositivos.innerHTML = `<p class="vacio"><span class="icono-vacio">📭</span><br>Aún no tienes dispositivos registrados.</p>`;
+        listaDispositivos.innerHTML = `<p class="vacio"><span class="icono-vacio text-muted" style="font-size: 2rem;"><i class="bi bi-inbox"></i></span><br>Aún no tienes dispositivos registrados.</p>`;
     } else {
         listaDispositivos.innerHTML = dispositivos.map(d => `
             <div class="ticket">
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <div class="ticket-fila"><span class="etq">Entrega estimada</span><span class="val">${formatoFecha(d.fecha_entrega_estimada)}</span></div>
                 </div>
                 <div class="ticket-acciones">
-                    <a href="dispositivo-detalle.html?id=${d.id_dispositivo}" class="btn btn-secundario btn-sm btn-block">Ver detalle completo →</a>
+                    <a href="dispositivo-detalle.html?id=${d.id_dispositivo}" class="btn btn-secondary btn-sm btn-block">Ver detalle completo <i class="bi bi-arrow-right ms-1"></i></a>
                 </div>
             </div>
         `).join('');
@@ -111,22 +111,22 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     document.getElementById('resumen-grid').innerHTML = `
         <div class="resumen-card">
-            <div class="top"><span class="icono">💻</span></div>
+            <div class="top"><span class="icono text-primary" style="font-size: 1.3rem;"><i class="bi bi-laptop"></i></span></div>
             <div class="numero">${listaDisp.length}</div>
             <div class="etiqueta">Dispositivos registrados</div>
         </div>
         <div class="resumen-card">
-            <div class="top"><span class="icono">🔧</span></div>
+            <div class="top"><span class="icono text-warning" style="font-size: 1.3rem;"><i class="bi bi-wrench"></i></span></div>
             <div class="numero">${enProceso}</div>
             <div class="etiqueta">En proceso actualmente</div>
         </div>
         <div class="resumen-card">
-            <div class="top"><span class="icono">✅</span></div>
+            <div class="top"><span class="icono text-success" style="font-size: 1.3rem;"><i class="bi bi-check-circle"></i></span></div>
             <div class="numero">${listos}</div>
             <div class="etiqueta">Listos para retirar</div>
         </div>
         <div class="resumen-card">
-            <div class="top"><span class="icono">💵</span></div>
+            <div class="top"><span class="icono text-info" style="font-size: 1.3rem;"><i class="bi bi-currency-dollar"></i></span></div>
             <div class="numero">$${totalGastado.toFixed(2)}</div>
             <div class="etiqueta">Invertido en reparaciones</div>
         </div>

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Servicios — TechFix</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="../css/estilos.css">
 </head>
 <body>
@@ -17,12 +19,12 @@
             <li><a href="servicios.html" class="activo">Servicios</a></li>
             <li><a href="agendar-cita.html">Agendar cita</a></li>
             <li id="nav-invitado" style="display:contents;">
-                <a href="login.html" class="btn btn-secundario btn-sm">Iniciar sesión</a>
-                <a href="registro.html" class="btn btn-primario btn-sm">Crear cuenta</a>
+                <a href="login.html" class="btn btn-secondary btn-sm">Iniciar sesión</a>
+                <a href="registro.html" class="btn btn-primary btn-sm">Crear cuenta</a>
             </li>
             <li id="nav-usuario" style="display:none;">
-                <a href="dashboard.html" class="btn btn-secundario btn-sm">Mi Panel</a>
-                <a href="#" id="link-logout-publico" class="btn btn-primario btn-sm">Cerrar sesión</a>
+                <a href="dashboard.html" class="btn btn-secondary btn-sm">Mi Panel</a>
+                <a href="#" id="link-logout-publico" class="btn btn-primary btn-sm">Cerrar sesión</a>
             </li>
         </ul>
     </div>
@@ -67,10 +69,10 @@
 
     // Como la tabla "servicios" no guarda un emoji, lo elegimos según el tipo
     const ICONO_POR_TIPO = {
-        hardware: '🖥️',
-        software: '💽',
-        mantenimiento: '🧹',
-        otro: '🧰'
+        hardware: '<i class="bi bi-cpu"></i>',
+        software: '<i class="bi bi-floppy"></i>',
+        mantenimiento: '<i class="bi bi-brush"></i>',
+        otro: '<i class="bi bi-tools"></i>'
     };
 
     let serviciosCargados = [];
@@ -105,7 +107,7 @@
 
         listaServicios.innerHTML = items.map(s => `
             <div class="tarjeta-servicio">
-                <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '🧰'}</div>
+                <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
                 <span class="etiqueta-tipo">${s.tipo}</span>
                 <h3>${s.nombre_servicio}</h3>
                 <p>${s.descripcion ?? ''}</p>

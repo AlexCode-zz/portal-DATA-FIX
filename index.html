@@ -1,195 +1,213 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TechFix — Reparación de Hardware y Software</title>
-<link rel="stylesheet" href="css/estilos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFix — Reparación de Hardware y Software</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
 
-<div class="topbar">
-    <span class="punto"></span> ESTADO DEL TALLER: RECIBIENDO EQUIPOS &nbsp;·&nbsp; LUN–SÁB 9:00–18:00
-</div>
-
-<nav class="navbar">
-    <div class="contenedor">
-        <a href="index.html" class="navbar-marca">
-            <span class="logo-chip">TF</span> DATA FIX
-        </a>
-        <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
-        <ul class="navbar-menu">
-            <li><a href="index.html" class="activo">Inicio</a></li>
-            <li><a href="pages/servicios.html">Servicios</a></li>
-            <li><a href="pages/agendar-cita.html">Agendar cita</a></li>
-            <li id="nav-invitado" style="display:contents;">
-                <a href="pages/login.html" class="btn btn-secundario btn-sm">Iniciar sesión</a>
-                <a href="pages/registro.html" class="btn btn-primario btn-sm">Crear cuenta</a>
-            </li>
-            <li id="nav-usuario" style="display:none;">
-                <a href="pages/dashboard.html" class="btn btn-secundario btn-sm">Mi Panel</a>
-                <a href="#" id="link-logout-publico" class="btn btn-primario btn-sm">Cerrar sesión</a>
-            </li>
-        </ul>
+    <div class="topbar">
+        <span class="punto"></span> ESTADO DEL TALLER: RECIBIENDO EQUIPOS &nbsp;·&nbsp; LUN–SÁB 9:00–18:00
     </div>
-</nav>
 
-<!-- ===================== HERO ===================== -->
-<header class="hero">
-    <div class="contenedor">
-        <div>
-            <span class="hero-eyebrow">● DIAGNÓSTICO SIN COSTO EN 24H</span>
-            <h1>Tu equipo, <span class="resaltado">reparado</span> con seguimiento en tiempo real</h1>
-            <p>Deja tu laptop, PC o celular con nosotros y sigue cada paso de la reparación
-               desde tu cuenta: estado actual, fechas y costos, sin llamadas ni incertidumbre.</p>
-            <div class="hero-acciones">
-                <a href="pages/registro.html" class="btn btn-primario">Crear cuenta gratis</a>
-                <a href="pages/servicios.html" class="btn btn-secundario" style="border-color:rgba(255,255,255,0.25); color:#fff;">Ver servicios</a>
-            </div>
-            <div class="hero-stats">
-                <div><span class="numero">1,240+</span><span class="etiqueta">Equipos reparados</span></div>
-                <div><span class="numero">4.9/5</span><span class="etiqueta">Satisfacción clientes</span></div>
-                <div><span class="numero">24h</span><span class="etiqueta">Diagnóstico promedio</span></div>
-            </div>
+    <nav class="navbar">
+        <div class="contenedor">
+            <a href="index.html" class="navbar-marca">
+                <span class="logo-chip">TF</span> DATA FIX
+            </a>
+            <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="activo">Inicio</a></li>
+                <li><a href="pages/servicios.html">Servicios</a></li>
+                <li><a href="pages/agendar-cita.html">Agendar cita</a></li>
+                <li id="nav-invitado" style="display:contents;">
+                    <a href="pages/login.html" class="btn btn-secondary btn-sm">Iniciar sesión</a>
+                    <a href="pages/registro.html" class="btn btn-primary btn-sm">Crear cuenta</a>
+                </li>
+                <li id="nav-usuario" style="display:none;">
+                    <a href="pages/dashboard.html" class="btn btn-secondary btn-sm">Mi Panel</a>
+                    <a href="#" id="link-logout-publico" class="btn btn-primary btn-sm">Cerrar sesión</a>
+                </li>
+            </ul>
         </div>
+    </nav>
 
-        <!-- Elemento firma: panel de diagnóstico animado -->
-        <div class="panel-diagnostico">
-            <div class="barra-titulo">
-                <span>TICKET TF-2026-0114 · LAPTOP HP PAVILION 15</span>
-                <span class="dots"><span></span><span></span><span></span></span>
-            </div>
-            <div class="linea-scan">
-                <div class="fila-diagnostico"><span>Batería</span><span class="ok">✓ OK</span></div>
-                <div class="fila-diagnostico"><span>Placa gráfica</span><span class="prog">◐ En revisión</span></div>
-                <div class="fila-diagnostico"><span>Memoria RAM</span><span class="ok">✓ OK</span></div>
-                <div class="fila-diagnostico"><span>Almacenamiento</span><span class="ok">✓ OK</span></div>
-                <div class="fila-diagnostico"><span>Estado general</span><span class="prog">◐ En diagnóstico</span></div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- ===================== SERVICIOS DESTACADOS ===================== -->
-<section class="seccion">
-    <div class="contenedor">
-        <div class="encabezado-seccion">
-            <span class="eyebrow">Catálogo</span>
-            <h2>Servicios más solicitados</h2>
-            <p>Precios claros desde el primer momento. El costo final se confirma tras el diagnóstico.</p>
-        </div>
-
-        <div class="grid" id="servicios-destacados">
-            <!-- Se llena dinámicamente con JS desde mock-data.js -->
-        </div>
-
-        <div class="texto-centro mt-3">
-            <a href="pages/servicios.html" class="btn btn-secundario">Ver todos los servicios →</a>
-        </div>
-    </div>
-</section>
-
-<!-- ===================== CÓMO FUNCIONA ===================== -->
-<section class="seccion seccion-alt">
-    <div class="contenedor">
-        <div class="encabezado-seccion">
-            <span class="eyebrow">Proceso</span>
-            <h2>Cómo funciona tu reparación</h2>
-            <p>Desde que dejas tu equipo hasta que lo recibes de vuelta, sabes exactamente en qué etapa está.</p>
-        </div>
-
-        <div class="pasos">
-            <div class="paso">
-                <span class="num">01</span>
-                <h4>Ingreso del equipo</h4>
-                <p>Registramos tu dispositivo y el problema reportado. Recibes tu número de ticket.</p>
-            </div>
-            <div class="paso">
-                <span class="num">02</span>
-                <h4>Diagnóstico</h4>
-                <p>Nuestros técnicos revisan el equipo y te confirmamos el servicio y costo exacto.</p>
-            </div>
-            <div class="paso">
-                <span class="num">03</span>
-                <h4>Reparación</h4>
-                <p>Trabajamos en tu equipo. Puedes ver el avance en tiempo real desde tu cuenta.</p>
-            </div>
-            <div class="paso">
-                <span class="num">04</span>
-                <h4>Entrega</h4>
-                <p>Te avisamos cuando esté listo para retirar, con todas las pruebas ya realizadas.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===================== CTA FINAL ===================== -->
-<section class="seccion">
-    <div class="contenedor">
-        <div class="caja" style="background: linear-gradient(135deg, var(--tinta), var(--tinta-2)); border:none; padding:48px; text-align:center;">
-            <h2 style="color:#fff; margin-bottom:10px;">¿Listo para dejar tu equipo en buenas manos?</h2>
-            <p style="color:#B7C0DA; margin-bottom:24px;">Crea tu cuenta y da seguimiento a tu reparación desde cualquier lugar.</p>
-            <a href="pages/registro.html" class="btn btn-primario">Crear cuenta gratis</a>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <div class="contenedor">
-        <div class="footer-grid">
+    <!-- ===================== HERO ===================== -->
+    <header class="hero">
+        <div class="contenedor">
             <div>
-                <div class="footer-marca"><span class="logo-chip">TF</span> TechFix</div>
-                <p style="font-size:0.87rem;">Reparación profesional de hardware y software, con seguimiento transparente para cada cliente.</p>
+                <span class="hero-eyebrow">● DIAGNÓSTICO SIN COSTO EN 24H</span>
+                <h1>Tu equipo, <span class="resaltado">reparado</span> con seguimiento en tiempo real</h1>
+                <p>Deja tu laptop, PC o celular con nosotros y sigue cada paso de la reparación
+                    desde tu cuenta: estado actual, fechas y costos, sin llamadas ni incertidumbre.</p>
+                <div class="hero-acciones">
+                    <a href="pages/registro.html" class="btn btn-primary">Crear cuenta gratis</a>
+                    <a href="pages/servicios.html" class="btn btn-secondary"
+                        style="border-color:rgba(255,255,255,0.25); color:#fff;">Ver servicios</a>
+                </div>
+                <div class="hero-stats">
+                    <div><span class="numero">1,240+</span><span class="etiqueta">Equipos reparados</span></div>
+                    <div><span class="numero">4.9/5</span><span class="etiqueta">Satisfacción clientes</span></div>
+                    <div><span class="numero">24h</span><span class="etiqueta">Diagnóstico promedio</span></div>
+                </div>
             </div>
-            <div>
-                <h5>Navegación</h5>
-                <a href="index.html">Inicio</a>
-                <a href="pages/servicios.html">Servicios</a>
-                <a href="pages/agendar-cita.html">Agendar cita</a>
-            </div>
-            <div>
-                <h5>Cuenta</h5>
-                <a href="pages/login.html">Iniciar sesión</a>
-                <a href="pages/registro.html">Crear cuenta</a>
-                <a href="pages/dashboard.html">Panel de cliente</a>
-            </div>
-            <div>
-                <h5>Taller</h5>
-                <a href="admin/dashboard.html">Panel administrativo</a>
-                <a href="#">Términos de servicio</a>
+
+            <!-- Elemento firma: panel de diagnóstico animado -->
+            <div class="panel-diagnostico">
+                <div class="barra-titulo">
+                    <span>TICKET TF-2026-0114 · LAPTOP HP PAVILION 15</span>
+                    <span class="dots"><span></span><span></span><span></span></span>
+                </div>
+                <div class="linea-scan">
+                    <div class="fila-diagnostico"><span>Batería</span><span class="ok">✓ OK</span></div>
+                    <div class="fila-diagnostico"><span>Placa gráfica</span><span class="prog">◐ En revisión</span>
+                    </div>
+                    <div class="fila-diagnostico"><span>Memoria RAM</span><span class="ok">✓ OK</span></div>
+                    <div class="fila-diagnostico"><span>Almacenamiento</span><span class="ok">✓ OK</span></div>
+                    <div class="fila-diagnostico"><span>Estado general</span><span class="prog">◐ En diagnóstico</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>© <span class="anio-actual"></span> TechFix</span>
-            <span>Frontend: HTML · CSS · JS</span>
+    </header>
+
+    <!-- ===================== SERVICIOS DESTACADOS ===================== -->
+    <section class="seccion">
+        <div class="contenedor">
+            <div class="encabezado-seccion">
+                <span class="eyebrow">Catálogo</span>
+                <h2>Servicios más solicitados</h2>
+                <p>Precios claros desde el primer momento. El costo final se confirma tras el diagnóstico.</p>
+            </div>
+
+            <div class="grid" id="servicios-destacados">
+                <!-- Se llena dinámicamente con JS desde mock-data.js -->
+            </div>
+
+            <div class="texto-centro mt-3">
+                <a href="pages/servicios.html" class="btn btn-secondary">Ver todos los servicios →</a>
+            </div>
         </div>
-    </div>
-</footer>
+    </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/main.js"></script>
-<script src="js/nav-session.js"></script>
-<script>
-    const ICONO_POR_TIPO = { hardware: '🖥️', software: '💽', mantenimiento: '🧹', otro: '🧰' };
-    const contenedorServicios = document.getElementById('servicios-destacados');
+    <!-- ===================== CÓMO FUNCIONA ===================== -->
+    <section class="seccion seccion-alt">
+        <div class="contenedor">
+            <div class="encabezado-seccion">
+                <span class="eyebrow">Proceso</span>
+                <h2>Reparación a domicilio</h2>
+                <p>Comodidad total: recogemos tu equipo, lo reparamos en nuestro taller y lo llevamos de vuelta a tu
+                    casa.</p>
+            </div>
 
-    async function cargarDestacados() {
-        const { data, error } = await supabaseClient
-            .from('servicios')
-            .select('*')
-            .eq('activo', true)
-            .limit(3);
+            <div class="pasos">
+                <div class="paso">
+                    <span class="num">01</span>
+                    <h4>Recogida en tu casa</h4>
+                    <p>Agenda tu cita; acudimos a tu domicilio para el registro digital y la recogida segura de tu
+                        equipo.</p>
+                </div>
+                <div class="paso">
+                    <span class="num">02</span>
+                    <h4>Diagnóstico en Taller</h4>
+                    <p>Trasladamos el equipo a nuestro taller para una revisión integral y confirmación de presupuesto.
+                    </p>
+                </div>
+                <div class="paso">
+                    <span class="num">03</span>
+                    <h4>Reparación y Monitoreo</h4>
+                    <p>Realizamos el trabajo técnico y puedes consultar el avance en tiempo real desde tu panel de
+                        usuario.</p>
+                </div>
+                <div class="paso">
+                    <span class="num">04</span>
+                    <h4>Entrega a Domicilio</h4>
+                    <p>Una vez reparado y probado, llevamos tu equipo de vuelta a tu casa, listo para funcionar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===================== CTA FINAL ===================== -->
+    <section class="seccion">
+        <div class="contenedor">
+            <div class="caja"
+                style="background: linear-gradient(135deg, var(--tinta), var(--tinta-2)); border:none; padding:48px; text-align:center;">
+                <h2 style="color:#fff; margin-bottom:10px;">¿Listo para dejar tu equipo en buenas manos?</h2>
+                <p style="color:#B7C0DA; margin-bottom:24px;">Crea tu cuenta y da seguimiento a tu reparación desde
+                    cualquier lugar.</p>
+                <a href="pages/registro.html" class="btn btn-primary">Crear cuenta gratis</a>
+            </div>
+        </div>
+    </section>
 
-        if (error || !data) {
-            contenedorServicios.innerHTML = `<p class="vacio">No se pudieron cargar los servicios.</p>`;
-            return;
-        }
+    <footer>
+        <div class="contenedor">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-marca"><span class="logo-chip">TF</span> TechFix</div>
+                    <p style="font-size:0.87rem;">Reparación profesional de hardware y software, con seguimiento
+                        transparente para cada cliente.</p>
+                </div>
+                <div>
+                    <h5>Navegación</h5>
+                    <a href="index.html">Inicio</a>
+                    <a href="pages/servicios.html">Servicios</a>
+                    <a href="pages/agendar-cita.html">Agendar cita</a>
+                </div>
+                <div>
+                    <h5>Cuenta</h5>
+                    <a href="pages/login.html">Iniciar sesión</a>
+                    <a href="pages/registro.html">Crear cuenta</a>
+                    <a href="pages/dashboard.html">Panel de cliente</a>
+                </div>
+                <div>
+                    <h5>Taller</h5>
+                    <a href="admin/dashboard.html">Panel administrativo</a>
+                    <a href="#">Términos de servicio</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© <span class="anio-actual"></span> TechFix</span>
+                <span>Frontend: HTML · CSS · JS</span>
+            </div>
+        </div>
+    </footer>
 
-        contenedorServicios.innerHTML = data.map(s => `
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/nav-session.js"></script>
+    <script>
+        const ICONO_POR_TIPO = {
+            hardware: '<i class="bi bi-cpu"></i>',
+            software: '<i class="bi bi-floppy"></i>',
+            mantenimiento: '<i class="bi bi-brush"></i>',
+            otro: '<i class="bi bi-tools"></i>'
+        };
+        const contenedorServicios = document.getElementById('servicios-destacados');
+
+        async function cargarDestacados() {
+            const { data, error } = await supabaseClient
+                .from('servicios')
+                .select('*')
+                .eq('activo', true)
+                .limit(3);
+
+            if (error || !data) {
+                contenedorServicios.innerHTML = `<p class="vacio">No se pudieron cargar los servicios.</p>`;
+                return;
+            }
+
+            contenedorServicios.innerHTML = data.map(s => `
             <div class="tarjeta-servicio">
-                <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '🧰'}</div>
+                <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
                 <span class="etiqueta-tipo">${s.tipo}</span>
                 <h3>${s.nombre_servicio}</h3>
                 <p>${s.descripcion ?? ''}</p>
@@ -199,10 +217,10 @@
                 </div>
             </div>
         `).join('');
-    }
+        }
 
-    cargarDestacados();
-</script>
+        cargarDestacados();
+    </script>
 </body>
-</html>
 
+</html>

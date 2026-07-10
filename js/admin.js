@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${d.tipo_dispositivo} ${d.marca || ''}</td>
                     <td><span class="led-estado ${claseLed(d.estado)}"><span class="punto"></span>${d.estado}</span></td>
                     <td>${formatoFecha(d.fecha_ingreso)}</td>
-                    <td class="acciones-tabla"><a href="dispositivos.html" class="btn btn-secundario btn-sm">Ver</a></td>
+                    <td class="acciones-tabla"><a href="dispositivos.html" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i> Ver</a></td>
                 </tr>
             `).join('');
         })();
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${c.dispositivos?.[0]?.count ?? 0}</td>
                     <td>${formatoFecha(c.fecha_registro?.slice(0, 10))}</td>
                     <td class="acciones-tabla">
-                        <button class="btn btn-peligro btn-sm" onclick="eliminarCliente('${c.id_cliente}')">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarCliente('${c.id_cliente}')"><i class="bi bi-trash"></i> Eliminar</button>
                     </td>
                 </tr>
             `).join('');
@@ -218,8 +218,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         </select>
                     </td>
                     <td class="acciones-tabla">
-                        <a href="../pages/dispositivo-detalle.html?id=${d.id_dispositivo}" class="btn btn-secundario btn-sm">Ver</a>
-                        <button class="btn btn-peligro btn-sm" onclick="eliminarDispositivo('${d.id_dispositivo}')">Eliminar</button>
+                        <a href="../pages/dispositivo-detalle.html?id=${d.id_dispositivo}" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i> Ver</a>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarDispositivo('${d.id_dispositivo}')"><i class="bi bi-trash"></i> Eliminar</button>
                     </td>
                 </tr>
             `).join('');
@@ -307,18 +307,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const ICONOS = { hardware: '🖥️', software: '💽', mantenimiento: '🧹', otro: '🧰' };
+            const ICONOS = {
+                hardware: '<i class="bi bi-cpu"></i>',
+                software: '<i class="bi bi-floppy"></i>',
+                mantenimiento: '<i class="bi bi-brush"></i>',
+                otro: '<i class="bi bi-tools"></i>'
+            };
 
             gridServiciosAdmin.innerHTML = data.map(s => `
                 <div class="tarjeta-servicio">
-                    <div class="icono-servicio">${ICONOS[s.tipo] || '🧰'}</div>
+                    <div class="icono-servicio">${ICONOS[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
                     <span class="etiqueta-tipo">${s.tipo}${s.activo ? '' : ' · inactivo'}</span>
                     <h3>${s.nombre_servicio}</h3>
                     <p>${s.descripcion ?? ''}</p>
                     <div class="pie-servicio">
                         <span class="precio">$${Number(s.precio).toFixed(2)}</span>
                         <div class="acciones-tabla">
-                            <button class="btn btn-peligro btn-sm" onclick="eliminarServicio('${s.id_servicio}')">Eliminar</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarServicio('${s.id_servicio}')"><i class="bi bi-trash"></i> Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -412,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td class="mono">$${Number(r.costo_final || 0).toFixed(2)}</td>
                     <td><span class="led-estado ${claseLed(r.dispositivos?.estado)}"><span class="punto"></span>${r.dispositivos?.estado || '—'}</span></td>
                     <td class="acciones-tabla">
-                        <button class="btn btn-peligro btn-sm" onclick="eliminarReparacion('${r.id_reparacion}')">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarReparacion('${r.id_reparacion}')"><i class="bi bi-trash"></i> Eliminar</button>
                     </td>
                 </tr>
             `).join('');
@@ -504,8 +509,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         </select>
                     </td>
                     <td class="acciones-tabla">
-                        <a href="${linkWpp}" target="_blank" class="btn btn-secundario btn-sm">💬 WhatsApp</a>
-                        <button class="btn btn-peligro btn-sm" onclick="eliminarCita('${c.id_cita}')">Eliminar</button>
+                        <a href="${linkWpp}" target="_blank" class="btn btn-secondary btn-sm"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarCita('${c.id_cita}')"><i class="bi bi-trash"></i> Eliminar</button>
                     </td>
                 </tr>
                 `;

@@ -186,27 +186,29 @@ button { font-family: inherit; cursor: pointer; }
     transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-primario {
+.btn-primary {
     background-color: var(--azul-senal);
+    border-color: var(--azul-senal);
     color: #fff;
 }
-.btn-primario:hover { background-color: var(--azul-senal-h); box-shadow: var(--sombra-md); }
+.btn-primary:hover { background-color: var(--azul-senal-h); border-color: var(--azul-senal-h); box-shadow: var(--sombra-md); }
 
-.btn-oscuro {
+.btn-dark {
     background-color: var(--tinta);
+    border-color: var(--tinta);
     color: #fff;
 }
-.btn-oscuro:hover { background-color: var(--tinta-2); }
+.btn-dark:hover { background-color: var(--tinta-2); border-color: var(--tinta-2); }
 
-.btn-secundario {
+.btn-secondary {
     background-color: transparent;
     color: var(--tinta);
     border-color: var(--linea);
 }
-.btn-secundario:hover { border-color: var(--azul-senal); color: var(--azul-senal); }
+.btn-secondary:hover { border-color: var(--azul-senal); color: var(--azul-senal); background-color: rgba(47,111,237,0.05); }
 
-.btn-peligro { background-color: #FDECEC; color: #B3261E; }
-.btn-peligro:hover { background-color: #FBDADA; }
+.btn-danger { background-color: #FDECEC; color: #B3261E; border-color: #FDECEC; }
+.btn-danger:hover { background-color: #FBDADA; border-color: #FBDADA; }
 
 .btn-sm { padding: 7px 14px; font-size: 0.82rem; }
 .btn-block { width: 100%; }
