@@ -46,10 +46,15 @@
                 <h1>Tu equipo, <span class="resaltado">reparado</span> con seguimiento en tiempo real</h1>
                 <p>Deja tu laptop, PC o celular con nosotros y sigue cada paso de la reparación
                     desde tu cuenta: estado actual, fechas y costos, sin llamadas ni incertidumbre.</p>
-                <div class="hero-acciones">
+                <div class="hero-acciones session-guest">
                     <a href="pages/registro.html" class="btn btn-primary">Crear cuenta gratis</a>
                     <a href="pages/servicios.html" class="btn btn-secondary"
                         style="border-color:rgba(255,255,255,0.25); color:#fff;">Ver servicios</a>
+                </div>
+                <div class="hero-acciones session-user" style="display: none;">
+                    <a href="pages/agendar-cita.html" class="btn btn-primary">Agendar una cita</a>
+                    <a href="pages/dashboard.html" class="btn btn-secondary"
+                        style="border-color:rgba(255,255,255,0.25); color:#fff;">Ir a mi Panel</a>
                 </div>
                 <div class="hero-stats">
                     <div><span class="numero">1,240+</span><span class="etiqueta">Equipos reparados</span></div>
@@ -136,12 +141,20 @@
     <!-- ===================== CTA FINAL ===================== -->
     <section class="seccion">
         <div class="contenedor">
-            <div class="caja"
+            <!-- CTA para invitados -->
+            <div class="caja session-guest"
                 style="background: linear-gradient(135deg, var(--tinta), var(--tinta-2)); border:none; padding:48px; text-align:center;">
                 <h2 style="color:#fff; margin-bottom:10px;">¿Listo para dejar tu equipo en buenas manos?</h2>
                 <p style="color:#B7C0DA; margin-bottom:24px;">Crea tu cuenta y da seguimiento a tu reparación desde
                     cualquier lugar.</p>
                 <a href="pages/registro.html" class="btn btn-primary">Crear cuenta gratis</a>
+            </div>
+            <!-- CTA para usuarios logueados -->
+            <div class="caja session-user"
+                style="background: linear-gradient(135deg, var(--tinta), var(--tinta-2)); border:none; padding:48px; text-align:center; display: none;">
+                <h2 style="color:#fff; margin-bottom:10px;">¿Tienes algún equipo listo para revisión?</h2>
+                <p style="color:#B7C0DA; margin-bottom:24px;">Agenda una cita de diagnóstico ahora mismo y dale seguimiento en tiempo real.</p>
+                <a href="pages/agendar-cita.html" class="btn btn-primary">Agendar cita de diagnóstico</a>
             </div>
         </div>
     </section>
@@ -162,9 +175,10 @@
                 </div>
                 <div>
                     <h5>Cuenta</h5>
-                    <a href="pages/login.html">Iniciar sesión</a>
-                    <a href="pages/registro.html">Crear cuenta</a>
-                    <a href="pages/dashboard.html">Panel de cliente</a>
+                    <a href="pages/login.html" class="session-guest">Iniciar sesión</a>
+                    <a href="pages/registro.html" class="session-guest">Crear cuenta</a>
+                    <a href="pages/dashboard.html" class="session-user" style="display: none;">Panel de cliente</a>
+                    <a href="#" id="link-logout-footer" class="session-user" style="display: none;">Cerrar sesión</a>
                 </div>
                 <div>
                     <h5>Taller</h5>
@@ -213,7 +227,7 @@
                 <p>${s.descripcion ?? ''}</p>
                 <div class="pie-servicio">
                     <span class="precio">$${Number(s.precio).toFixed(2)}</span>
-                    <a href="pages/agendar-cita.html" class="btn btn-secundario btn-sm">Solicitar</a>
+                    <a href="pages/agendar-cita.html" class="btn btn-secondary btn-sm">Solicitar</a>
                 </div>
             </div>
         `).join('');

@@ -56,8 +56,11 @@ function mostrarMensajeFormulario(caja, texto, ok) {
  */
 function formatoFecha(fechaISO) {
     if (!fechaISO) return 'No definida';
+    const soloFecha = fechaISO.split('T')[0].split(' ')[0];
     const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-    const [anio, mes, dia] = fechaISO.split('-');
+    const partes = soloFecha.split('-');
+    if (partes.length < 3) return fechaISO;
+    const [anio, mes, dia] = partes;
     return `${dia} ${meses[parseInt(mes, 10) - 1]} ${anio}`;
 }
 
