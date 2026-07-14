@@ -728,15 +728,24 @@ table tr:hover td { background: var(--gris-100); }
   --pizarra:      var(--gris-400);
   --fuente-display: var(--font-titulo);
   --led-verde:    var(--verde);
+  --led-azul:     var(--azul);
+  --led-ambar:    var(--naranja);
+  --led-rojo:     var(--rojo);
+  --led-morado:   #8B5CF6;
+  --led-gris:     var(--gris-400);
+  --azul-senal:   var(--azul);
+  --papel-alt:    var(--gris-200);
 }
 
 /* ── Botones ────────────────────────────────────────────────────── */
-.btn-primary   { background: var(--azul); color: #fff; }
-.btn-primary:hover  { background: var(--azul-hover); box-shadow: 0 4px 16px rgba(47,111,237,.35); color: #fff; }
-.btn-secondary { background: var(--blanco); color: var(--azul); border: 1.5px solid var(--azul); }
-.btn-secondary:hover { background: var(--azul-claro); color: var(--azul-hover); }
-.btn-dark      { background: var(--navy); color: #fff; }
-.btn-dark:hover { background: var(--navy-700); color: #fff; }
+.btn-primary   { background: var(--azul); color: #fff; box-shadow: var(--sombra-neu-sm); }
+.btn-primary:hover  { background: var(--azul-hover); box-shadow: var(--sombra-neu); color: #fff; }
+.btn-primary:active { box-shadow: var(--sombra-neu-inset); }
+.btn-secondary { background: var(--fondo); color: var(--azul); border: none; box-shadow: var(--sombra-neu-sm); }
+.btn-secondary:hover { color: var(--azul-hover); box-shadow: var(--sombra-neu); }
+.btn-secondary:active { box-shadow: var(--sombra-neu-inset); }
+.btn-dark      { background: var(--navy); color: #fff; box-shadow: var(--sombra-neu-osc); }
+.btn-dark:hover { background: var(--navy-700); color: #fff; box-shadow: var(--sombra-neu-osc-inset); }
 .btn-block     { display: flex; width: 100%; justify-content: center; }
 .mt-1          { margin-top: 12px; }
 .me-1          { margin-right: 4px; }
@@ -831,6 +840,29 @@ table tr:hover td { background: var(--gris-100); }
   display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 14px; margin: 24px 0;
 }
+.resumen-card {
+  background: var(--fondo); border-radius: var(--radio);
+  padding: 20px 22px; box-shadow: var(--sombra-neu-sm);
+  display: flex; flex-direction: column; gap: 4px;
+  transition: box-shadow var(--trans), transform var(--trans);
+}
+.resumen-card:hover { box-shadow: var(--sombra-neu); transform: translateY(-2px); }
+.resumen-card .top { font-size: 1.3rem; margin-bottom: 2px; }
+.resumen-card .top .icono { color: var(--azul); }
+.resumen-card .numero { font-size: 1.7rem; font-weight: 800; font-family: var(--font-titulo); color: var(--navy); }
+.resumen-card .etiqueta { font-size: .82rem; color: var(--texto-sec); }
+
+/* Colores de ícono usados en dashboard.js (equivalentes a utilidades Bootstrap) */
+.text-primary { color: var(--azul) !important; }
+.text-warning { color: var(--naranja) !important; }
+.text-success { color: var(--verde) !important; }
+.text-info    { color: #14B8A6 !important; }
+
+/* Barras de progreso (Dispositivos por Estado / Ventas por Categoría) */
+.progress {
+  box-shadow: var(--sombra-neu-inset) !important;
+}
+.progress-bar { border-radius: 4px; }
 
 /* ── Tabs ───────────────────────────────────────────────────────── */
 .tabs {
@@ -935,6 +967,12 @@ table tr:hover td { background: var(--gris-100); }
 }
 .buscador-admin input:focus { box-shadow: var(--sombra-neu-inset), 0 0 0 3px rgba(47,111,237,.18); }
 .text-muted { color: var(--gris-400); }
+
+/* Utilidades tipo Bootstrap usadas por admin.js/dashboard.js en filas de gráficos */
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+.mb-1 { margin-bottom: 6px; }
 
 /* ── Avatar inicial (admin) ─────────────────────────────────────── */
 .avatar-inicial {
