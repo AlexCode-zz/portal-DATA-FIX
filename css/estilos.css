@@ -264,11 +264,12 @@ main { flex: 1; }
 .campo label { font-size: .85rem; font-weight: 600; color: var(--texto-sec); }
 .campo input, .campo select, .campo textarea {
   width: 100%; padding: 11px 14px; border-radius: 12px;
-  border: none; background: var(--fondo);
+  border: none; background-color: var(--fondo);
   font-size: .95rem; font-family: var(--font-cuerpo); color: var(--texto);
   outline: none; box-shadow: var(--sombra-neu-inset);
   transition: box-shadow var(--trans);
 }
+.campo select { padding-right: 32px; }
 .campo input:focus, .campo select:focus, .campo textarea:focus {
   box-shadow: var(--sombra-neu-inset), 0 0 0 3px rgba(47,111,237,.18);
 }
@@ -542,6 +543,38 @@ table th {
   border-bottom: 1px solid var(--gris-300); white-space: nowrap;
 }
 table td { padding: 13px 16px; border-bottom: 1px solid var(--gris-200); vertical-align: middle; }
+
+/* ── Respaldo: <select> sueltos (sin .campo), típicos en celdas de tabla ── */
+select {
+  padding: 8px 32px 8px 12px; border-radius: 10px;
+  border: none; background-color: var(--fondo); color: var(--texto);
+  font-size: .85rem; font-family: var(--font-cuerpo);
+  outline: none; cursor: pointer;
+  box-shadow: var(--sombra-neu-inset);
+  transition: box-shadow var(--trans);
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235B6478' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+select::-ms-expand { display: none; }
+select:focus { box-shadow: var(--sombra-neu-inset), 0 0 0 3px rgba(47,111,237,.18); }
+
+/* ── Respaldo: botones de acciones sueltos en tablas (sin clase .btn) ──── */
+.btn-eliminar, .btn-ver, .btn-whatsapp {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 10px; border: none;
+  font-family: var(--font-cuerpo); font-size: .83rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  box-shadow: var(--sombra-neu-sm);
+  transition: box-shadow var(--trans), transform var(--trans);
+}
+.btn-eliminar:active, .btn-ver:active, .btn-whatsapp:active { box-shadow: var(--sombra-neu-inset); transform: translateY(1px); }
+.btn-eliminar { background: var(--fondo); color: var(--texto-sec); }
+.btn-eliminar:hover { color: var(--rojo); box-shadow: var(--sombra-neu); }
+.btn-ver { background: var(--fondo); color: var(--azul); }
+.btn-ver:hover { box-shadow: var(--sombra-neu); }
+.btn-whatsapp:hover { box-shadow: var(--sombra-neu); }
 table tr:last-child td { border-bottom: none; }
 table tr:hover td { background: var(--gris-100); }
 
