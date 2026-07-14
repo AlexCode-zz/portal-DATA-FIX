@@ -4,7 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="TechFix — Reparación profesional de hardware y software con seguimiento de estado en tiempo real.">
+    <meta name="theme-color" content="#0B1220">
+
     <title>TechFix — Reparación de Hardware y Software</title>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/estilos.css">
@@ -16,13 +25,14 @@
         <span class="punto"></span> ESTADO DEL TALLER: RECIBIENDO EQUIPOS &nbsp;·&nbsp; LUN–SÁB 9:00–18:00
     </div>
 
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Navegación principal">
         <div class="contenedor">
             <a href="index.html" class="navbar-marca">
                 <span class="logo-chip">TF</span> DATA FIX
             </a>
-            <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
-            <ul class="navbar-menu">
+            <button class="navbar-toggle" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="menu-principal">☰</button>
+            <ul class="navbar-menu" id="menu-principal">
                 <li><a href="index.html" class="activo">Inicio</a></li>
                 <li><a href="pages/servicios.html">Servicios</a></li>
                 <li><a href="pages/agendar-cita.html">Agendar cita</a></li>
@@ -38,7 +48,6 @@
         </div>
     </nav>
 
-    <!-- ===================== HERO ===================== -->
     <header class="hero">
         <div class="contenedor">
             <div>
@@ -54,7 +63,7 @@
                 <div class="hero-acciones session-user" style="display: none;">
                     <a href="pages/agendar-cita.html" class="btn btn-primary">Agendar una cita</a>
                     <a href="pages/dashboard.html" class="btn btn-secondary"
-                        style="border-color:rgba(255,255,255,0.25); color:#fff;">Ir a mi Panel</a>
+                        style="border-color:rgba(255,255,255,0.25); color:#000000;">Ir a mi Panel</a>
                 </div>
                 <div class="hero-stats">
                     <div><span class="numero">1,240+</span><span class="etiqueta">Equipos reparados</span></div>
@@ -63,7 +72,6 @@
                 </div>
             </div>
 
-            <!-- Elemento firma: panel de diagnóstico animado -->
             <div class="panel-diagnostico">
                 <div class="barra-titulo">
                     <span>TICKET TF-2026-0114 · LAPTOP HP PAVILION 15</span>
@@ -82,7 +90,6 @@
         </div>
     </header>
 
-    <!-- ===================== SERVICIOS DESTACADOS ===================== -->
     <section class="seccion">
         <div class="contenedor">
             <div class="encabezado-seccion">
@@ -91,8 +98,8 @@
                 <p>Precios claros desde el primer momento. El costo final se confirma tras el diagnóstico.</p>
             </div>
 
-            <div class="grid" id="servicios-destacados">
-                <!-- Se llena dinámicamente con JS desde mock-data.js -->
+            <div class="grid" id="servicios-destacados" aria-live="polite">
+                <p class="vacio">Cargando catálogo de servicios...</p>
             </div>
 
             <div class="texto-centro mt-3">
@@ -101,7 +108,6 @@
         </div>
     </section>
 
-    <!-- ===================== CÓMO FUNCIONA ===================== -->
     <section class="seccion seccion-alt">
         <div class="contenedor">
             <div class="encabezado-seccion">
@@ -138,10 +144,9 @@
             </div>
         </div>
     </section>
-    <!-- ===================== CTA FINAL ===================== -->
+
     <section class="seccion">
         <div class="contenedor">
-            <!-- CTA para invitados -->
             <div class="caja session-guest"
                 style="background: linear-gradient(135deg, var(--tinta), var(--tinta-2)); border:none; padding:48px; text-align:center;">
                 <h2 style="color:#fff; margin-bottom:10px;">¿Listo para dejar tu equipo en buenas manos?</h2>
@@ -149,11 +154,11 @@
                     cualquier lugar.</p>
                 <a href="pages/registro.html" class="btn btn-primary">Crear cuenta gratis</a>
             </div>
-            <!-- CTA para usuarios logueados -->
             <div class="caja session-user"
                 style="background: linear-gradient(135deg, var(--tinta), var(--tinta-2)); border:none; padding:48px; text-align:center; display: none;">
                 <h2 style="color:#fff; margin-bottom:10px;">¿Tienes algún equipo listo para revisión?</h2>
-                <p style="color:#B7C0DA; margin-bottom:24px;">Agenda una cita de diagnóstico ahora mismo y dale seguimiento en tiempo real.</p>
+                <p style="color:#B7C0DA; margin-bottom:24px;">Agenda una cita de diagnóstico ahora mismo y dale
+                    seguimiento en tiempo real.</p>
                 <a href="pages/agendar-cita.html" class="btn btn-primary">Agendar cita de diagnóstico</a>
             </div>
         </div>
@@ -193,47 +198,59 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-client.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/nav-session.js"></script>
-    <script>
-        const ICONO_POR_TIPO = {
-            hardware: '<i class="bi bi-cpu"></i>',
-            software: '<i class="bi bi-floppy"></i>',
-            mantenimiento: '<i class="bi bi-brush"></i>',
-            otro: '<i class="bi bi-tools"></i>'
-        };
-        const contenedorServicios = document.getElementById('servicios-destacados');
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="js/supabase-client.js"></script>
+    <script defer src="js/auth.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/nav-session.js"></script>
+    <script defer>
+        // Envolví tu lógica en un evento DOMContentLoaded para garantizar que 
+        // los elementos existan antes de ejecutar el script, ya que ahora usamos defer.
+        document.addEventListener('DOMContentLoaded', () => {
+            const ICONO_POR_TIPO = {
+                hardware: '<i class="bi bi-cpu"></i>',
+                software: '<i class="bi bi-floppy"></i>',
+                mantenimiento: '<i class="bi bi-brush"></i>',
+                otro: '<i class="bi bi-tools"></i>'
+            };
+            const contenedorServicios = document.getElementById('servicios-destacados');
 
-        async function cargarDestacados() {
-            const { data, error } = await supabaseClient
-                .from('servicios')
-                .select('*')
-                .eq('activo', true)
-                .limit(3);
+            async function cargarDestacados() {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('servicios')
+                        .select('*')
+                        .eq('activo', true)
+                        .limit(3);
 
-            if (error || !data) {
-                contenedorServicios.innerHTML = `<p class="vacio">No se pudieron cargar los servicios.</p>`;
-                return;
+                    if (error) throw error;
+
+                    if (!data || data.length === 0) {
+                        contenedorServicios.innerHTML = `<p class="vacio">No hay servicios destacados en este momento.</p>`;
+                        return;
+                    }
+
+                    contenedorServicios.innerHTML = data.map(s => `
+                    <div class="tarjeta-servicio">
+                        <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
+                        <span class="etiqueta-tipo">${s.tipo}</span>
+                        <h3>${s.nombre_servicio}</h3>
+                        <p>${s.descripcion ?? ''}</p>
+                        <div class="pie-servicio">
+                            <span class="precio">$${Number(s.precio).toFixed(2)}</span>
+                            <a href="pages/agendar-cita.html" class="btn btn-secondary btn-sm">Solicitar</a>
+                        </div>
+                    </div>
+                    `).join('');
+
+                } catch (err) {
+                    console.error("Error al cargar servicios:", err);
+                    contenedorServicios.innerHTML = `<p class="vacio">No se pudieron cargar los servicios. Por favor, intenta de nuevo más tarde.</p>`;
+                }
             }
 
-            contenedorServicios.innerHTML = data.map(s => `
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
-                <span class="etiqueta-tipo">${s.tipo}</span>
-                <h3>${s.nombre_servicio}</h3>
-                <p>${s.descripcion ?? ''}</p>
-                <div class="pie-servicio">
-                    <span class="precio">$${Number(s.precio).toFixed(2)}</span>
-                    <a href="pages/agendar-cita.html" class="btn btn-secondary btn-sm">Solicitar</a>
-                </div>
-            </div>
-        `).join('');
-        }
-
-        cargarDestacados();
+            cargarDestacados();
+        });
     </script>
 </body>
 
