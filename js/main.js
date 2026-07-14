@@ -22,7 +22,25 @@ const ESTADOS_FLUJO = [
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* ---------- MENÚ RESPONSIVE ---------- */
+    /* ---------- MENÚ RESPONSIVE — nuevo index (#btn-hamburger / #nav-menu) ---------- */
+    const btnHamburger = document.getElementById('btn-hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const navOverlay = document.getElementById('nav-overlay');
+
+    if (btnHamburger && navMenu) {
+        btnHamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('abierto');
+            if (navOverlay) navOverlay.classList.toggle('activo');
+        });
+        if (navOverlay) {
+            navOverlay.addEventListener('click', () => {
+                navMenu.classList.remove('abierto');
+                navOverlay.classList.remove('activo');
+            });
+        }
+    }
+
+    /* ---------- MENÚ RESPONSIVE — páginas internas (.navbar-toggle / .navbar-menu) ---------- */
     const toggle = document.querySelector('.navbar-toggle');
     const menu = document.querySelector('.navbar-menu');
     if (toggle && menu) {
