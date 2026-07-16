@@ -1,199 +1,276 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="DATA FIX — Reparación profesional de smartphones, laptops y tablets en Ciudad de México. Diagnóstico gratuito.">
-  <title>DATA FIX — Reparación Profesional de Dispositivos</title>
-  <link rel="stylesheet" href="css/estilos.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="DATA FIX — Reparación profesional de smartphones, laptops y tablets en Ciudad de México. Diagnóstico gratuito.">
+    <title>DATA FIX — Reparación Profesional de Dispositivos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
+
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="contenedor">
-      <a class="navbar-marca" href="index.html">
-        DATA<span class="marca-dot">FIX</span>
-      </a>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="contenedor">
+            <a class="navbar-marca" href="index.html">
+                DATA<span class="marca-dot">FIX</span>
+            </a>
 
-      <div id="nav-overlay"></div>
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#ubicacion">Ubicación</a></li>
-        <li><a href="#buscar-ticket">Estado de equipo</a></li>
+            <div id="nav-overlay"></div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#buscar-ticket">Estado de equipo</a></li>
 
-        <!-- Invitado -->
-        <li id="nav-invitado" style="display:contents">
-          <a href="pages/login.html">Iniciar sesión</a>
-          <a href="pages/registro.html" class="btn-nav-cta">Registrarse</a>
-        </li>
+                <!-- Invitado -->
+                <li id="nav-invitado" style="display:contents">
+                    <a href="pages/login.html">Iniciar sesión</a>
+                    <a href="pages/registro.html" class="btn-nav-cta">Registrarse</a>
+                </li>
 
-        <!-- Autenticado -->
-        <li id="nav-usuario" style="display:none">
-          <a href="pages/dashboard.html">
-            <span class="nav-avatar" id="iniciales-cliente">?</span>
-            Mi cuenta
-          </a>
-          <a href="#" id="link-logout-publico">Cerrar sesión</a>
-        </li>
-      </ul>
+                <!-- Autenticado -->
+                <li id="nav-usuario" style="display:none">
+                    <a href="pages/dashboard.html">
+                        <span class="nav-avatar" id="iniciales-cliente">?</span>
+                        Mi cuenta
+                    </a>
+                    <a href="#" id="link-logout-publico">Cerrar sesión</a>
+                </li>
+            </ul>
 
-      <button id="btn-hamburger" aria-label="Menú">
-        <i class="bi bi-list"></i>
-      </button>
-    </div>
-  </nav>
-
-  <!-- HÉROE -->
-  <section class="hero">
-    <div class="contenedor">
-      <div class="hero-contenido">
-        <span class="hero-badge">⚡ Diagnóstico gratuito</span>
-        <h1>Reparamos tu <span>equipo</span> con garantía real</h1>
-        <p>Smartphones, laptops y tablets. Técnicos certificados, refacciones originales y seguimiento en tiempo real de tu reparación.</p>
-        <div class="hero-acciones session-guest">
-          <a href="pages/registro.html" class="btn btn-primario">Crear cuenta gratis</a>
-          <a href="pages/login.html" class="btn btn-secundario">Iniciar sesión</a>
+            <button id="btn-hamburger" aria-label="Menú">
+                <i class="bi bi-list"></i>
+            </button>
         </div>
-        <div class="hero-acciones session-user" style="display:none">
-          <a href="pages/dashboard.html" class="btn btn-primario">Ver mis equipos</a>
-          <a href="pages/agendar-cita.html" class="btn btn-secundario">Agendar cita</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- SERVICIOS -->
-  <section class="seccion" id="servicios">
-    <div class="contenedor">
-      <span class="tag-seccion">Lo que hacemos</span>
-      <h2 class="seccion-titulo">Servicios de reparación</h2>
-      <p class="seccion-subtitulo">Soluciones rápidas y confiables para todos tus dispositivos.</p>
+    <!-- HÉROE -->
+    <section class="hero">
+        <div class="contenedor">
+            <div class="hero-contenido">
+                <span class="hero-badge">⚡ Diagnóstico gratuito</span>
+                <h1>Reparamos tu <span>equipo</span> con garantía real</h1>
+                <p>Smartphones, laptops y tablets. Técnicos certificados, refacciones originales y seguimiento en tiempo
+                    real de tu reparación.</p>
+                <div class="hero-acciones session-guest">
+                    <a href="pages/registro.html" class="btn btn-primario">Crear cuenta gratis</a>
+                    <a href="pages/login.html" class="btn btn-secundario">Iniciar sesión</a>
+                </div>
+                <div class="hero-acciones session-user" style="display:none">
+                    <a href="pages/dashboard.html" class="btn btn-primario">Ver mis equipos</a>
+                    <a href="pages/agendar-cita.html" class="btn btn-secundario">Agendar cita</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="grilla-servicios" id="grilla-servicios">
-        <div class="tarjeta-servicio">
-          <span class="servicio-icono">📱</span>
-          <h3>Pantallas y displays</h3>
-          <p>Cambio de pantalla rota, táctil sin respuesta o OLED apagado.</p>
-        </div>
-        <div class="tarjeta-servicio">
-          <span class="servicio-icono">🔋</span>
-          <h3>Baterías</h3>
-          <p>Sustitución de baterías agotadas o que no cargan correctamente.</p>
-        </div>
-        <div class="tarjeta-servicio">
-          <span class="servicio-icono">💻</span>
-          <h3>Laptops</h3>
-          <p>Teclados, cargadores, RAM, SSD, overheating y más.</p>
-        </div>
-        <div class="tarjeta-servicio">
-          <span class="servicio-icono">💧</span>
-          <h3>Daño por agua</h3>
-          <p>Limpieza ultrasónica y recuperación de equipos mojados.</p>
-        </div>
-        <div class="tarjeta-servicio">
-          <span class="servicio-icono">🔌</span>
-          <h3>Puertos y conectores</h3>
-          <p>Puerto de carga, auriculares y conectores sueltos o rotos.</p>
-        </div>
-        <div class="tarjeta-servicio">
-          <span class="servicio-icono">🛡️</span>
-          <h3>Garantía incluida</h3>
-          <p>Todas las reparaciones incluyen garantía de 90 días sin costo.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- SERVICIOS -->
+    <section class="seccion" id="servicios">
+        <div class="contenedor">
+            <span class="tag-seccion">Lo que hacemos</span>
+            <h2 class="seccion-titulo">Servicios de reparación</h2>
+            <p class="seccion-subtitulo">Soluciones rápidas y confiables para todos tus dispositivos.</p>
 
-  <!-- BUSCAR TICKET -->
-  <section class="seccion-ticket" id="buscar-ticket">
-    <div class="contenedor">
-      <span class="tag-seccion" style="background:rgba(47,111,237,.2);color:#93C5FD">Sin necesidad de cuenta</span>
-      <h2 class="seccion-titulo">¿Ya dejaste tu equipo?</h2>
-      <p class="seccion-subtitulo">Consulta el estado de tu reparación con el número de ticket que te dimos al recibirlo.</p>
-
-      <form class="form-ticket" id="form-buscar-ticket">
-        <input type="text" id="ticket-numero" name="ticket" placeholder="Ej: TKT-0042"
-               maxlength="20" autocomplete="off" spellcheck="false" required>
-        <button type="submit" class="btn btn-primario">
-          <i class="bi bi-search"></i> Buscar
-        </button>
-      </form>
-
-      <div id="ticket-resultado" style="display:none"></div>
-    </div>
-  </section>
-
-  <!-- MAPA -->
-  <section class="seccion seccion-mapa" id="ubicacion">
-    <div class="contenedor">
-      <span class="tag-seccion">Encuéntranos</span>
-      <h2 class="seccion-titulo">Nuestra ubicación</h2>
-      <p class="seccion-subtitulo">Visítanos de lunes a sábado de 10:00 a 19:00 hrs. Sin cita previa para diagnóstico.</p>
-      <div id="mapa"></div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="contenedor">
-      <div class="footer-grilla">
-        <div>
-          <p class="footer-marca">DATA<span>FIX</span></p>
-          <p>Reparación profesional de dispositivos electrónicos. Técnicos certificados con más de 10 años de experiencia.</p>
+            <div class="grilla-servicios" id="grilla-servicios">
+                <div class="tarjeta-servicio">
+                    <span class="servicio-icono">📱</span>
+                    <h3>Pantallas y displays</h3>
+                    <p>Cambio de pantalla rota, táctil sin respuesta o OLED apagado.</p>
+                </div>
+                <div class="tarjeta-servicio">
+                    <span class="servicio-icono">🔋</span>
+                    <h3>Baterías</h3>
+                    <p>Sustitución de baterías agotadas o que no cargan correctamente.</p>
+                </div>
+                <div class="tarjeta-servicio">
+                    <span class="servicio-icono">💻</span>
+                    <h3>Laptops</h3>
+                    <p>Teclados, cargadores, RAM, SSD, overheating y más.</p>
+                </div>
+                <div class="tarjeta-servicio">
+                    <span class="servicio-icono">💧</span>
+                    <h3>Daño por agua</h3>
+                    <p>Limpieza ultrasónica y recuperación de equipos mojados.</p>
+                </div>
+                <div class="tarjeta-servicio">
+                    <span class="servicio-icono">🔌</span>
+                    <h3>Puertos y conectores</h3>
+                    <p>Puerto de carga, auriculares y conectores sueltos o rotos.</p>
+                </div>
+                <div class="tarjeta-servicio">
+                    <span class="servicio-icono">🛡️</span>
+                    <h3>Garantía incluida</h3>
+                    <p>Todas las reparaciones incluyen garantía de 90 días sin costo.</p>
+                </div>
+            </div>
         </div>
-        <div>
-          <h4>Navegación</h4>
-          <ul>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#buscar-ticket">Rastrear equipo</a></li>
-            <li><a href="#ubicacion">Ubicación</a></li>
-            <li><a href="pages/registro.html">Crear cuenta</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Mi cuenta</h4>
-          <ul>
-            <li class="session-guest"><a href="pages/login.html">Iniciar sesión</a></li>
-            <li class="session-user" style="display:none"><a href="pages/dashboard.html">Dashboard</a></li>
-            <li class="session-user" style="display:none"><a href="#" id="link-logout-footer">Cerrar sesión</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 DATA FIX. Todos los derechos reservados.</p>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-client.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/nav-session.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    (async function () {
-      const sesion = await obtenerSesionActual();
-      if (!sesion) return;
-      const { data } = await supabaseClient.from('clientes').select('nombre').eq('id_cliente', sesion.user.id).maybeSingle();
-      const el = document.getElementById('iniciales-cliente');
-      if (el && data) el.textContent = iniciales(data.nombre);
-    })();
+    <!-- BUSCAR TICKET -->
+    <section class="seccion-ticket" id="buscar-ticket">
+        <div class="contenedor">
+            <span class="tag-seccion" style="background:rgba(47,111,237,.2);color:#93C5FD">Sin necesidad de
+                cuenta</span>
+            <h2 class="seccion-titulo">¿Ya dejaste tu equipo?</h2>
+            <p class="seccion-subtitulo">Consulta el estado de tu reparación con el número de ticket que te dimos al
+                recibirlo.</p>
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const mapa = L.map('mapa').setView([19.4326, -99.1332], 15);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd', maxZoom: 19
-      }).addTo(mapa);
-      L.marker([19.4326, -99.1332])
-        .addTo(mapa)
-        .bindPopup('<strong>DATA FIX</strong><br>Ciudad de México')
-        .openPopup();
-    });
-  </script>
+            <form class="form-ticket" id="form-buscar-ticket">
+                <input type="text" id="ticket-numero" name="ticket" placeholder="Ej: TKT-0042" maxlength="20"
+                    autocomplete="off" spellcheck="false" required>
+                <button type="submit" class="btn btn-primario">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </form>
+
+            <div id="ticket-resultado" style="display:none"></div>
+        </div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="seccion seccion-mapa" id="ubicacion">
+        <div class="contenedor">
+            <span class="tag-seccion">Encuéntranos</span>
+            <h2 class="seccion-titulo">Nuestra ubicación</h2>
+            <p class="seccion-subtitulo">Visítanos de lunes a sábado de 10:00 a 19:00 hrs. Sin cita previa para
+                diagnóstico.</p>
+            <div id="mapa"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="contenedor">
+            <div class="footer-grilla">
+                <div>
+                    <p class="footer-marca">DATA<span>FIX</span></p>
+                    <p>Reparación profesional de dispositivos electrónicos. Técnicos certificados con más de 10 años de
+                        experiencia.</p>
+                </div>
+                <div>
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#buscar-ticket">Rastrear equipo</a></li>
+                        <li><a href="#ubicacion">Ubicación</a></li>
+                        <li><a href="pages/registro.html">Crear cuenta</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Mi cuenta</h4>
+                    <ul>
+                        <li class="session-guest"><a href="pages/login.html">Iniciar sesión</a></li>
+                        <li class="session-user" style="display:none"><a href="pages/dashboard.html">Dashboard</a></li>
+                        <li class="session-user" style="display:none"><a href="#" id="link-logout-footer">Cerrar
+                                sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 DATA FIX. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/nav-session.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        (async function () {
+            const sesion = await obtenerSesionActual();
+            if (!sesion) return;
+            const { data } = await supabaseClient.from('clientes').select('nombre').eq('id_cliente', sesion.user.id).maybeSingle();
+            const el = document.getElementById('iniciales-cliente');
+            if (el && data) el.textContent = iniciales(data.nombre);
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /* ── MAPA ── */
+            const mapa = L.map('mapa').setView([13.7224179099250446, -89.73816714366654], 15);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+                subdomains: 'abcd', maxZoom: 19
+            }).addTo(mapa);
+            L.marker([13.7224179099250446, -89.73816714366654])
+                .addTo(mapa)
+                .bindPopup('<strong>DATA FIX</strong><br>Sonsonate, San Antonio del Monte')
+                .openPopup();
+
+            /* ── BUSCADOR DE TICKET ── */
+            const ESTADOS_LABEL = {
+                'Recibido':            { clase: 'recibido',        icono: '📥' },
+                'En diagnóstico':      { clase: 'diagnostico',     icono: '🔍' },
+                'En espera':           { clase: 'esperando_piezas',icono: '⏳' },
+                'En mantenimiento':    { clase: 'en_reparacion',   icono: '🔧' },
+                'En pruebas':          { clase: 'en_reparacion',   icono: '🧪' },
+                'Listo para entregar': { clase: 'listo',           icono: '✅' },
+                'Entregado':           { clase: 'entregado',       icono: '🎉' }
+            };
+
+            function mesesEs(fecha) {
+                if (!fecha) return 'No definida';
+                const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+                const d = new Date(fecha + 'T12:00:00');
+                return `${d.getDate()} ${meses[d.getMonth()]} ${d.getFullYear()}`;
+            }
+
+            const form      = document.getElementById('form-buscar-ticket');
+            const resultado = document.getElementById('ticket-resultado');
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const numero = document.getElementById('ticket-numero').value.trim().toUpperCase();
+                if (!numero) return;
+
+                // Estado de carga
+                resultado.style.display = 'block';
+                resultado.innerHTML = `<p class="ticket-buscando"><i class="bi bi-hourglass-split"></i> Buscando ticket <strong>${numero}</strong>...</p>`;
+
+                const { data: dispositivo, error } = await supabaseClient
+                    .from('dispositivos')
+                    .select('ticket, tipo_dispositivo, marca, modelo, estado, fecha_ingreso, fecha_entrega_estimada, descripcion_problema')
+                    .ilike('ticket', numero)
+                    .maybeSingle();
+
+                if (error || !dispositivo) {
+                    resultado.innerHTML = `
+                        <div class="ticket-no-encontrado">
+                            <span class="ticket-icono">🔎</span>
+                            <p>No encontramos el ticket <strong>${numero}</strong>.</p>
+                            <p class="ticket-sugerencia">Verifica que el número sea exacto, por ejemplo: <code>TKT-0042</code></p>
+                        </div>`;
+                    return;
+                }
+
+                const est    = ESTADOS_LABEL[dispositivo.estado] || { clase: 'recibido', icono: '📋' };
+                const nombre = [dispositivo.tipo_dispositivo, dispositivo.marca, dispositivo.modelo].filter(Boolean).join(' · ');
+
+                resultado.innerHTML = `
+                    <div class="ticket-tarjeta">
+                        <div class="ticket-encabezado">
+                            <span class="ticket-num">${dispositivo.ticket || numero}</span>
+                            <span class="estado-led ${est.clase}">${est.icono} ${dispositivo.estado}</span>
+                        </div>
+                        <div class="ticket-info">
+                            <p><strong>Dispositivo:</strong> ${nombre || 'Sin información'}</p>
+                            <p><strong>Ingreso:</strong> ${mesesEs(dispositivo.fecha_ingreso)}</p>
+                            <p><strong>Entrega estimada:</strong> ${mesesEs(dispositivo.fecha_entrega_estimada)}</p>
+                            ${dispositivo.descripcion_problema ? `<p><strong>Problema:</strong> ${dispositivo.descripcion_problema}</p>` : ''}
+                        </div>
+                    </div>`;
+            });
+        });
+    </script>
 </body>
+
 </html>

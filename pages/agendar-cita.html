@@ -182,20 +182,37 @@
             return;
         }
 
+        // Verificar que el usuario autenticado tiene un perfil en la tabla clientes
+        const { data: perfil, error: errorPerfil } = await supabaseClient
+            .from('clientes')
+            .select('id_cliente, nombre, apellido, correo, telefono')
+            .eq('id_cliente', sesion.user.id)
+            .maybeSingle();
+
+        // Si no tiene perfil de cliente (ej: es admin u ocurrió un error),
+        // no podemos insertar la cita con FK — mostramos el bloque de "necesitas cuenta"
+        if (errorPerfil || !perfil) {
+            cajaNecesitaCuenta.innerHTML = `
+                <div style="font-size:2rem; color:var(--naranja); margin-bottom:12px;"><i class="bi bi-exclamation-triangle"></i></div>
+                <h3 style="border:none; margin-bottom:8px;">Perfil de cliente no encontrado</h3>
+                <p style="color:var(--texto-sec); margin-bottom:18px;">
+                    Tu cuenta existe pero no tiene un perfil de cliente asociado.<br>
+                    Regístrate de nuevo para poder agendar citas.
+                </p>
+                <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                    <a href="registro.html" class="btn btn-primary">Crear perfil de cliente</a>
+                    <a href="login.html" class="btn btn-secondary">Cambiar cuenta</a>
+                </div>`;
+            cajaNecesitaCuenta.style.display = 'block';
+            return;
+        }
+
         cajaFormulario.style.display = 'block';
 
-        // Precargamos nombre/correo/teléfono desde el perfil del cliente
-        const { data: perfil } = await supabaseClient
-            .from('clientes')
-            .select('nombre, apellido, correo, telefono')
-            .eq('id_cliente', sesion.user.id)
-            .single();
-
-        if (perfil) {
-            document.getElementById('nombre').value = `${perfil.nombre} ${perfil.apellido}`;
-            document.getElementById('correo').value = perfil.correo;
-            if (perfil.telefono) document.getElementById('telefono').value = perfil.telefono;
-        }
+        // Prellenar formulario con datos del perfil
+        document.getElementById('nombre').value = `${perfil.nombre} ${perfil.apellido || ''}`.trim();
+        document.getElementById('correo').value = perfil.correo;
+        if (perfil.telefono) document.getElementById('telefono').value = perfil.telefono;
 
         document.getElementById('form-agendar-cita').addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -208,7 +225,7 @@
             const fd = new FormData(this);
 
             const { error } = await supabaseClient.from('citas').insert([{
-                id_cliente: sesion.user.id,
+                id_cliente: perfil.id_cliente,          // ← ID verificado desde clientes
                 nombre: fd.get('nombre').trim(),
                 telefono: fd.get('telefono').trim(),
                 correo: fd.get('correo').trim(),
@@ -230,7 +247,7 @@
                 // Botón para escribir directo por WhatsApp, con el mensaje ya redactado
                 const nombreCliente = fd.get('nombre').trim();
                 const fechaTexto = formatoFecha(fd.get('fecha'));
-                const mensajeWpp = `Hola, soy ${nombreCliente}. Acabo de agendar una cita en TechFix para el ${fechaTexto} a las ${fd.get('hora')} (equipo: ${fd.get('tipo_dispositivo')}). Quisiera confirmar los detalles.`;
+                const mensajeWpp = `Hola, soy ${nombreCliente}. Acabo de agendar una cita en DATA FIX para el ${fechaTexto} a las ${fd.get('hora')} (equipo: ${fd.get('tipo_dispositivo')}). Quisiera confirmar los detalles.`;
                 const linkWpp = construirLinkWhatsApp(WHATSAPP_NEGOCIO, mensajeWpp);
 
                 let botonWpp = document.getElementById('boton-whatsapp-cita');
@@ -250,4 +267,4 @@
     })();
 </script>
 </body>
-</html>
+</html>
