@@ -917,6 +917,18 @@ table tr:hover td { background: var(--gris-100); }
   padding-bottom: 10px; border-bottom: 1px solid var(--gris-300);
 }
 
+/* ── Contenedor de gráficas (reportes) ─────────────────────────── */
+.grafica-wrapper {
+  position: relative; width: 100%; height: 300px;
+  margin-bottom: 18px;
+}
+.grafica-wrapper.vacia::after {
+  content: "Sin datos para graficar este mes";
+  position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center;
+  color: var(--texto-sec); font-size: .9rem;
+}
+
 /* ── Tabla wrapper ──────────────────────────────────────────────── */
 .tabla-wrapper {
   background: var(--blanco); border: 1px solid var(--borde);
@@ -1087,8 +1099,57 @@ table tr:hover td { background: var(--gris-100); }
   50%       { opacity: .4; }
 }
 .progreso-estados {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  padding: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 26px 0 10px;
+  flex-wrap: wrap;
+  gap: 10px 0;
+}
+.progreso-estados::before {
+  content: '';
+  position: absolute;
+  top: 9px; left: 0; right: 0;
+  height: 2px;
+  background-color: var(--gris-300);
+  z-index: 0;
+}
+.progreso-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 70px;
+}
+.progreso-punto {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background-color: var(--fondo);
+  box-shadow: var(--sombra-neu-inset);
+  transition: all var(--trans);
+}
+.progreso-item.completado .progreso-punto {
+  background-color: var(--azul);
+  box-shadow: var(--sombra-neu-sm);
+}
+.progreso-item.actual .progreso-punto {
+  background-color: var(--naranja);
+  box-shadow: var(--sombra-neu-sm), 0 0 0 4px rgba(245,166,35,.25);
+}
+.progreso-item .etq {
+  font-size: .68rem;
+  text-align: center;
+  color: var(--gris-400);
+  max-width: 84px;
+  font-family: var(--font-mono);
+}
+.progreso-item.completado .etq,
+.progreso-item.actual .etq {
+  color: var(--texto);
+  font-weight: 600;
 }
 .volver {
   display: inline-flex; align-items: center; gap: 6px;
