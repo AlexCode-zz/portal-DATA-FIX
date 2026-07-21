@@ -413,6 +413,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const ICONOS = {
+                ciberseguridad: '<i class="bi bi-shield-check"></i>',
                 hardware: '<i class="bi bi-cpu"></i>',
                 software: '<i class="bi bi-floppy"></i>',
                 mantenimiento: '<i class="bi bi-brush"></i>',

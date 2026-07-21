@@ -94,13 +94,14 @@
                             <label for="servicio">Servicio de interés</label>
                             <select id="servicio" name="servicio">
                                 <option value="">No estoy seguro / diagnóstico general</option>
-                                <option>Formateo e instalación de SO</option>
-                                <option>Cambio de pantalla</option>
-                                <option>Limpieza interna</option>
-                                <option>Eliminación de virus</option>
-                                <option>Cambio a SSD</option>
-                                <option>Reparación de placa madre</option>
-                                <option>Recuperación de datos</option>
+                                <option>Implementación de medidas de ciberseguridad</option>
+                                <option>Respaldo y recuperación de información en dispositivos móviles</option>
+                                <option>Recuperación de contraseñas y accesos bloqueados</option>
+                                <option>Diagnóstico y resolución de fallas de software</option>
+                                <option>Eliminación de virus, malware y programas no deseados</option>
+                                <option>Optimización del rendimiento del equipo</option>
+                                <option>Mantenimiento preventivo</option>
+                                <option>Limpieza interna y externa</option>
                             </select>
                         </div>
                     </div>
@@ -172,6 +173,17 @@
 <script src="../js/whatsapp.js"></script>
 <script>
     (async function () {
+        const hoy = new Date();
+        const yyyy = hoy.getFullYear();
+        const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+        const dd = String(hoy.getDate()).padStart(2, '0');
+        const fechaMinima = `${yyyy}-${mm}-${dd}`;
+
+        const inputFecha = document.getElementById('fecha');
+        if (inputFecha) {
+            inputFecha.min = fechaMinima;
+        }
+
         const cajaNecesitaCuenta = document.getElementById('caja-necesita-cuenta');
         const cajaFormulario = document.getElementById('caja-formulario-cita');
 
@@ -219,10 +231,15 @@
 
             const caja = document.querySelector('.mensaje-formulario');
             const btn = document.getElementById('btn-agendar-cita');
+            const fd = new FormData(this);
+
+            if (fd.get('fecha') < fechaMinima) {
+                mostrarMensajeFormulario(caja, 'Debes seleccionar una fecha presente o futura.', false);
+                return;
+            }
+
             btn.disabled = true;
             btn.textContent = 'Enviando...';
-
-            const fd = new FormData(this);
 
             const { error } = await supabaseClient.from('citas').insert([{
                 id_cliente: perfil.id_cliente,          // ← ID verificado desde clientes

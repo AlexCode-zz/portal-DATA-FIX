@@ -39,6 +39,7 @@
 
         <div class="tabs" id="filtro-tipos">
             <button class="tab-btn activo" data-filtro="todos">Todos</button>
+            <button class="tab-btn" data-filtro="ciberseguridad">Ciberseguridad</button>
             <button class="tab-btn" data-filtro="hardware">Hardware</button>
             <button class="tab-btn" data-filtro="software">Software</button>
             <button class="tab-btn" data-filtro="mantenimiento">Mantenimiento</button>
@@ -68,11 +69,63 @@
 
     // Como la tabla "servicios" no guarda un emoji, lo elegimos según el tipo
     const ICONO_POR_TIPO = {
+        ciberseguridad: '<i class="bi bi-shield-check"></i>',
         hardware: '<i class="bi bi-cpu"></i>',
         software: '<i class="bi bi-floppy"></i>',
         mantenimiento: '<i class="bi bi-brush"></i>',
         otro: '<i class="bi bi-tools"></i>'
     };
+
+    const SERVICIOS_DEFAULT = [
+        {
+            nombre_servicio: "Implementación de medidas de ciberseguridad",
+            descripcion: "Servicio orientado a la protección preventiva de entornos informáticos en Windows. Comprende la configuración de defensas digitales, auditoría de puertos, protección de red y ajuste de parámetros de privacidad para resguardar la integridad de los datos frente a accesos no autorizados.",
+            tipo: "ciberseguridad",
+            precio: 40.00
+        },
+        {
+            nombre_servicio: "Respaldo y recuperación de información en dispositivos móviles",
+            descripcion: "Solución técnica enfocada en la preservación de activos digitales en celulares utilizando el software especializado Dr.Fone Todo en Uno. Incluye la extracción, copia de seguridad y restauración de fotografías, contactos y documentos importantes en situaciones de fallo del sistema, cambio de dispositivo o pérdida accidental de datos.",
+            tipo: "software",
+            precio: 35.00
+        },
+        {
+            nombre_servicio: "Recuperación de contraseñas y accesos bloqueados",
+            descripcion: "Asistencia técnica especializada en teléfonos y dispositivos móviles mediante el uso de Dr.Fone. Abarca el restablecimiento de accesos, remoción de patrones, PINs, contraseñas de pantalla y bypass de protección FRP (Factory Reset Protection / bloqueo de cuenta Google), garantizando siempre la verificación previa de la legítima propiedad del equipo.",
+            tipo: "software",
+            precio: 30.00
+        },
+        {
+            nombre_servicio: "Diagnóstico y resolución de fallas de software",
+            descripcion: "Análisis detallado para identificar y corregir errores en el sistema operativo Windows. Abarca la solución de conflictos de controladores, reparación de archivos dañados del sistema y corrección de bloqueos o cierres inesperados de aplicaciones.",
+            tipo: "software",
+            precio: 25.00
+        },
+        {
+            nombre_servicio: "Eliminación de virus, malware y programas no deseados",
+            descripcion: "Limpieza lógica profunda orientada a detectar y desinfectar archivos maliciosos, spyware y programas secundarios no deseados. Incluye la instalación y configuración de Norton Premium para proporcionar protección activa en tiempo real contra amenazas digitales.",
+            tipo: "software",
+            precio: 30.00
+        },
+        {
+            nombre_servicio: "Optimización del rendimiento del equipo",
+            descripcion: "Acondicionamiento del sistema operativo para maximizar la velocidad de respuesta del computador. Incluye la aceleración del tiempo de arranque, limpieza de archivos temporales acumulados y depuración del registro de Windows.",
+            tipo: "mantenimiento",
+            precio: 25.00
+        },
+        {
+            nombre_servicio: "Mantenimiento preventivo",
+            descripcion: "Revisión técnica periódica diseñada para anticipar fallas operativas. Contempla la comprobación del estado de salud del almacenamiento (disco duro/SSD), revisión general de componentes internos y verificación del rendimiento global del sistema.",
+            tipo: "mantenimiento",
+            precio: 20.00
+        },
+        {
+            nombre_servicio: "Limpieza interna y externa",
+            descripcion: "Mantenimiento físico integral del hardware mediante el uso de herramientas e insumos especializados. Incluye la remoción de polvo interno con sopladora eléctrica RONIX, reemplazo de pasta térmica de alto rendimiento ARCTIC MX-4 y desinfección/limpieza del chasis y pantalla con paños 3M.",
+            tipo: "hardware",
+            precio: 25.00
+        }
+    ];
 
     let serviciosCargados = [];
 
@@ -85,12 +138,11 @@
             .eq('activo', true)
             .order('tipo', { ascending: true });
 
-        if (error) {
-            listaServicios.innerHTML = `<p class="vacio">No se pudieron cargar los servicios: ${error.message}</p>`;
-            return;
+        if (error || !data || data.length === 0) {
+            serviciosCargados = SERVICIOS_DEFAULT;
+        } else {
+            serviciosCargados = data;
         }
-
-        serviciosCargados = data;
         renderServicios('todos');
     }
 
