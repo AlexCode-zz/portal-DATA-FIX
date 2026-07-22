@@ -606,9 +606,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return `
                 <tr>
                     <td>${c.nombre}</td>
-                    <td>${c.telefono}<br><span style="color:var(--pizarra); font-size:0.8rem;">${c.correo}</span></td>
-                    <td>${c.tipo_dispositivo}${c.servicio_interes ? '<br><span style="color:var(--pizarra); font-size:0.8rem;">' + c.servicio_interes + '</span>' : ''}</td>
-                    <td>${formatoFecha(c.fecha_preferida)}<br><span style="color:var(--pizarra); font-size:0.8rem;">${c.hora_preferida}</span></td>
+                    <td>${c.telefono}<br><span style="color:var(--texto-sec); font-size:0.8rem;">${c.correo}</span></td>
+                    <td>
+                        <strong>${c.tipo_dispositivo}</strong>
+                        ${c.servicio_interes ? '<br><span style="color:var(--texto-sec); font-size:0.8rem;">' + c.servicio_interes + '</span>' : ''}
+                        ${c.descripcion ? '<br><small style="color:var(--texto-sec); display:block; margin-top:2px;">' + c.descripcion.replace(/\n/g, '<br>') + '</small>' : ''}
+                    </td>
+                    <td>${formatoFecha(c.fecha_preferida)}<br><span style="color:var(--texto-sec); font-size:0.8rem;">${c.hora_preferida}</span></td>
                     <td>
                         <select class="select-estado" data-id="${c.id_cita}">
                             ${['Pendiente','Confirmada','Atendida','Cancelada'].map(e => `<option value="${e}" ${e === c.estado ? 'selected' : ''}>${e}</option>`).join('')}

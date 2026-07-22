@@ -1,210 +1,333 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agendar cita — DATA FIX</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="../css/estilos.css">
-<style>
-    @media (max-width: 900px) {
-        .seccion .contenedor[style*="grid-template-columns"] {
-            grid-template-columns: 1fr !important;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar cita — DATA FIX</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <style>
+        @media (max-width: 900px) {
+            .seccion .contenedor[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
         }
-    }
-</style>
+        #mapa-recoleccion {
+            width: 100%;
+            height: 480px;
+            border-radius: var(--radio);
+            box-shadow: var(--sombra);
+            border: 1px solid var(--borde);
+            z-index: 1;
+        }
+    </style>
 
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="contenedor">
-        <a href="../index.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span></a>
-        <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
-        <ul class="navbar-menu">
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="servicios.html">Servicios</a></li>
-            <li><a href="agendar-cita.html" class="activo">Agendar cita</a></li>
-            <li id="nav-invitado" style="display:contents;">
-                <a href="login.html" class="btn btn-secondary btn-sm">Iniciar sesión</a>
-                <a href="registro.html" class="btn btn-primary btn-sm">Crear cuenta</a>
-            </li>
-            <li id="nav-usuario" style="display:none;">
-                <a href="dashboard.html" class="btn btn-secondary btn-sm">Mi Panel</a>
-                <a href="#" id="link-logout-publico" class="btn btn-primary btn-sm">Cerrar sesión</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<section class="seccion" style="padding-top:48px;">
-    <div class="contenedor" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:40px; align-items:flex-start;">
-
-        <div>
-            <div class="encabezado-seccion">
-                <span class="eyebrow">Reserva tu turno</span>
-                <h2>Agenda tu cita de diagnóstico</h2>
-                <p>Cuéntanos qué le pasa a tu equipo y elige el día que mejor te convenga.
-                   El diagnóstico inicial no tiene costo.</p>
+    <nav class="navbar">
+        <div class="contenedor">
+            <a href="../index.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span></a>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <button class="btn-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+                    <i class="bi bi-moon-stars-fill"></i>
+                </button>
+                <button class="navbar-toggle" aria-label="Abrir menú">☰</button>
             </div>
+            <ul class="navbar-menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="agendar-cita.html" class="activo">Agendar cita</a></li>
+                <li id="nav-invitado" style="display:contents;">
+                    <a href="login.html" class="btn btn-secondary btn-sm">Iniciar sesión</a>
+                    <a href="registro.html" class="btn btn-primary btn-sm">Crear cuenta</a>
+                </li>
+                <li id="nav-usuario" style="display:none;">
+                    <a href="dashboard.html" class="btn btn-secondary btn-sm">Mi Panel</a>
+                    <a href="#" id="link-logout-publico" class="btn btn-primary btn-sm">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-            <div class="caja" id="caja-necesita-cuenta" style="display:none; text-align:center;">
-                <div style="font-size:2rem; color:var(--pizarra); margin-bottom:12px;"><i class="bi bi-shield-lock"></i></div>
-                <h3 style="border:none; margin-bottom:8px;">Necesitas una cuenta para agendar</h3>
-                <p style="color:var(--pizarra); margin-bottom:18px;">Así podemos darte seguimiento en tiempo real a tu reparación una vez que dejes el equipo.</p>
-                <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-                    <a href="login.html" class="btn btn-secondary">Iniciar sesión</a>
-                    <a href="registro.html" class="btn btn-primary">Crear cuenta gratis</a>
+    <section class="seccion" style="padding-top:48px;">
+        <div class="contenedor"
+            style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:40px; align-items:flex-start;">
+
+            <div>
+                <div class="encabezado-seccion">
+                    <span class="eyebrow">Reserva tu turno</span>
+                    <h2>Agenda tu cita de diagnóstico</h2>
+                    <p>Cuéntanos qué le pasa a tu equipo y elige el día que mejor te convenga.
+                        El diagnóstico inicial no tiene costo.</p>
+                </div>
+
+                <div class="caja" id="caja-necesita-cuenta" style="display:none; text-align:center;">
+                    <div style="font-size:2rem; color:var(--pizarra); margin-bottom:12px;"><i
+                            class="bi bi-shield-lock"></i></div>
+                    <h3 style="border:none; margin-bottom:8px;">Necesitas una cuenta para agendar</h3>
+                    <p style="color:var(--pizarra); margin-bottom:18px;">Así podemos darte seguimiento en tiempo real a
+                        tu reparación una vez que dejes el equipo.</p>
+                    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                        <a href="login.html" class="btn btn-secondary">Iniciar sesión</a>
+                        <a href="registro.html" class="btn btn-primary">Crear cuenta gratis</a>
+                    </div>
+                </div>
+
+                <div class="caja" id="caja-formulario-cita" style="display:none;">
+                    <div class="alerta mensaje-formulario" style="display:none;"></div>
+
+                    <form id="form-agendar-cita">
+                        <div class="campo-fila">
+                            <div class="campo">
+                                <label for="nombre">Nombre completo</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="campo">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <label for="correo">Correo electrónico</label>
+                            <input type="email" id="correo" name="correo" required>
+                        </div>
+
+                        <div class="campo-fila">
+                            <div class="campo">
+                                <label for="tipo_dispositivo">Tipo de dispositivo</label>
+                                <select id="tipo_dispositivo" name="tipo_dispositivo" required>
+                                    <option value="">Selecciona…</option>
+                                    <option>Laptop</option>
+                                    <option>PC de escritorio</option>
+                                    <option>Celular</option>
+                                    <option>Tablet</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="campo">
+                                <label for="servicio">Servicio de interés</label>
+                                <select id="servicio" name="servicio">
+                                    <option value="">No estoy seguro / diagnóstico general</option>
+                                    <option>Implementación de medidas de ciberseguridad</option>
+                                    <option>Respaldo y recuperación de información en dispositivos móviles</option>
+                                    <option>Recuperación de contraseñas y accesos bloqueados</option>
+                                    <option>Diagnóstico y resolución de fallas de software</option>
+                                    <option>Eliminación de virus, malware y programas no deseados</option>
+                                    <option>Optimización del rendimiento del equipo</option>
+                                    <option>Mantenimiento preventivo</option>
+                                    <option>Limpieza interna y externa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <label for="descripcion">Describe el problema</label>
+                            <textarea id="descripcion" name="descripcion"
+                                placeholder="Ej: la laptop no enciende, la pantalla tiene líneas, va muy lenta..."
+                                required></textarea>
+                        </div>
+
+                        <div class="campo">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                <label for="direccion_recoleccion" style="margin-bottom:0;">Dirección para recolección del equipo</label>
+                                <button type="button" id="btn-mi-ubicacion" class="btn btn-secondary btn-sm" style="font-size:0.78rem; padding:4px 10px; display:inline-flex; align-items:center; gap:5px;">
+                                    <i class="bi bi-crosshair"></i> Usar mi ubicación actual
+                                </button>
+                            </div>
+                            <input type="text" id="direccion_recoleccion" name="direccion_recoleccion"
+                                placeholder="Calle, número, colonia / sector, referencias..." required>
+                        </div>
+
+                        <div class="campo-fila">
+                            <div class="campo">
+                                <label for="fecha">Fecha preferida</label>
+                                <input type="date" id="fecha" name="fecha" required>
+                            </div>
+                            <div class="campo">
+                                <label for="hora">Hora preferida</label>
+                                <select id="hora" name="hora" required>
+                                    <option value="">Selecciona…</option>
+                                    <option>09:00 AM</option>
+                                    <option>10:30 AM</option>
+                                    <option>12:00 PM</option>
+                                    <option>02:00 PM</option>
+                                    <option>03:30 PM</option>
+                                    <option>05:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block mt-1" id="btn-agendar-cita">Confirmar
+                            cita</button>
+                    </form>
                 </div>
             </div>
 
-            <div class="caja" id="caja-formulario-cita" style="display:none;">
-                <div class="alerta mensaje-formulario" style="display:none;"></div>
-
-                <form id="form-agendar-cita">
-                    <div class="campo-fila">
-                        <div class="campo">
-                            <label for="nombre">Nombre completo</label>
-                            <input type="text" id="nombre" name="nombre" required>
-                        </div>
-                        <div class="campo">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" name="telefono" required>
-                        </div>
+            <!-- Columna derecha: Mapa interactivo de selección de ubicación -->
+            <div>
+                <div class="caja" style="padding: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+                        <h3 style="margin-bottom:0; border:none; padding:0;"><i class="bi bi-geo-alt-fill text-primary"></i> Selecciona tu ubicación</h3>
+                        <button type="button" id="btn-activar-ubicacion-mapa" class="btn btn-primary btn-sm" style="font-size:0.8rem; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="bi bi-geo-fill"></i> Activar ubicación
+                        </button>
                     </div>
-
-                    <div class="campo">
-                        <label for="correo">Correo electrónico</label>
-                        <input type="email" id="correo" name="correo" required>
-                    </div>
-
-                    <div class="campo-fila">
-                        <div class="campo">
-                            <label for="tipo_dispositivo">Tipo de dispositivo</label>
-                            <select id="tipo_dispositivo" name="tipo_dispositivo" required>
-                                <option value="">Selecciona…</option>
-                                <option>Laptop</option>
-                                <option>PC de escritorio</option>
-                                <option>Celular</option>
-                                <option>Tablet</option>
-                                <option>Otro</option>
-                            </select>
-                        </div>
-                        <div class="campo">
-                            <label for="servicio">Servicio de interés</label>
-                            <select id="servicio" name="servicio">
-                                <option value="">No estoy seguro / diagnóstico general</option>
-                                <option>Implementación de medidas de ciberseguridad</option>
-                                <option>Respaldo y recuperación de información en dispositivos móviles</option>
-                                <option>Recuperación de contraseñas y accesos bloqueados</option>
-                                <option>Diagnóstico y resolución de fallas de software</option>
-                                <option>Eliminación de virus, malware y programas no deseados</option>
-                                <option>Optimización del rendimiento del equipo</option>
-                                <option>Mantenimiento preventivo</option>
-                                <option>Limpieza interna y externa</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="campo">
-                        <label for="descripcion">Describe el problema</label>
-                        <textarea id="descripcion" name="descripcion" placeholder="Ej: la laptop no enciende, la pantalla tiene líneas, va muy lenta..." required></textarea>
-                    </div>
-
-                    <div class="campo-fila">
-                        <div class="campo">
-                            <label for="fecha">Fecha preferida</label>
-                            <input type="date" id="fecha" name="fecha" required>
-                        </div>
-                        <div class="campo">
-                            <label for="hora">Hora preferida</label>
-                            <select id="hora" name="hora" required>
-                                <option value="">Selecciona…</option>
-                                <option>09:00 AM</option>
-                                <option>10:30 AM</option>
-                                <option>12:00 PM</option>
-                                <option>02:00 PM</option>
-                                <option>03:30 PM</option>
-                                <option>05:00 PM</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block mt-1" id="btn-agendar-cita">Confirmar cita</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Panel lateral informativo -->
-        <div>
-            <div class="caja" style="background-color: var(--tinta); border:none;">
-                <h3 style="color:#fff; border-color: rgba(255,255,255,0.12);"><i class="bi bi-geo-alt me-2"></i> Detalles del taller</h3>
-                <div class="fila-dato" style="border-color: rgba(255,255,255,0.1);"><span class="etiqueta" style="color:#8791AE;">Dirección</span><span class="valor" style="color:#fff;">Av. Principal 123</span></div>
-                <div class="fila-dato" style="border-color: rgba(255,255,255,0.1);"><span class="etiqueta" style="color:#8791AE;">Horario</span><span class="valor" style="color:#fff;">Lun–Sáb 9:00–18:00</span></div>
-                <div class="fila-dato" style="border-color: rgba(255,255,255,0.1);"><span class="etiqueta" style="color:#8791AE;">Teléfono</span><span class="valor" style="color:#fff;">099 000 0000</span></div>
-                <div class="fila-dato"><span class="etiqueta" style="color:#8791AE;">Diagnóstico</span><span class="valor" style="color: var(--led-verde);">Sin costo</span></div>
-            </div>
-
-            <div class="resumen-cita">
-                <div class="titulo">Qué sucede después</div>
-                <div class="timeline" style="padding-left:22px;">
-                    <div class="timeline-item"><strong>Confirmación</strong><div class="fecha-timeline">Te contactamos en menos de 2 horas hábiles</div></div>
-                    <div class="timeline-item"><strong>Recepción del equipo</strong><div class="fecha-timeline">Registramos tu dispositivo y generamos tu ticket</div></div>
-                    <div class="timeline-item"><strong>Seguimiento en línea</strong><div class="fecha-timeline">Ves el avance desde tu cuenta TechFix</div></div>
+                    <p style="font-size: .88rem; color: var(--texto-sec); margin-bottom: 14px;">
+                        Haz clic en <strong>Activar ubicación</strong> o en el mapa para fijar el punto exacto de recolección de tu equipo.
+                    </p>
+                    <div id="mapa-recoleccion"></div>
+                    <small style="display:block; margin-top:8px; color:var(--texto-sec); font-size:.78rem;">
+                        <i class="bi bi-info-circle me-1"></i> La dirección en el formulario se actualizará automáticamente.
+                    </small>
                 </div>
             </div>
+
         </div>
+    </section>
 
-    </div>
-</section>
+    <footer>
+        <div class="contenedor footer-bottom" style="border:none; padding-top:0;">
+            <span>© <span class="anio-actual"></span> DATA FIX</span>
+            <a href="../index.html" style="color:#8791AE;">&larr; Volver al inicio</a>
+        </div>
+    </footer>
 
-<footer>
-    <div class="contenedor footer-bottom" style="border:none; padding-top:0;">
-        <span>© <span class="anio-actual"></span> DATA FIX</span>
-        <a href="../index.html" style="color:#8791AE;">&larr; Volver al inicio</a>
-    </div>
-</footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/nav-session.js"></script>
+    <script src="../js/whatsapp.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        (async function () {
+            const hoy = new Date();
+            const yyyy = hoy.getFullYear();
+            const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+            const dd = String(hoy.getDate()).padStart(2, '0');
+            const fechaMinima = `${yyyy}-${mm}-${dd}`;
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../js/supabase-client.js"></script>
-<script src="../js/auth.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/nav-session.js"></script>
-<script src="../js/whatsapp.js"></script>
-<script>
-    (async function () {
-        const hoy = new Date();
-        const yyyy = hoy.getFullYear();
-        const mm = String(hoy.getMonth() + 1).padStart(2, '0');
-        const dd = String(hoy.getDate()).padStart(2, '0');
-        const fechaMinima = `${yyyy}-${mm}-${dd}`;
+            const inputFecha = document.getElementById('fecha');
+            if (inputFecha) {
+                inputFecha.min = fechaMinima;
+            }
 
-        const inputFecha = document.getElementById('fecha');
-        if (inputFecha) {
-            inputFecha.min = fechaMinima;
-        }
+            const cajaNecesitaCuenta = document.getElementById('caja-necesita-cuenta');
+            const cajaFormulario = document.getElementById('caja-formulario-cita');
 
-        const cajaNecesitaCuenta = document.getElementById('caja-necesita-cuenta');
-        const cajaFormulario = document.getElementById('caja-formulario-cita');
+            /* ── MAPA INTERACTIVO DE RECOLECCIÓN ── */
+            let mapaRecoleccion, marcadorRecoleccion;
+            const latInicial = 13.7224;
+            const lngInicial = -89.7381;
 
-        const sesion = await obtenerSesionActual();
+            function inicializarMapaRecoleccion() {
+                const elMapa = document.getElementById('mapa-recoleccion');
+                if (!elMapa || mapaRecoleccion) return;
 
-        if (!sesion) {
-            cajaNecesitaCuenta.style.display = 'block';
-            return;
-        }
+                mapaRecoleccion = L.map('mapa-recoleccion').setView([latInicial, lngInicial], 15);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    subdomains: 'abcd', maxZoom: 19
+                }).addTo(mapaRecoleccion);
 
-        // Verificar que el usuario autenticado tiene un perfil en la tabla clientes
-        const { data: perfil, error: errorPerfil } = await supabaseClient
-            .from('clientes')
-            .select('id_cliente, nombre, apellido, correo, telefono')
-            .eq('id_cliente', sesion.user.id)
-            .maybeSingle();
+                marcadorRecoleccion = L.marker([latInicial, lngInicial], { draggable: true }).addTo(mapaRecoleccion);
+                marcadorRecoleccion.bindPopup('📍 Dirección de recolección de tu equipo').openPopup();
 
-        // Si no tiene perfil de cliente (ej: es admin u ocurrió un error),
-        // no podemos insertar la cita con FK — mostramos el bloque de "necesitas cuenta"
-        if (errorPerfil || !perfil) {
-            cajaNecesitaCuenta.innerHTML = `
+                async function actualizarDireccionDesdeLatForm(lat, lng) {
+                    const inputDir = document.getElementById('direccion_recoleccion');
+                    try {
+                        const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
+                        if (resp.ok) {
+                            const data = await resp.json();
+                            if (data && data.display_name && inputDir) {
+                                inputDir.value = data.display_name;
+                            }
+                        }
+                    } catch (err) {
+                        console.log('No se pudo autocompletar nombre de calle:', err);
+                    }
+                }
+
+                marcadorRecoleccion.on('dragend', function (e) {
+                    const pos = e.target.getLatLng();
+                    actualizarDireccionDesdeLatForm(pos.lat, pos.lng);
+                });
+
+                mapaRecoleccion.on('click', function (e) {
+                    marcadorRecoleccion.setLatLng(e.latlng);
+                    actualizarDireccionDesdeLatForm(e.latlng.lat, e.latlng.lng);
+                });
+
+                function obtenerUbicacionGPS() {
+                    if (!navigator.geolocation) {
+                        alert('Tu navegador no soporta la detección automática de ubicación.');
+                        return;
+                    }
+
+                    const btns = [document.getElementById('btn-mi-ubicacion'), document.getElementById('btn-activar-ubicacion-mapa')].filter(Boolean);
+                    btns.forEach(b => {
+                        b.disabled = true;
+                        b.innerHTML = '<i class="bi bi-arrow-repeat spin"></i> Obteniendo ubicación...';
+                    });
+
+                    navigator.geolocation.getCurrentPosition((pos) => {
+                        const userLat = pos.coords.latitude;
+                        const userLng = pos.coords.longitude;
+                        if (mapaRecoleccion) {
+                            mapaRecoleccion.setView([userLat, userLng], 16);
+                            marcadorRecoleccion.setLatLng([userLat, userLng]);
+                        }
+                        actualizarDireccionDesdeLatForm(userLat, userLng);
+
+                        btns.forEach(b => {
+                            b.disabled = false;
+                            b.innerHTML = b.id === 'btn-mi-ubicacion'
+                                ? '<i class="bi bi-check2"></i> Ubicación obtenida'
+                                : '<i class="bi bi-geo-fill"></i> Ubicación activada';
+                        });
+                    }, (err) => {
+                        alert('No pudimos acceder a tu ubicación actual. Asegúrate de otorgar permisos a tu navegador.');
+                        btns.forEach(b => {
+                            b.disabled = false;
+                            b.innerHTML = b.id === 'btn-mi-ubicacion'
+                                ? '<i class="bi bi-crosshair"></i> Usar mi ubicación actual'
+                                : '<i class="bi bi-geo-fill"></i> Activar ubicación';
+                        });
+                    }, { enableHighAccuracy: true });
+                }
+
+                const btnMiUbicacion = document.getElementById('btn-mi-ubicacion');
+                const btnActivarMapa = document.getElementById('btn-activar-ubicacion-mapa');
+                if (btnMiUbicacion) btnMiUbicacion.addEventListener('click', obtenerUbicacionGPS);
+                if (btnActivarMapa) btnActivarMapa.addEventListener('click', obtenerUbicacionGPS);
+
+                // Auto-solicitar la geolocalización al cargar
+                obtenerUbicacionGPS();
+            }
+
+            const sesion = await obtenerSesionActual();
+
+            if (!sesion) {
+                cajaNecesitaCuenta.style.display = 'block';
+                return;
+            }
+
+            // Verificar que el usuario autenticado tiene un perfil en la tabla clientes
+            const { data: perfil, error: errorPerfil } = await supabaseClient
+                .from('clientes')
+                .select('id_cliente, nombre, apellido, correo, telefono')
+                .eq('id_cliente', sesion.user.id)
+                .maybeSingle();
+
+            // Si no tiene perfil de cliente (ej: es admin u ocurrió un error),
+            // no podemos insertar la cita con FK — mostramos el bloque de "necesitas cuenta"
+            if (errorPerfil || !perfil) {
+                cajaNecesitaCuenta.innerHTML = `
                 <div style="font-size:2rem; color:var(--naranja); margin-bottom:12px;"><i class="bi bi-exclamation-triangle"></i></div>
                 <h3 style="border:none; margin-bottom:8px;">Perfil de cliente no encontrado</h3>
                 <p style="color:var(--texto-sec); margin-bottom:18px;">
@@ -215,73 +338,78 @@
                     <a href="registro.html" class="btn btn-primary">Crear perfil de cliente</a>
                     <a href="login.html" class="btn btn-secondary">Cambiar cuenta</a>
                 </div>`;
-            cajaNecesitaCuenta.style.display = 'block';
-            return;
-        }
-
-        cajaFormulario.style.display = 'block';
-
-        // Prellenar formulario con datos del perfil
-        document.getElementById('nombre').value = `${perfil.nombre} ${perfil.apellido || ''}`.trim();
-        document.getElementById('correo').value = perfil.correo;
-        if (perfil.telefono) document.getElementById('telefono').value = perfil.telefono;
-
-        document.getElementById('form-agendar-cita').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const caja = document.querySelector('.mensaje-formulario');
-            const btn = document.getElementById('btn-agendar-cita');
-            const fd = new FormData(this);
-
-            if (fd.get('fecha') < fechaMinima) {
-                mostrarMensajeFormulario(caja, 'Debes seleccionar una fecha presente o futura.', false);
+                cajaNecesitaCuenta.style.display = 'block';
                 return;
             }
 
-            btn.disabled = true;
-            btn.textContent = 'Enviando...';
+            cajaFormulario.style.display = 'block';
+            setTimeout(inicializarMapaRecoleccion, 100);
 
-            const { error } = await supabaseClient.from('citas').insert([{
-                id_cliente: perfil.id_cliente,          // ← ID verificado desde clientes
-                nombre: fd.get('nombre').trim(),
-                telefono: fd.get('telefono').trim(),
-                correo: fd.get('correo').trim(),
-                tipo_dispositivo: fd.get('tipo_dispositivo'),
-                servicio_interes: fd.get('servicio') || null,
-                descripcion: fd.get('descripcion').trim(),
-                fecha_preferida: fd.get('fecha'),
-                hora_preferida: fd.get('hora')
-            }]);
+            // Prellenar formulario con datos del perfil
+            document.getElementById('nombre').value = `${perfil.nombre} ${perfil.apellido || ''}`.trim();
+            document.getElementById('correo').value = perfil.correo;
+            if (perfil.telefono) document.getElementById('telefono').value = perfil.telefono;
 
-            btn.disabled = false;
-            btn.textContent = 'Confirmar cita';
+            document.getElementById('form-agendar-cita').addEventListener('submit', async function (e) {
+                e.preventDefault();
 
-            if (error) {
-                mostrarMensajeFormulario(caja, 'No se pudo agendar la cita: ' + error.message, false);
-            } else {
-                mostrarMensajeFormulario(caja, '¡Cita agendada! Ya quedó registrada en tu cuenta.', true);
+                const caja = document.querySelector('.mensaje-formulario');
+                const btn = document.getElementById('btn-agendar-cita');
+                const fd = new FormData(this);
 
-                // Botón para escribir directo por WhatsApp, con el mensaje ya redactado
-                const nombreCliente = fd.get('nombre').trim();
-                const fechaTexto = formatoFecha(fd.get('fecha'));
-                const mensajeWpp = `Hola, soy ${nombreCliente}. Acabo de agendar una cita en DATA FIX para el ${fechaTexto} a las ${fd.get('hora')} (equipo: ${fd.get('tipo_dispositivo')}). Quisiera confirmar los detalles.`;
-                const linkWpp = construirLinkWhatsApp(WHATSAPP_NEGOCIO, mensajeWpp);
-
-                let botonWpp = document.getElementById('boton-whatsapp-cita');
-                if (!botonWpp) {
-                    botonWpp = document.createElement('a');
-                    botonWpp.id = 'boton-whatsapp-cita';
-                    botonWpp.className = 'btn btn-primary btn-block mt-1';
-                    botonWpp.target = '_blank';
-                    caja.insertAdjacentElement('afterend', botonWpp);
+                if (fd.get('fecha') < fechaMinima) {
+                    mostrarMensajeFormulario(caja, 'Debes seleccionar una fecha presente o futura.', false);
+                    return;
                 }
-                botonWpp.href = linkWpp;
-                botonWpp.innerHTML = '<i class="bi bi-whatsapp me-2"></i> Escríbenos por WhatsApp para coordinar más rápido';
 
-                this.reset();
-            }
-        });
-    })();
-</script>
+                btn.disabled = true;
+                btn.textContent = 'Enviando...';
+
+                const direccionRecoleccion = (fd.get('direccion_recoleccion') || '').trim();
+                const descripcionCompleta = fd.get('descripcion').trim() + (direccionRecoleccion ? `\n[Dirección de recolección: ${direccionRecoleccion}]` : '');
+
+                const { error } = await supabaseClient.from('citas').insert([{
+                    id_cliente: perfil.id_cliente,          // ← ID verificado desde clientes
+                    nombre: fd.get('nombre').trim(),
+                    telefono: fd.get('telefono').trim(),
+                    correo: fd.get('correo').trim(),
+                    tipo_dispositivo: fd.get('tipo_dispositivo'),
+                    servicio_interes: fd.get('servicio') || null,
+                    descripcion: descripcionCompleta,
+                    fecha_preferida: fd.get('fecha'),
+                    hora_preferida: fd.get('hora')
+                }]);
+
+                btn.disabled = false;
+                btn.textContent = 'Confirmar cita';
+
+                if (error) {
+                    mostrarMensajeFormulario(caja, 'No se pudo agendar la cita: ' + error.message, false);
+                } else {
+                    mostrarMensajeFormulario(caja, '¡Cita agendada! Ya quedó registrada en tu cuenta.', true);
+
+                    // Botón para escribir directo por WhatsApp, con el mensaje ya redactado
+                    const nombreCliente = fd.get('nombre').trim();
+                    const fechaTexto = formatoFecha(fd.get('fecha'));
+                    const mensajeWpp = `Hola, soy ${nombreCliente}. Acabo de agendar una cita en DATA FIX para el ${fechaTexto} a las ${fd.get('hora')} (equipo: ${fd.get('tipo_dispositivo')}). Dirección para retirar el equipo: ${direccionRecoleccion}. Quisiera confirmar los detalles.`;
+                    const linkWpp = construirLinkWhatsApp(WHATSAPP_NEGOCIO, mensajeWpp);
+
+                    let botonWpp = document.getElementById('boton-whatsapp-cita');
+                    if (!botonWpp) {
+                        botonWpp = document.createElement('a');
+                        botonWpp.id = 'boton-whatsapp-cita';
+                        botonWpp.className = 'btn btn-primary btn-block mt-1';
+                        botonWpp.target = '_blank';
+                        caja.insertAdjacentElement('afterend', botonWpp);
+                    }
+                    botonWpp.href = linkWpp;
+                    botonWpp.innerHTML = '<i class="bi bi-whatsapp me-2"></i> Escríbenos por WhatsApp para coordinar más rápido';
+
+                    this.reset();
+                }
+            });
+        })();
+    </script>
 </body>
-</html>
+
+</html>

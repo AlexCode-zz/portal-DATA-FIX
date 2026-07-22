@@ -33,7 +33,7 @@
   --borde: rgba(226, 232, 240, 0.8);
   --radio: 16px;
 
-  /* Sombras y profundidad refinadas */
+  /* Sombras y profundidad refinadas (Modo Claro) */
   --neu-luz: rgba(255, 255, 255, 0.9);
   --neu-sombra: rgba(166, 180, 200, 0.45);
   --sombra-neu-sm: -3px -3px 7px var(--neu-luz), 3px 3px 7px var(--neu-sombra);
@@ -41,7 +41,6 @@
   --sombra-neu-md: -10px -10px 20px var(--neu-luz), 10px 10px 20px var(--neu-sombra);
   --sombra-neu-inset: inset 3px 3px 6px var(--neu-sombra), inset -3px -3px 6px var(--neu-luz);
 
-  /* Variantes oscuras */
   --neu-luz-osc: rgba(255, 255, 255, 0.07);
   --neu-sombra-osc: rgba(0, 0, 0, 0.4);
   --sombra-neu-osc: 4px 4px 12px var(--neu-sombra-osc);
@@ -54,6 +53,86 @@
   --font-cuerpo: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --trans: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Tema Oscuro ────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --navy: #0B101D;
+  --navy-700: #151C2E;
+  --azul: #3B82F6;
+  --azul-hover: #2563EB;
+  --azul-claro: rgba(59, 130, 246, 0.2);
+  --fondo: #0F172A;
+  --blanco: #1E293B;
+  --gris-100: #1E293B;
+  --gris-200: #334155;
+  --gris-300: #475569;
+  --gris-400: #94A3B8;
+  --gris-600: #CBD5E1;
+  --texto: #F8FAFC;
+  --texto-sec: #94A3B8;
+  --borde: rgba(255, 255, 255, 0.1);
+
+  --neu-luz: rgba(255, 255, 255, 0.04);
+  --neu-sombra: rgba(0, 0, 0, 0.5);
+  --sombra-neu-sm: 0 4px 10px rgba(0, 0, 0, 0.3);
+  --sombra-neu: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --sombra-neu-md: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --sombra-neu-inset: inset 2px 2px 6px rgba(0, 0, 0, 0.6), inset -2px -2px 6px rgba(255, 255, 255, 0.03);
+
+  --verde-claro: rgba(16, 185, 129, 0.2);
+  --rojo-claro: rgba(239, 68, 68, 0.2);
+  --naranja-claro: rgba(245, 158, 11, 0.2);
+}
+
+/* ── Clase genérica .caja ────────────────────────────────────────── */
+.caja {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 28px;
+  box-shadow: var(--sombra);
+  margin-bottom: 24px;
+  transition: background var(--trans), border-color var(--trans), box-shadow var(--trans);
+}
+
+.caja h3 {
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gris-200);
+  color: var(--texto);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Botón Conmutador de Tema ────────────────────────────────────── */
+.btn-theme-toggle {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all var(--trans);
+  padding: 0;
+}
+
+.btn-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] .btn-theme-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FACC15;
+  border-color: rgba(250, 204, 21, 0.3);
 }
 
 /* ── Reset ──────────────────────────────────────────────────────── */

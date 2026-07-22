@@ -20,7 +20,54 @@ const ESTADOS_FLUJO = [
     'Entregado'
 ];
 
+/* ═══════════════════════════════════════════════════════════════════
+   GESTIÓN DE TEMA (MODO CLARO / OSCURO)
+   ═══════════════════════════════════════════════════════════════════ */
+function obtenerTemaInicial() {
+    const temaGuardado = localStorage.getItem('theme');
+    if (temaGuardado) return temaGuardado;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function aplicarTema(tema) {
+    document.documentElement.setAttribute('data-theme', tema);
+    localStorage.setItem('theme', tema);
+    actualizarIconosTema(tema);
+}
+
+function actualizarIconosTema(tema) {
+    document.querySelectorAll('.btn-theme-toggle').forEach(btn => {
+        const icono = btn.querySelector('i');
+        if (icono) {
+            if (tema === 'dark') {
+                icono.className = 'bi bi-sun-fill';
+                btn.setAttribute('title', 'Cambiar a modo claro');
+                btn.setAttribute('aria-label', 'Cambiar a modo claro');
+            } else {
+                icono.className = 'bi bi-moon-stars-fill';
+                btn.setAttribute('title', 'Cambiar a modo oscuro');
+                btn.setAttribute('aria-label', 'Cambiar a modo oscuro');
+            }
+        }
+    });
+}
+
+// Aplicar tema de inmediato para evitar parpadeos
+aplicarTema(obtenerTemaInicial());
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    /* ---------- INITIALIZAR BOTONES DE TEMA ---------- */
+    const temaActual = document.documentElement.getAttribute('data-theme') || 'light';
+    actualizarIconosTema(temaActual);
+
+    document.querySelectorAll('.btn-theme-toggle').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const actual = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            const nuevo = actual === 'dark' ? 'light' : 'dark';
+            aplicarTema(nuevo);
+        });
+    });
 
     /* ---------- MENÚ RESPONSIVE — nuevo index (#btn-hamburger / #nav-menu) ---------- */
     const btnHamburger = document.getElementById('btn-hamburger');

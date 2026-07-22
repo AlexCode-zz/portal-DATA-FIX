@@ -11,10 +11,18 @@
 
 <nav class="navbar">
     <div class="contenedor">
-        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:400; color:var(--texto-sec); font-size:0.85rem;">/ Admin</span></a>
-        <ul class="navbar-menu" style="display:flex;">
-            <li><span style="font-size:0.88rem; color:var(--texto-sec);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
-            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:500; color:rgba(255,255,255,.45); font-size:0.8rem; letter-spacing:.04em">/ ADMIN</span></a>
+        <ul class="nav-menu" style="display:flex; align-items:center; gap:12px;">
+            <li>
+                <button class="btn-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+                    <i class="bi bi-moon-stars-fill"></i>
+                </button>
+            </li>
+            <li style="display:flex; align-items:center; gap:8px;">
+                <span class="avatar-inicial" id="iniciales-admin-actual">--</span>
+                <span style="font-size:.88rem; color:rgba(255,255,255,.8);" id="nombre-admin-actual">Cargando...</span>
+            </li>
+            <li><a href="#" id="link-logout-admin" style="color:rgba(255,255,255,.65);">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
