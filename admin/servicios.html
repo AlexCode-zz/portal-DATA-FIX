@@ -11,10 +11,13 @@
 
 <nav class="navbar">
     <div class="contenedor">
-        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:400; color:var(--gris-400); font-size:0.85rem;">/ Admin</span></a>
-        <ul class="navbar-menu" style="display:flex;">
-            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
-            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:500; color:rgba(255,255,255,.45); font-size:0.8rem; letter-spacing:.04em">/ ADMIN</span></a>
+        <ul class="nav-menu" style="display:flex;">
+            <li style="display:flex; align-items:center; gap:8px;">
+                <span class="avatar-inicial" id="iniciales-admin-actual">--</span>
+                <span style="font-size:.88rem; color:rgba(255,255,255,.8);" id="nombre-admin-actual">Cargando...</span>
+            </li>
+            <li><a href="#" id="link-logout-admin" style="color:rgba(255,255,255,.65);">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
@@ -22,59 +25,62 @@
 <div class="layout-admin">
     <aside class="sidebar">
         <span class="grupo-titulo">Gestión</span>
-        <a href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-        <a href="clientes.html"><i class="bi bi-people me-2"></i> Clientes</a>
-        <a href="dispositivos.html"><i class="bi bi-laptop me-2"></i> Dispositivos</a>
-        <a href="servicios.html" class="activo"><i class="bi bi-tools me-2"></i> Servicios</a>
-        <a href="reparaciones.html"><i class="bi bi-wrench me-2"></i> Reparaciones</a>
-        <a href="citas.html"><i class="bi bi-calendar-event me-2"></i> Citas</a>
+        <a href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="clientes.html"><i class="bi bi-people"></i> Clientes</a>
+        <a href="dispositivos.html"><i class="bi bi-laptop"></i> Dispositivos</a>
+        <a href="servicios.html" class="activo"><i class="bi bi-tools"></i> Servicios</a>
+        <a href="reparaciones.html"><i class="bi bi-wrench"></i> Reparaciones</a>
+        <a href="citas.html"><i class="bi bi-calendar-event"></i> Citas</a>
         <a href="reportes.html"><i class="bi bi-bar-chart-line"></i> Reportes</a>
     </aside>
 
     <main class="contenido-admin">
-        <h1>Gestión de Servicios</h1>
-        <p class="descripcion-pagina">Administra el catálogo de servicios del taller</p>
+        <h1>Catálogo de Servicios</h1>
+        <p class="descripcion-pagina">Administra los servicios técnicos que ofrece el taller.</p>
 
+        <!-- Formulario de nuevo servicio -->
         <div class="caja">
-            <h3><i class="bi bi-folder-plus me-2"></i> Nuevo servicio</h3>
+            <h3><i class="bi bi-folder-plus text-primary"></i> Nuevo servicio</h3>
             <div class="alerta mensaje-formulario" style="display:none;"></div>
             <form id="form-crear-servicio">
                 <div class="campo">
-                    <label>Nombre del servicio</label>
-                    <input type="text" name="nombre" required>
+                    <label for="serv-nombre">Nombre del servicio</label>
+                    <input type="text" id="serv-nombre" name="nombre" placeholder="Ej: Eliminación de virus y malware" required>
                 </div>
                 <div class="campo">
-                    <label>Descripción</label>
-                    <textarea name="descripcion"></textarea>
+                    <label for="serv-descripcion">Descripción</label>
+                    <textarea id="serv-descripcion" name="descripcion" placeholder="Describe en qué consiste el servicio..."></textarea>
                 </div>
                 <div class="campo-fila">
                     <div class="campo">
-                        <label>Precio (USD)</label>
-                        <input type="number" name="precio" min="0" step="0.01" required>
+                        <label for="serv-precio">Precio base (MXN)</label>
+                        <input type="number" id="serv-precio" name="precio" min="0" step="0.01" placeholder="0.00" required>
                     </div>
                     <div class="campo">
-                        <label>Tipo</label>
-                        <select name="tipo">
-                            <option>ciberseguridad</option>
-                            <option>hardware</option>
-                            <option>software</option>
-                            <option>mantenimiento</option>
-                            <option>otro</option>
+                        <label for="serv-tipo">Categoría</label>
+                        <select id="serv-tipo" name="tipo">
+                            <option value="ciberseguridad">Ciberseguridad</option>
+                            <option value="hardware">Hardware</option>
+                            <option value="software">Software</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                            <option value="otro">Otro</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-1">Crear servicio</button>
+                <button type="submit" class="btn btn-primario mt-1"><i class="bi bi-plus-lg me-1"></i> Crear servicio</button>
             </form>
         </div>
 
-        <h3 style="font-family:var(--fuente-display); color:var(--tinta); font-size:1.05rem; margin-bottom:16px;">Catálogo actual</h3>
+        <!-- Catálogo existente -->
+        <div class="barra-superior-admin">
+            <h3><i class="bi bi-grid me-2 text-primary"></i>Catálogo actual</h3>
+        </div>
 
-        <div class="grid" id="grid-servicios-admin">
-            <!-- Se llena dinámicamente -->
+        <div class="grilla-servicios" id="grid-servicios-admin">
+            <!-- Dinámico -->
         </div>
     </main>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>

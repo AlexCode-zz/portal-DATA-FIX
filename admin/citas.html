@@ -11,10 +11,13 @@
 
 <nav class="navbar">
     <div class="contenedor">
-        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:400; color:var(--gris-400); font-size:0.85rem;">/ Admin</span></a>
-        <ul class="navbar-menu" style="display:flex;">
-            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
-            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:500; color:rgba(255,255,255,.45); font-size:0.8rem; letter-spacing:.04em">/ ADMIN</span></a>
+        <ul class="nav-menu" style="display:flex;">
+            <li style="display:flex; align-items:center; gap:8px;">
+                <span class="avatar-inicial" id="iniciales-admin-actual">--</span>
+                <span style="font-size:.88rem; color:rgba(255,255,255,.8);" id="nombre-admin-actual">Cargando...</span>
+            </li>
+            <li><a href="#" id="link-logout-admin" style="color:rgba(255,255,255,.65);">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
@@ -22,18 +25,18 @@
 <div class="layout-admin">
     <aside class="sidebar">
         <span class="grupo-titulo">Gestión</span>
-        <a href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-        <a href="clientes.html"><i class="bi bi-people me-2"></i> Clientes</a>
-        <a href="dispositivos.html"><i class="bi bi-laptop me-2"></i> Dispositivos</a>
-        <a href="servicios.html"><i class="bi bi-tools me-2"></i> Servicios</a>
-        <a href="reparaciones.html"><i class="bi bi-wrench me-2"></i> Reparaciones</a>
-        <a href="citas.html" class="activo"><i class="bi bi-calendar-event me-2"></i> Citas</a>
+        <a href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="clientes.html"><i class="bi bi-people"></i> Clientes</a>
+        <a href="dispositivos.html"><i class="bi bi-laptop"></i> Dispositivos</a>
+        <a href="servicios.html"><i class="bi bi-tools"></i> Servicios</a>
+        <a href="reparaciones.html"><i class="bi bi-wrench"></i> Reparaciones</a>
+        <a href="citas.html" class="activo"><i class="bi bi-calendar-event"></i> Citas</a>
         <a href="reportes.html"><i class="bi bi-bar-chart-line"></i> Reportes</a>
     </aside>
 
     <main class="contenido-admin">
-        <h1>Citas agendadas</h1>
-        <p class="descripcion-pagina">Solicitudes de cita hechas por clientes desde el portal</p>
+        <h1>Citas Agendadas</h1>
+        <p class="descripcion-pagina">Solicitudes de cita enviadas por clientes a través del portal.</p>
 
         <div class="barra-superior-admin">
             <div class="tabs" style="border:none; margin-bottom:0;">
@@ -44,11 +47,12 @@
                 <button class="tab-btn" data-filtro-estado="Cancelada">Canceladas</button>
             </div>
             <div class="buscador-admin">
-                <i class="bi bi-search text-muted me-2"></i><input type="text" id="buscador-citas" placeholder="Buscar por nombre o correo...">
+                <i class="bi bi-search"></i>
+                <input type="text" id="buscador-citas" placeholder="Buscar por nombre o correo...">
             </div>
         </div>
 
-        <div class="tabla-wrapper">
+        <div class="tabla-wrapper" style="margin-top:16px;">
             <table>
                 <thead>
                     <tr>
@@ -61,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody id="tabla-citas">
-                    <!-- Se llena dinámicamente -->
+                    <!-- Dinámico -->
                 </tbody>
             </table>
         </div>

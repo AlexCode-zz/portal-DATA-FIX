@@ -11,10 +11,13 @@
 
 <nav class="navbar">
     <div class="contenedor">
-        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:400; color:var(--gris-400); font-size:0.85rem;">/ Admin</span></a>
-        <ul class="navbar-menu" style="display:flex;">
-            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
-            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:500; color:rgba(255,255,255,.45); font-size:0.8rem; letter-spacing:.04em">/ ADMIN</span></a>
+        <ul class="nav-menu" style="display:flex;">
+            <li style="display:flex; align-items:center; gap:8px;">
+                <span class="avatar-inicial" id="iniciales-admin-actual">--</span>
+                <span style="font-size:.88rem; color:rgba(255,255,255,.8);" id="nombre-admin-actual">Cargando...</span>
+            </li>
+            <li><a href="#" id="link-logout-admin" style="color:rgba(255,255,255,.65);">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
@@ -22,43 +25,44 @@
 <div class="layout-admin">
     <aside class="sidebar">
         <span class="grupo-titulo">Gestión</span>
-        <a href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-        <a href="clientes.html"><i class="bi bi-people me-2"></i> Clientes</a>
-        <a href="dispositivos.html" class="activo"><i class="bi bi-laptop me-2"></i> Dispositivos</a>
-        <a href="servicios.html"><i class="bi bi-tools me-2"></i> Servicios</a>
-        <a href="reparaciones.html"><i class="bi bi-wrench me-2"></i> Reparaciones</a>
-        <a href="citas.html"><i class="bi bi-calendar-event me-2"></i> Citas</a>
+        <a href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="clientes.html"><i class="bi bi-people"></i> Clientes</a>
+        <a href="dispositivos.html" class="activo"><i class="bi bi-laptop"></i> Dispositivos</a>
+        <a href="servicios.html"><i class="bi bi-tools"></i> Servicios</a>
+        <a href="reparaciones.html"><i class="bi bi-wrench"></i> Reparaciones</a>
+        <a href="citas.html"><i class="bi bi-calendar-event"></i> Citas</a>
         <a href="reportes.html"><i class="bi bi-bar-chart-line"></i> Reportes</a>
     </aside>
 
     <main class="contenido-admin">
         <h1>Gestión de Dispositivos</h1>
-        <p class="descripcion-pagina">Registra dispositivos y cambia su estado (cambio visual, sin lógica real todavía)</p>
+        <p class="descripcion-pagina">Registra equipos de clientes, asigna tickets y gestiona el estado de reparación.</p>
 
+        <!-- Formulario de registro de dispositivo -->
         <div class="caja">
-            <h3><i class="bi bi-laptop me-2"></i> Registrar nuevo dispositivo</h3>
+            <h3><i class="bi bi-laptop text-primary"></i> Registrar nuevo dispositivo</h3>
             <div class="alerta mensaje-formulario" style="display:none;"></div>
             <form id="form-crear-dispositivo">
-               <div class="campo-fila">
-                 <div class="campo">
-                     <label>Cliente</label>
-                       <select name="cliente" id="select-cliente-dispositivo" required>
-                        <option value="">-- Selecciona un cliente --</option>
-                  </select>
-             </div>
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label>Cliente</label>
+                        <select name="cliente" id="select-cliente-dispositivo" required>
+                            <option value="">— Selecciona un cliente —</option>
+                        </select>
+                    </div>
                     <div class="campo">
                         <label>Tipo de dispositivo</label>
-                        <input type="text" name="tipo" placeholder="Laptop, PC, Celular..." required>
+                        <input type="text" name="tipo" placeholder="Laptop, PC, Celular, Tablet..." required>
                     </div>
                 </div>
                 <div class="campo-fila">
                     <div class="campo">
                         <label>Marca</label>
-                        <input type="text" name="marca">
+                        <input type="text" name="marca" placeholder="HP, Apple, Samsung...">
                     </div>
                     <div class="campo">
                         <label>Modelo</label>
-                        <input type="text" name="modelo">
+                        <input type="text" name="modelo" placeholder="Ej: MacBook Pro 2021">
                     </div>
                 </div>
                 <div class="campo-fila">
@@ -73,16 +77,18 @@
                 </div>
                 <div class="campo">
                     <label>Descripción del problema</label>
-                    <textarea name="problema" placeholder="Describe la falla reportada..."></textarea>
+                    <textarea name="problema" placeholder="Describe la falla reportada por el cliente..."></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary mt-1">Registrar dispositivo</button>
+                <button type="submit" class="btn btn-primario mt-1"><i class="bi bi-plus-lg me-1"></i> Registrar dispositivo</button>
             </form>
         </div>
 
+        <!-- Tabla de dispositivos -->
         <div class="barra-superior-admin">
-            <h3 style="font-family:var(--fuente-display); color:var(--tinta); font-size:1.05rem;">Dispositivos registrados</h3>
+            <h3><i class="bi bi-laptop me-2 text-primary"></i>Dispositivos registrados</h3>
             <div class="buscador-admin">
-                <i class="bi bi-search text-muted me-2"></i><input type="text" id="buscador-dispositivos" placeholder="Buscar por ticket o cliente...">
+                <i class="bi bi-search"></i>
+                <input type="text" id="buscador-dispositivos" placeholder="Buscar por ticket o cliente...">
             </div>
         </div>
 
@@ -100,13 +106,12 @@
                     </tr>
                 </thead>
                 <tbody id="tabla-dispositivos-admin">
-                    <!-- Se llena dinámicamente -->
+                    <!-- Dinámico -->
                 </tbody>
             </table>
         </div>
     </main>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>

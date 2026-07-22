@@ -11,10 +11,13 @@
 
 <nav class="navbar">
     <div class="contenedor">
-        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:400; color:var(--gris-400); font-size:0.85rem;">/ Admin</span></a>
-        <ul class="navbar-menu" style="display:flex;">
-            <li><span style="font-size:0.88rem; color:var(--pizarra);"><span class="avatar-inicial" id="iniciales-admin-actual">--</span><span id="nombre-admin-actual">Cargando...</span></span></li>
-            <li><a href="#" id="link-logout-admin">Cerrar sesión</a></li>
+        <a href="dashboard.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:500; color:rgba(255,255,255,.45); font-size:0.8rem; letter-spacing:.04em">/ ADMIN</span></a>
+        <ul class="nav-menu" style="display:flex;">
+            <li style="display:flex; align-items:center; gap:8px;">
+                <span class="avatar-inicial" id="iniciales-admin-actual">--</span>
+                <span style="font-size:.88rem; color:rgba(255,255,255,.8);" id="nombre-admin-actual">Cargando...</span>
+            </li>
+            <li><a href="#" id="link-logout-admin" style="color:rgba(255,255,255,.65);">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
@@ -22,49 +25,52 @@
 <div class="layout-admin">
     <aside class="sidebar">
         <span class="grupo-titulo">Gestión</span>
-        <a href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-        <a href="clientes.html"><i class="bi bi-people me-2"></i> Clientes</a>
-        <a href="dispositivos.html"><i class="bi bi-laptop me-2"></i> Dispositivos</a>
-        <a href="servicios.html"><i class="bi bi-tools me-2"></i> Servicios</a>
-        <a href="reparaciones.html" class="activo"><i class="bi bi-wrench me-2"></i> Reparaciones</a>
-        <a href="citas.html"><i class="bi bi-calendar-event me-2"></i> Citas</a>
+        <a href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="clientes.html"><i class="bi bi-people"></i> Clientes</a>
+        <a href="dispositivos.html"><i class="bi bi-laptop"></i> Dispositivos</a>
+        <a href="servicios.html"><i class="bi bi-tools"></i> Servicios</a>
+        <a href="reparaciones.html" class="activo"><i class="bi bi-wrench"></i> Reparaciones</a>
+        <a href="citas.html"><i class="bi bi-calendar-event"></i> Citas</a>
         <a href="reportes.html"><i class="bi bi-bar-chart-line"></i> Reportes</a>
     </aside>
 
     <main class="contenido-admin">
         <h1>Gestión de Reparaciones</h1>
-        <p class="descripcion-pagina">Asigna servicios a los dispositivos y cambia su estado</p>
+        <p class="descripcion-pagina">Asigna servicios técnicos a los dispositivos y actualiza su progreso.</p>
 
+        <!-- Formulario de asignación -->
         <div class="caja">
-            <h3><i class="bi bi-link-45deg me-2"></i> Asignar servicio a un dispositivo</h3>
+            <h3><i class="bi bi-link-45deg text-primary"></i> Asignar servicio a un dispositivo</h3>
             <div class="alerta mensaje-formulario" style="display:none;"></div>
             <form id="form-crear-reparacion">
-               <div class="campo-fila">
-                  <div class="campo">
-               <label>Dispositivo (ticket)</label>
-                    <select name="dispositivo" id="select-dispositivo-reparacion" required>
-                        <option value="">-- Selecciona un dispositivo --</option>
-                     </select>
-                  </div>
-                  <div class="campo">
-                       <label>Servicio</label>
-                       <select name="servicio" id="select-servicio-reparacion" required>
-                           <option value="">-- Selecciona un servicio --</option>
-                      </select>
-                   </div>
-                 </div>
-                <div class="campo">
-                    <label>Observaciones</label>
-                    <textarea name="observaciones" placeholder="Notas internas sobre el trabajo realizado..."></textarea>
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label>Dispositivo (ticket)</label>
+                        <select name="dispositivo" id="select-dispositivo-reparacion" required>
+                            <option value="">— Selecciona un dispositivo —</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label>Servicio a realizar</label>
+                        <select name="servicio" id="select-servicio-reparacion" required>
+                            <option value="">— Selecciona un servicio —</option>
+                        </select>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-1">Asignar servicio</button>
+                <div class="campo">
+                    <label>Observaciones internas</label>
+                    <textarea name="observaciones" placeholder="Notas sobre el trabajo realizado, piezas usadas, etc."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primario mt-1"><i class="bi bi-check-lg me-1"></i> Asignar servicio</button>
             </form>
         </div>
 
+        <!-- Tabla de reparaciones -->
         <div class="barra-superior-admin">
-            <h3 style="font-family:var(--fuente-display); color:var(--tinta); font-size:1.05rem;">Historial de reparaciones</h3>
+            <h3><i class="bi bi-wrench me-2 text-primary"></i>Historial de reparaciones</h3>
             <div class="buscador-admin">
-                <i class="bi bi-search text-muted me-2"></i><input type="text" id="buscador-reparaciones" placeholder="Buscar por ticket o cliente...">
+                <i class="bi bi-search"></i>
+                <input type="text" id="buscador-reparaciones" placeholder="Buscar por ticket o cliente...">
             </div>
         </div>
 
@@ -82,13 +88,12 @@
                     </tr>
                 </thead>
                 <tbody id="tabla-reparaciones">
-                    <!-- Se llena dinámicamente -->
+                    <!-- Dinámico -->
                 </tbody>
             </table>
         </div>
     </main>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>

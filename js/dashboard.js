@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <div class="ticket-fila"><span class="etq">Entrega estimada</span><span class="val">${formatoFecha(d.fecha_entrega_estimada)}</span></div>
                 </div>
                 <div class="ticket-acciones">
-                    <a href="dispositivo-detalle.html?id=${d.id_dispositivo}" class="btn btn-secondary btn-sm btn-block">Ver detalle completo <i class="bi bi-arrow-right ms-1"></i></a>
+                    <a href="dispositivo-detalle.html?id=${d.id_dispositivo}" class="btn btn-secundario btn-sm btn-block" style="width:100%">Ver detalle completo <i class="bi bi-arrow-right ms-1"></i></a>
                 </div>
             </div>
         `).join('');
