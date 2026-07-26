@@ -2797,7 +2797,7 @@ table tr:hover td {
 .precio {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--navy);
+  color: white(--navy);
 }
 
 /* ── Caja genérica ──────────────────────────────────────────────── */

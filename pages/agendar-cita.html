@@ -220,6 +220,20 @@
             const cajaNecesitaCuenta = document.getElementById('caja-necesita-cuenta');
             const cajaFormulario = document.getElementById('caja-formulario-cita');
 
+            // Si venimos desde una tarjeta de servicio en el index (?servicio=...),
+            // preseleccionamos ese servicio en el formulario.
+            const parametros = new URLSearchParams(window.location.search);
+            const servicioPreseleccionado = parametros.get('servicio');
+            if (servicioPreseleccionado) {
+                const selectServicio = document.getElementById('servicio');
+                if (selectServicio) {
+                    const opcion = Array.from(selectServicio.options)
+                        .find(op => op.textContent.trim() === servicioPreseleccionado.trim());
+                    if (opcion) selectServicio.value = opcion.value;
+                }
+            }
+
+
             /* ── MAPA INTERACTIVO DE RECOLECCIÓN ── */
             let mapaRecoleccion, marcadorRecoleccion;
             const latInicial = 13.7224;

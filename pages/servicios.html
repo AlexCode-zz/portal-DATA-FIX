@@ -44,7 +44,6 @@
 
         <div class="tabs" id="filtro-tipos">
             <button class="tab-btn activo" data-filtro="todos">Todos</button>
-            <button class="tab-btn" data-filtro="ciberseguridad">Ciberseguridad</button>
             <button class="tab-btn" data-filtro="hardware">Hardware</button>
             <button class="tab-btn" data-filtro="software">Software</button>
             <button class="tab-btn" data-filtro="mantenimiento">Mantenimiento</button>
@@ -74,7 +73,6 @@
 
     // Como la tabla "servicios" no guarda un emoji, lo elegimos según el tipo
     const ICONO_POR_TIPO = {
-        ciberseguridad: '<i class="bi bi-shield-check"></i>',
         hardware: '<i class="bi bi-cpu"></i>',
         software: '<i class="bi bi-floppy"></i>',
         mantenimiento: '<i class="bi bi-brush"></i>',
@@ -85,7 +83,7 @@
         {
             nombre_servicio: "Implementación de medidas de ciberseguridad",
             descripcion: "Servicio orientado a la protección preventiva de entornos informáticos en Windows. Comprende la configuración de defensas digitales, auditoría de puertos, protección de red y ajuste de parámetros de privacidad para resguardar la integridad de los datos frente a accesos no autorizados.",
-            tipo: "ciberseguridad",
+            tipo: "software",
             precio: 40.00
         },
         {
@@ -162,7 +160,7 @@
         }
 
         listaServicios.innerHTML = items.map(s => `
-            <div class="tarjeta-servicio">
+            <div class="tarjeta-servicio visible">
                 <div class="icono-servicio">${ICONO_POR_TIPO[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
                 <span class="etiqueta-tipo">${s.tipo}</span>
                 <h3>${s.nombre_servicio}</h3>
@@ -187,4 +185,3 @@
 </script>
 </body>
 </html>
-

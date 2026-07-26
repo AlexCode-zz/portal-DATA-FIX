@@ -12,7 +12,7 @@ INSERT INTO servicios (nombre_servicio, descripcion, precio, tipo, activo) VALUE
     'Implementación de medidas de ciberseguridad',
     'Servicio orientado a la protección preventiva de entornos informáticos en Windows. Comprende la configuración de defensas digitales, auditoría de puertos, protección de red y ajuste de parámetros de privacidad para resguardar la integridad de los datos frente a accesos no autorizados.',
     40.00,
-    'ciberseguridad',
+    'software',
     true
 ),
 (
