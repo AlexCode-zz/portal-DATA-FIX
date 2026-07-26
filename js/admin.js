@@ -400,15 +400,23 @@ document.addEventListener('DOMContentLoaded', function () {
     if (gridServiciosAdmin) {
 
         async function renderServiciosAdmin() {
-            const { data, error } = await supabaseClient.from('servicios').select('*').order('tipo');
+            gridServiciosAdmin.innerHTML = `<p class="vacio" style="opacity:.6;"><i class="bi bi-arrow-repeat" style="animation:spin 1s linear infinite; display:inline-block; margin-right:6px;"></i>Cargando servicios...</p>`;
+
+            const { data, error } = await supabaseClient
+                .from('servicios')
+                .select('id_servicio, nombre_servicio, descripcion, precio, tipo, activo')
+                .order('tipo')
+                .order('nombre_servicio');
+
+            console.log('[Servicios Admin] data:', data, '| error:', error);
 
             if (error) {
-                gridServiciosAdmin.innerHTML = `<p class="vacio">Error: ${error.message}</p>`;
+                gridServiciosAdmin.innerHTML = `<p class="vacio"><i class="bi bi-exclamation-triangle me-2"></i>Error al cargar: ${error.message}</p>`;
                 return;
             }
 
             if (!data || data.length === 0) {
-                gridServiciosAdmin.innerHTML = `<p class="vacio">Aún no hay servicios registrados.</p>`;
+                gridServiciosAdmin.innerHTML = `<p class="vacio">Aún no hay servicios registrados. Crea el primero con el formulario de arriba.</p>`;
                 return;
             }
 
@@ -421,9 +429,9 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             gridServiciosAdmin.innerHTML = data.map(s => `
-                <div class="tarjeta-servicio">
+                <div class="tarjeta-servicio visible${s.activo === false ? ' servicio-inactivo' : ''}">
                     <div class="icono-servicio">${ICONOS[s.tipo] || '<i class="bi bi-tools"></i>'}</div>
-                    <span class="etiqueta-tipo">${s.tipo}${s.activo ? '' : ' · inactivo'}</span>
+                    <span class="etiqueta-tipo">${s.tipo}${s.activo === false ? ' · inactivo' : ''}</span>
                     <h3>${s.nombre_servicio}</h3>
                     <p>${s.descripcion ?? ''}</p>
                     <div class="pie-servicio">
@@ -446,10 +454,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const fd = new FormData(formCrearServicio);
 
                 const { error } = await supabaseClient.from('servicios').insert([{
-                    nombre_servicio: fd.get('nombre'),
-                    descripcion: fd.get('descripcion'),
+                    nombre_servicio: fd.get('nombre').trim(),
+                    descripcion: fd.get('descripcion').trim(),
                     precio: parseFloat(fd.get('precio')),
-                    tipo: fd.get('tipo')
+                    tipo: fd.get('tipo'),
+                    activo: true
                 }]);
 
                 mostrarMensaje(caja, error ? error.message : 'Servicio creado correctamente.', !error);
