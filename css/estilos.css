@@ -3842,3 +3842,196 @@ footer p {
     max-width: 100%;
   }
 }
+/* ═══ CALENDARIO (Dispositivos / Reparaciones) ═══════════════════════ */
+.calendario-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.calendario-nav-controles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendario-etiqueta-mes {
+  font-family: var(--font-titulo);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--texto);
+  min-width: 170px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.btn-nav-calendario {
+  background: var(--neu-base);
+  border: none;
+  color: var(--texto);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  box-shadow: var(--sombra-neu-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow var(--trans);
+}
+.btn-nav-calendario:hover { box-shadow: var(--sombra-neu); }
+
+.leyenda-calendario {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: .82rem;
+  color: var(--texto-sec);
+}
+.leyenda-calendario .punto-leyenda {
+  width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 6px;
+}
+
+.calendario-cabecera {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.calendario-dia-nombre {
+  text-align: center;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--texto-sec);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding-bottom: 6px;
+}
+
+.calendario-cuerpo {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.dia-celda {
+  background: var(--neu-base);
+  border-radius: 12px;
+  box-shadow: var(--sombra-neu-inset);
+  min-height: 92px;
+  padding: 8px;
+  cursor: pointer;
+  transition: box-shadow var(--trans), transform var(--trans);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dia-celda:hover {
+  box-shadow: var(--sombra-neu);
+  transform: translateY(-1px);
+}
+.dia-celda.dia-fuera-mes {
+  opacity: .35;
+  cursor: default;
+  box-shadow: none;
+}
+.dia-celda.dia-fuera-mes:hover { transform: none; box-shadow: none; }
+.dia-celda.dia-hoy {
+  box-shadow: 0 0 0 2px var(--azul) inset, var(--sombra-neu-inset);
+}
+.dia-celda.dia-con-eventos { box-shadow: var(--sombra-neu); }
+
+.dia-numero {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.dia-eventos {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.evento-etiqueta {
+  font-size: .68rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  white-space: nowrap;
+}
+.evento-etiqueta .punto {
+  width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+}
+
+.evento-ingreso { background: var(--azul-claro); color: var(--azul-hover); }
+.evento-ingreso .punto { background: var(--azul); }
+
+.evento-entrega { background: var(--verde-claro); color: #14663F; }
+.evento-entrega .punto { background: var(--verde); }
+
+.evento-reparacion { background: #F3E8FF; color: #6B21A8; }
+.evento-reparacion .punto { background: #9333EA; }
+
+.fila-evento-modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gris-300);
+  flex-wrap: wrap;
+}
+.fila-evento-modal:last-child { border-bottom: none; }
+
+.modal-dia-subtitulo {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--texto-sec);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  margin: 16px 0 4px;
+}
+.modal-dia-subtitulo:first-child { margin-top: 0; }
+
+.modal-cerrar-btn {
+  background: none;
+  border: none;
+  color: var(--texto-sec);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.modal-cerrar-btn:hover { color: var(--texto); }
+
+.modal-contenido-calendario {
+  max-width: 560px;
+}
+
+.modal-header-calendario {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gris-300);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+.modal-header-calendario h2 { border: none; margin: 0; padding: 0; }
+
+@media (max-width: 768px) {
+  .dia-celda { min-height: 64px; padding: 6px; }
+  .dia-numero { font-size: .75rem; }
+  .evento-etiqueta { font-size: 0; padding: 0; width: 8px; height: 8px; border-radius: 50%; }
+  .evento-etiqueta .punto { margin: 0; }
+  .calendario-etiqueta-mes { min-width: auto; font-size: 1rem; }
+  .calendario-nav { gap: 10px; }
+}

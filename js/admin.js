@@ -335,9 +335,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     const estadoAnterior = this.dataset.estadoAnterior;
                     const estadoNuevo = this.value;
 
+                    // Cuando el dispositivo pasa a "Entregado" registramos la fecha real
+                    // de entrega (hoy); si se revierte a otro estado, la limpiamos para
+                    // que no quede una fecha de entrega "fantasma".
+                    const datosActualizar = { estado: estadoNuevo };
+                    if (estadoNuevo === 'Entregado') {
+                        const hoy = new Date();
+                        const hoyISO = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+                        datosActualizar.fecha_entrega_real = hoyISO;
+                    } else {
+                        datosActualizar.fecha_entrega_real = null;
+                    }
+
                     const { error: errorUpdate } = await supabaseClient
                         .from('dispositivos')
-                        .update({ estado: estadoNuevo })
+                        .update(datosActualizar)
                         .eq('id_dispositivo', idDispositivo);
 
                     if (errorUpdate) {
