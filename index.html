@@ -56,7 +56,7 @@
 
     <!-- HÉROE -->
     <section class="hero">
-        <div class="contenedor">
+        <div class="contenedor hero-grid">
             <div class="hero-contenido">
                 <span class="hero-badge">⚡ Diagnóstico gratuito</span>
                 <h1>Reparamos tu <span>equipo</span> con garantía real</h1>
@@ -71,6 +71,7 @@
                     <a href="pages/agendar-cita.html" class="btn btn-secundario">Agendar cita</a>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -83,44 +84,116 @@
 
             <div class="grilla-servicios" id="grilla-servicios">
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">🛡️</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-primary"><i class="bi bi-shield-check"></i></div>
+                        <span class="pastilla-categoria">Seguridad</span>
+                    </div>
                     <h3>Implementación de medidas de ciberseguridad</h3>
-                    <p>Servicio orientado a la protección preventiva de entornos informáticos en Windows. Comprende la configuración de defensas digitales, auditoría de puertos, protección de red y ajuste de parámetros de privacidad para resguardar la integridad de los datos frente a accesos no autorizados.</p>
+                    <p class="tarjeta-servicio-tagline">Blindamos tu equipo frente a accesos no autorizados.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Configuración de firewall y defensas</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Auditoría de puertos y accesos</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Ajuste de privacidad en Windows</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">📱</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-info"><i class="bi bi-phone"></i></div>
+                        <span class="pastilla-categoria">Móviles</span>
+                    </div>
                     <h3>Respaldo y recuperación de información en dispositivos móviles</h3>
-                    <p>Solución técnica enfocada en la preservación de activos digitales en celulares utilizando el software especializado Dr.Fone Todo en Uno. Incluye la extracción, copia de seguridad y restauración de fotografías, contactos y documentos importantes en situaciones de fallo del sistema, cambio de dispositivo o pérdida accidental de datos.</p>
+                    <p class="tarjeta-servicio-tagline">Tus fotos, contactos y archivos, a salvo pase lo que pase.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Copia de seguridad completa</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Restauración de fotos y contactos</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Software especializado Dr.Fone</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">🔓</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-primary"><i class="bi bi-unlock"></i></div>
+                        <span class="pastilla-categoria">Seguridad</span>
+                    </div>
                     <h3>Recuperación de contraseñas y accesos bloqueados</h3>
-                    <p>Asistencia técnica especializada en teléfonos y dispositivos móviles mediante el uso de Dr.Fone. Abarca el restablecimiento de accesos, remoción de patrones, PINs, contraseñas de pantalla y bypass de protección FRP (Factory Reset Protection / bloqueo de cuenta Google), garantizando siempre la verificación previa de la legítima propiedad del equipo.</p>
+                    <p class="tarjeta-servicio-tagline">Recupera el acceso a tu teléfono de forma segura.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Remoción de patrones y PINs</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Bypass de bloqueo FRP</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Verificación de propiedad legítima</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">💻</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-warning"><i class="bi bi-cpu"></i></div>
+                        <span class="pastilla-categoria">Software</span>
+                    </div>
                     <h3>Diagnóstico y resolución de fallas de software</h3>
-                    <p>Análisis detallado para identificar y corregir errores en el sistema operativo Windows. Abarca la solución de conflictos de controladores, reparación de archivos dañados del sistema y corrección de bloqueos o cierres inesperados de aplicaciones.</p>
+                    <p class="tarjeta-servicio-tagline">Tu Windows, funcionando como el primer día.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Reparación de controladores</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Corrección de archivos dañados</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Fin a bloqueos y cierres inesperados</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">🦠</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-danger"><i class="bi bi-bug"></i></div>
+                        <span class="pastilla-categoria">Software</span>
+                    </div>
                     <h3>Eliminación de virus, malware y programas no deseados</h3>
-                    <p>Limpieza lógica profunda orientada a detectar y desinfectar archivos maliciosos, spyware y programas secundarios no deseados. Incluye la instalación y configuración de Norton Premium para proporcionar protección activa en tiempo real contra amenazas digitales.</p>
+                    <p class="tarjeta-servicio-tagline">Limpieza profunda contra amenazas digitales.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Detección de spyware y malware</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Instalación de Norton Premium</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Protección activa en tiempo real</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">⚡</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-warning"><i class="bi bi-speedometer2"></i></div>
+                        <span class="pastilla-categoria">Software</span>
+                    </div>
                     <h3>Optimización del rendimiento del equipo</h3>
-                    <p>Acondicionamiento del sistema operativo para maximizar la velocidad de respuesta del computador. Incluye la aceleración del tiempo de arranque, limpieza de archivos temporales acumulados y depuración del registro de Windows.</p>
+                    <p class="tarjeta-servicio-tagline">Más velocidad, menos espera.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Aceleración del tiempo de arranque</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Limpieza de archivos temporales</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Depuración del registro de Windows</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">🔍</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-success"><i class="bi bi-tools"></i></div>
+                        <span class="pastilla-categoria">Mantenimiento</span>
+                    </div>
                     <h3>Mantenimiento preventivo</h3>
-                    <p>Revisión técnica periódica diseñada para anticipar fallas operativas. Contempla la comprobación del estado de salud del almacenamiento (disco duro/SSD), revisión general de componentes internos y verificación del rendimiento global del sistema.</p>
+                    <p class="tarjeta-servicio-tagline">Detectamos fallas antes de que aparezcan.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Revisión de salud del disco/SSD</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Chequeo de componentes internos</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Verificación del rendimiento global</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="tarjeta-servicio">
-                    <span class="servicio-icono">🧹</span>
+                    <div class="tarjeta-servicio-top">
+                        <div class="icono-servicio text-success"><i class="bi bi-brush"></i></div>
+                        <span class="pastilla-categoria">Mantenimiento</span>
+                    </div>
                     <h3>Limpieza interna y externa</h3>
-                    <p>Mantenimiento físico integral del hardware mediante el uso de herramientas e insumos especializados. Incluye la remoción de polvo interno con sopladora eléctrica RONIX, reemplazo de pasta térmica de alto rendimiento ARCTIC MX-4 y desinfección/limpieza del chasis y pantalla con paños 3M.</p>
+                    <p class="tarjeta-servicio-tagline">Tu equipo, limpio por dentro y por fuera.</p>
+                    <ul class="tarjeta-servicio-lista">
+                        <li><i class="bi bi-check-circle-fill"></i>Soplado eléctrico contra el polvo</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Pasta térmica ARCTIC MX-4</li>
+                        <li><i class="bi bi-check-circle-fill"></i>Limpieza de chasis y pantalla</li>
+                    </ul>
+                    <a href="pages/registro.html" class="btn-tarjeta-servicio">Solicitar servicio <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -208,6 +281,22 @@
         })();
 
         document.addEventListener('DOMContentLoaded', function () {
+
+            /* ── APARICIÓN DE TARJETAS AL HACER SCROLL ── */
+            const tarjetas = document.querySelectorAll('.tarjeta-servicio');
+            if ('IntersectionObserver' in window) {
+                const observador = new IntersectionObserver((entradas) => {
+                    entradas.forEach(entrada => {
+                        if (entrada.isIntersecting) {
+                            entrada.target.classList.add('visible');
+                            observador.unobserve(entrada.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                tarjetas.forEach(t => observador.observe(t));
+            } else {
+                tarjetas.forEach(t => t.classList.add('visible'));
+            }
 
             /* ── MAPA ── */
             const mapa = L.map('mapa').setView([13.7224179099250446, -89.73816714366654], 15);

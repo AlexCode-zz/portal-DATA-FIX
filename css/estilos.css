@@ -351,6 +351,13 @@ main {
   pointer-events: none;
 }
 
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+
 .hero-contenido {
   position: relative;
   z-index: 1;
@@ -398,6 +405,83 @@ main {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+}
+
+/* ── Visual flotante del hero (mockup de seguimiento en vivo) ──── */
+.hero-visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.hero-visual-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+}
+
+.hero-logo {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, .45));
+  animation: flotarLogo 5s ease-in-out infinite;
+}
+
+@keyframes flotarLogo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.hero-chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30, 37, 56, 0.85);
+  border: 1px solid rgba(255, 255, 255, .15);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+  animation: flotarChip 6s ease-in-out infinite;
+}
+
+.hero-chip i {
+  color: #60A5FA;
+}
+
+.hero-chip-1 {
+  top: 10px;
+  right: 20px;
+  animation-delay: .3s;
+}
+
+.hero-chip-2 {
+  bottom: 10px;
+  left: 10px;
+  animation-delay: 1.1s;
+}
+
+@keyframes flotarChip {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo, .hero-chip {
+    animation: none;
+  }
 }
 
 /* ═══ BOTONES ══════════════════════════════════════════════════════ */
@@ -545,8 +629,8 @@ main {
 
 .grilla-servicios {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
 }
 
 .tarjeta-servicio {
@@ -555,9 +639,17 @@ main {
   border-radius: var(--radio);
   padding: 32px 28px;
   box-shadow: var(--sombra);
-  transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+  transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans),
+    opacity .6s ease, translate .6s ease;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  translate: 0 24px;
+}
+
+.tarjeta-servicio.visible {
+  opacity: 1;
+  translate: 0 0;
 }
 
 .tarjeta-servicio:hover {
@@ -574,7 +666,7 @@ main {
 
 .tarjeta-servicio h3 {
   font-size: 1.15rem;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--texto);
   line-height: 1.35;
 }
@@ -583,6 +675,106 @@ main {
   color: var(--texto-sec);
   font-size: .92rem;
   line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-servicio {
+    opacity: 1;
+    translate: 0 0;
+    transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+  }
+}
+
+/* ── Encabezado de tarjeta: icono + pastilla de categoría ──────── */
+.tarjeta-servicio-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.tarjeta-servicio-top .icono-servicio {
+  margin-bottom: 0;
+}
+
+.pastilla-categoria {
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--fondo);
+  color: var(--texto-sec);
+  border: 1px solid var(--gris-200);
+  white-space: nowrap;
+}
+
+/* ── Tagline destacada (más específica que ".tarjeta-servicio p") ── */
+.tarjeta-servicio .tarjeta-servicio-tagline {
+  color: var(--texto);
+  font-weight: 600;
+  font-size: .95rem;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+/* ── Lista de puntos clave con check ─────────────────────────────── */
+.tarjeta-servicio-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.tarjeta-servicio-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: .85rem;
+  color: var(--texto-sec);
+  line-height: 1.4;
+}
+
+.tarjeta-servicio-lista li i {
+  color: var(--verde);
+  font-size: .85rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Botón de la tarjeta (siempre anclado abajo) ─────────────────── */
+.btn-tarjeta-servicio {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--fondo);
+  color: var(--azul);
+  font-weight: 700;
+  font-size: .85rem;
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--gris-200);
+  transition: all var(--trans);
+  margin-top: auto;
+}
+
+.btn-tarjeta-servicio i {
+  transition: transform var(--trans);
+}
+
+.btn-tarjeta-servicio:hover {
+  background: var(--azul);
+  color: #fff;
+  border-color: var(--azul);
+  transform: translateY(-2px);
+}
+
+.btn-tarjeta-servicio:hover i {
+  transform: translateX(3px);
 }
 
 
@@ -1978,6 +2170,21 @@ table tr:hover td {
 
 /* ═══ RESPONSIVE ════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-visual {
+    min-height: 0;
+  }
+
+  .hero-logo {
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+
   .detalle-grid {
     grid-template-columns: 1fr;
   }
@@ -2038,6 +2245,10 @@ table tr:hover td {
 
   .hero-acciones {
     flex-direction: column;
+  }
+
+  .hero-chip {
+    display: none;
   }
 
   .btn {
@@ -2509,6 +2720,14 @@ table tr:hover td {
   box-shadow: var(--sombra-neu-sm);
 }
 
+/* Variantes de color con fondo tintado, para diferenciar categorías
+   de servicio (reutiliza la misma paleta de .text-primary/.text-danger/etc.) */
+.icono-servicio.text-primary { color: var(--azul);    background: rgba(47, 111, 237, 0.12); }
+.icono-servicio.text-info    { color: #0284C7;         background: rgba(2, 132, 199, 0.12); }
+.icono-servicio.text-warning { color: var(--naranja);  background: rgba(245, 158, 11, 0.12); }
+.icono-servicio.text-danger  { color: var(--rojo);     background: rgba(239, 68, 68, 0.12); }
+.icono-servicio.text-success { color: var(--verde);    background: rgba(16, 185, 129, 0.12); }
+
 .etiqueta-tipo {
   font-size: .72rem;
   font-weight: 700;
@@ -2728,6 +2947,8 @@ table tr:hover td {
   display: flex;
   gap: 32px;
   margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   flex-wrap: wrap;
 }
 
@@ -3548,4 +3769,3 @@ footer p {
     max-width: 100%;
   }
 }
-
