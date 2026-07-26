@@ -655,7 +655,7 @@ main {
 
 .tarjeta-servicio {
   background: var(--neu-base);
-  border: none;
+  border: 1px solid var(--gris-200);
   border-radius: var(--radio);
   padding: 32px 28px;
   box-shadow: var(--sombra-neu);
@@ -764,21 +764,44 @@ main {
   flex-shrink: 0;
 }
 
+/* ── Precio destacado (estilo tarjeta de plan) ───────────────────── */
+.tarjeta-servicio-precio {
+  font-family: var(--font-mono);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--azul);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.tarjeta-servicio-precio .desde {
+  display: block;
+  font-family: var(--font-cuerpo);
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--texto-sec);
+  margin-bottom: 4px;
+}
+
 /* ── Botón de la tarjeta (siempre anclado abajo) ─────────────────── */
 .btn-tarjeta-servicio {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: var(--fondo);
-  color: var(--azul);
+  width: 100%;
+  background: var(--azul);
+  color: #fff;
   font-weight: 700;
-  font-size: .85rem;
-  padding: 11px 18px;
-  border-radius: 12px;
-  border: 1px solid var(--gris-200);
+  font-size: .9rem;
+  padding: 13px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--azul);
   transition: all var(--trans);
   margin-top: auto;
+  box-shadow: 0 8px 20px rgba(47, 111, 237, 0.28);
 }
 
 .btn-tarjeta-servicio i {
@@ -786,10 +809,10 @@ main {
 }
 
 .btn-tarjeta-servicio:hover {
-  background: var(--azul);
-  color: #fff;
-  border-color: var(--azul);
+  background: var(--navy);
+  border-color: var(--navy);
   transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(47, 111, 237, 0.35);
 }
 
 .btn-tarjeta-servicio:hover i {
