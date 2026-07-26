@@ -11,39 +11,74 @@
 
 <nav class="navbar">
     <div class="contenedor">
-        <a href="../index.html" class="navbar-marca">DATA<span class="marca-dot">FIX</span> <span style="font-weight:400; color:var(--gris-400); font-size:0.85rem;">/ Admin</span></a>
+        <a href="../index.html" class="navbar-marca">
+            DATA<span class="marca-dot">FIX</span> 
+            <span style="font-weight:600; color:var(--azul); font-size:0.8rem; background:var(--bg-layer1); padding:4px 10px; border-radius:8px; margin-left:8px; box-shadow:var(--sombra-neu-sm);">
+                <i class="bi bi-shield-lock"></i> Panel Admin
+            </span>
+        </a>
         <button class="btn-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
             <i class="bi bi-moon-stars-fill"></i>
         </button>
     </div>
 </nav>
 
-<div class="panel-formulario" style="margin-top:70px;">
-    <div class="marca-formulario">DATA<span style="color:var(--azul)">FIX</span></div>
-    <h2>Panel administrativo</h2>
-    <p class="subtitulo">Acceso exclusivo para personal del taller</p>
-
-    <div class="alerta mensaje-formulario" style="display:none;"></div>
-
-    <form id="form-login-admin">
-        <div class="campo">
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" name="correo" placeholder="admin@techfix.com" required>
+<main style="min-height: calc(100vh - 100px); display: flex; align-items: center; justify-content: center; padding: 20px 16px;">
+    <div class="panel-formulario" style="margin: 0;">
+        <div class="marca-formulario">
+            <i class="bi bi-shield-lock-fill" style="color:var(--azul); margin-right:6px;"></i>
+            DATA<span style="color:var(--azul)">FIX</span>
         </div>
-        <div class="campo">
-            <label for="contrasena">Contraseña</label>
-            <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-dark btn-block">Ingresar al panel</button>
-    </form>
+        <h2>Panel Administrativo</h2>
+        <p class="subtitulo">Acceso exclusivo para personal del taller</p>
 
-    <p class="enlace-secundario"><a href="../index.html">&larr; Volver al sitio</a></p>
-</div>
+        <div class="alerta mensaje-formulario" style="display:none;"></div>
+
+        <form id="form-login-admin">
+            <div class="campo">
+                <label for="correo"><i class="bi bi-envelope me-1"></i> Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="admin@techfix.com" required>
+            </div>
+            <div class="campo campo-password">
+                <label for="contrasena"><i class="bi bi-key me-1"></i> Contraseña</label>
+                <div style="position:relative;">
+                    <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required style="padding-right: 44px;">
+                    <button type="button" id="toggle-pwd" class="toggle-password" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--texto-sec); cursor:pointer;" aria-label="Mostrar u ocultar contraseña">
+                        <i class="bi bi-eye" id="icono-pwd"></i>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primario btn-block" style="margin-top:16px;">
+                <i class="bi bi-shield-check me-2"></i> Ingresar al panel
+            </button>
+        </form>
+
+        <div class="separador-o">o</div>
+
+        <p class="enlace-secundario">
+            <a href="../index.html"><i class="bi bi-arrow-left me-1"></i> Volver al sitio público</a>
+        </p>
+    </div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>
 <script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
 <script>
+    // Toggle visibilidad contraseña
+    const btnToggle = document.getElementById('toggle-pwd');
+    const inputPwd = document.getElementById('contrasena');
+    const iconoPwd = document.getElementById('icono-pwd');
+
+    if (btnToggle && inputPwd && iconoPwd) {
+        btnToggle.addEventListener('click', function () {
+            const esPassword = inputPwd.type === 'password';
+            inputPwd.type = esPassword ? 'text' : 'password';
+            iconoPwd.className = esPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+        });
+    }
+
     // Redirigir si ya tiene sesión de administrador activa
     obtenerSesionActual().then(async (sesion) => {
         if (sesion) {
@@ -64,15 +99,12 @@
         const caja = document.querySelector('.mensaje-formulario');
         const btn = e.target.querySelector('[type="submit"]');
         btn.disabled = true;
-        btn.textContent = 'Verificando...';
+        btn.innerHTML = '<i class="bi bi-arrow-repeat spin me-2"></i> Verificando...';
 
         const resultado = await iniciarSesionAdmin({
             correo: document.getElementById('correo').value.trim(),
             contrasena: document.getElementById('contrasena').value
         });
-
-        btn.disabled = false;
-        btn.textContent = 'Ingresar al panel';
 
         if (resultado.ok) {
             caja.textContent = `Bienvenido, ${resultado.admin.nombre}. Redirigiendo...`;
@@ -80,6 +112,8 @@
             caja.style.display = 'flex';
             setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
         } else {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Ingresar al panel';
             caja.textContent = resultado.mensaje;
             caja.className = 'alerta alerta-info mensaje-formulario';
             caja.style.display = 'flex';

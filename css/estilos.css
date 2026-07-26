@@ -274,27 +274,32 @@ main {
   height: 36px;
 }
 
-.nav-menu {
+.nav-menu,
+.navbar-menu {
   display: flex;
   align-items: center;
   gap: 6px;
   list-style: none;
 }
 
-.nav-menu a {
-  color: var(--texto-sec);
-  font-size: .9rem;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 8px;
+.nav-menu a,
+.navbar-menu a {
+  color: var(--texto);
+  font-size: .92rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
   transition: all var(--trans);
 }
 
 .nav-menu a:hover,
-.nav-menu a.activo {
-  background: var(--neu-base);
+.nav-menu a.activo,
+.navbar-menu a:hover,
+.navbar-menu a.activo {
+  background: var(--bg-layer1);
   box-shadow: var(--sombra-neu-sm);
-  color: var(--texto);
+  color: var(--azul);
+  transform: translateY(-1px);
 }
 
 .nav-menu .btn-nav-cta {
@@ -333,16 +338,17 @@ main {
   display: none;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--texto);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 6px;
-  border-radius: 6px;
-  transition: background var(--trans);
+  border-radius: 8px;
+  transition: all var(--trans);
 }
 
 #btn-hamburger:hover {
-  background: rgba(255, 255, 255, .1);
+  background: var(--bg-layer1);
+  box-shadow: var(--sombra-neu-sm);
 }
 
 #nav-overlay {
@@ -932,16 +938,22 @@ main {
 .campo select,
 .campo textarea {
   width: 100%;
-  padding: 12px 16px;
+  padding: 13px 18px;
   border-radius: 12px;
-  border: none;
-  background: var(--neu-base);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: var(--bg-layer1);
   font-size: .95rem;
   font-family: var(--font-cuerpo);
   color: var(--texto);
   outline: none;
   box-shadow: var(--sombra-neu-inset);
   transition: all var(--trans);
+}
+
+[data-theme="dark"] .campo input,
+[data-theme="dark"] .campo select,
+[data-theme="dark"] .campo textarea {
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .campo select {
@@ -997,23 +1009,38 @@ main {
 .tarjeta-auth,
 .panel-formulario {
   background: var(--neu-base);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 24px;
-  padding: 40px 36px;
+  padding: 42px 36px;
   width: 100%;
   max-width: 440px;
   margin: 40px auto;
   box-shadow: var(--sombra-neu-md);
+  position: relative;
+}
+
+[data-theme="dark"] .tarjeta-auth,
+[data-theme="dark"] .panel-formulario {
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .auth-logo,
 .marca-formulario {
   text-align: center;
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
   font-family: var(--font-titulo);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--texto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 24px;
+  border-radius: 14px;
+  background: var(--neu-base);
+  box-shadow: var(--sombra-neu-sm);
+  width: fit-content;
 }
 
 .auth-logo .marca span,
@@ -2229,7 +2256,8 @@ table tr:hover td {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--navy);
+    background: var(--neu-base);
+    box-shadow: var(--sombra-neu-md);
     z-index: 100;
     flex-direction: column;
     gap: 0;
@@ -2436,18 +2464,20 @@ table tr:hover td {
 }
 
 .navbar-menu a {
-  color: rgba(255, 255, 255, .8);
-  font-size: .9rem;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 6px;
-  transition: background var(--trans), color var(--trans);
+  color: var(--texto);
+  font-size: .92rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: all var(--trans);
 }
 
 .navbar-menu a:hover,
 .navbar-menu a.activo {
-  background: rgba(255, 255, 255, .1);
-  color: #fff;
+  background: var(--bg-layer1);
+  box-shadow: var(--sombra-neu-sm);
+  color: var(--azul);
+  transform: translateY(-1px);
 }
 
 /* ── Formularios de auth (login / registro) ─────────────────────── */
@@ -3401,7 +3431,8 @@ footer p {
     top: 64px;
     left: 0;
     right: 0;
-    background: var(--navy);
+    background: var(--neu-base);
+    box-shadow: var(--sombra-neu-md);
     z-index: 100;
     flex-direction: column;
     gap: 0;

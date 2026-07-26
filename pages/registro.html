@@ -18,62 +18,108 @@
                     <i class="bi bi-moon-stars-fill"></i>
                 </button>
             </li>
-            <li><a href="login.html">¿Ya tienes cuenta? Inicia sesión</a></li>
+            <li><a href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i> Inicia sesión</a></li>
         </ul>
     </div>
 </nav>
 
-<div class="panel-formulario">
-    <div class="marca-formulario">DATA<span style="color:var(--azul)">FIX</span></div>
-    <h2>Crea tu cuenta</h2>
-    <p class="subtitulo">Regístrate para dar seguimiento a tus reparaciones</p>
-
-    <div class="alerta mensaje-formulario" style="display:none;"></div>
-
-    <form id="form-registro">
-        <div class="campo-fila">
-            <div class="campo">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
-            <div class="campo">
-                <label for="apellido">Apellido</label>
-                <input type="text" id="apellido" name="apellido" required>
-            </div>
+<main style="min-height: calc(100vh - 100px); display: flex; align-items: center; justify-content: center; padding: 28px 16px;">
+    <div class="panel-formulario" style="margin: 0; max-width: 480px;">
+        <div class="marca-formulario">
+            <i class="bi bi-person-plus-fill" style="color:var(--azul); margin-right:6px;"></i>
+            DATA<span style="color:var(--azul)">FIX</span>
         </div>
+        <h2>Crea tu cuenta</h2>
+        <p class="subtitulo">Regístrate para dar seguimiento a tus reparaciones</p>
 
-        <div class="campo">
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
-        </div>
+        <div class="alerta mensaje-formulario" style="display:none;"></div>
 
-        <div class="campo">
-            <label for="telefono">Teléfono <span style="font-weight:400; color:var(--pizarra);">(opcional)</span></label>
-            <input type="tel" id="telefono" name="telefono" placeholder="099 000 0000">
-        </div>
-
-        <div class="campo-fila">
-            <div class="campo">
-                <label for="contrasena">Contraseña</label>
-                <input type="password" id="contrasena" name="contrasena" minlength="6" required>
+        <form id="form-registro">
+            <div class="campo-fila">
+                <div class="campo">
+                    <label for="nombre"><i class="bi bi-person me-1"></i> Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Juan" required>
+                </div>
+                <div class="campo">
+                    <label for="apellido"><i class="bi bi-person me-1"></i> Apellido</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Pérez" required>
+                </div>
             </div>
+
             <div class="campo">
-                <label for="confirmar">Confirmar contraseña</label>
-                <input type="password" id="confirmar" name="confirmar" minlength="6" required>
+                <label for="correo"><i class="bi bi-envelope me-1"></i> Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
             </div>
-        </div>
-        <p class="campo ayuda" style="margin-top:-10px;">Mínimo 6 caracteres.</p>
 
-        <button type="submit" class="btn btn-primary btn-block mt-1" id="btn-registro">Registrarme</button>
-    </form>
+            <div class="campo">
+                <label for="telefono"><i class="bi bi-telephone me-1"></i> Teléfono <span style="font-weight:400; color:var(--texto-sec);">(opcional)</span></label>
+                <input type="tel" id="telefono" name="telefono" placeholder="55 0000 0000">
+            </div>
 
-    <p class="enlace-secundario">¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
-</div>
+            <div class="campo-fila">
+                <div class="campo campo-password">
+                    <label for="contrasena"><i class="bi bi-key me-1"></i> Contraseña</label>
+                    <div style="position:relative;">
+                        <input type="password" id="contrasena" name="contrasena" minlength="6" placeholder="••••••••" required style="padding-right: 36px;">
+                        <button type="button" id="toggle-pwd1" class="toggle-password" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--texto-sec); cursor:pointer;" aria-label="Mostrar u ocultar contraseña">
+                            <i class="bi bi-eye" id="icono-pwd1"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="campo campo-password">
+                    <label for="confirmar"><i class="bi bi-check2-square me-1"></i> Confirmar</label>
+                    <div style="position:relative;">
+                        <input type="password" id="confirmar" name="confirmar" minlength="6" placeholder="••••••••" required style="padding-right: 36px;">
+                        <button type="button" id="toggle-pwd2" class="toggle-password" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--texto-sec); cursor:pointer;" aria-label="Mostrar u ocultar confirmación">
+                            <i class="bi bi-eye" id="icono-pwd2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p class="ayuda" style="margin-top:-6px; margin-bottom: 16px; font-size: 0.82rem; color: var(--texto-sec);">Mínimo 6 caracteres.</p>
+
+            <button type="submit" class="btn btn-primario btn-block" id="btn-registro" style="margin-top:8px;">
+                <i class="bi bi-person-check-fill me-2"></i> Registrarme
+            </button>
+        </form>
+
+        <div class="separador-o">o</div>
+
+        <p class="enlace-secundario">¿Ya tienes cuenta? <a href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i> Inicia sesión aquí</a></p>
+    </div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>
 <script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
 <script>
+    // Toggle visibilidad contraseña 1
+    const btnToggle1 = document.getElementById('toggle-pwd1');
+    const inputPwd1 = document.getElementById('contrasena');
+    const iconoPwd1 = document.getElementById('icono-pwd1');
+
+    if (btnToggle1 && inputPwd1 && iconoPwd1) {
+        btnToggle1.addEventListener('click', function () {
+            const esPassword = inputPwd1.type === 'password';
+            inputPwd1.type = esPassword ? 'text' : 'password';
+            iconoPwd1.className = esPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+        });
+    }
+
+    // Toggle visibilidad contraseña 2
+    const btnToggle2 = document.getElementById('toggle-pwd2');
+    const inputPwd2 = document.getElementById('confirmar');
+    const iconoPwd2 = document.getElementById('icono-pwd2');
+
+    if (btnToggle2 && inputPwd2 && iconoPwd2) {
+        btnToggle2.addEventListener('click', function () {
+            const esPassword = inputPwd2.type === 'password';
+            inputPwd2.type = esPassword ? 'text' : 'password';
+            iconoPwd2.className = esPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+        });
+    }
+
     // Redirigir si ya inició sesión
     obtenerSesionActual().then(sesion => {
         if (sesion) {
@@ -98,7 +144,7 @@
         }
 
         btn.disabled = true;
-        btn.textContent = 'Creando cuenta...';
+        btn.innerHTML = '<i class="bi bi-arrow-repeat spin me-2"></i> Creando cuenta...';
 
         const resultado = await registrarCliente({
             nombre: document.getElementById('nombre').value.trim(),
@@ -108,18 +154,16 @@
             contrasena
         });
 
-        btn.disabled = false;
-        btn.textContent = 'Registrarme';
-
-        caja.textContent = resultado.mensaje;
-        caja.className = resultado.ok ? 'alerta alerta-exito mensaje-formulario' : 'alerta alerta-info mensaje-formulario';
-        caja.style.display = 'flex';
-
         if (resultado.ok) {
-            setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+            window.location.href = 'dashboard.html';
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-person-check-fill me-2"></i> Registrarme';
+            caja.textContent = resultado.mensaje;
+            caja.className = 'alerta alerta-info mensaje-formulario';
+            caja.style.display = 'flex';
         }
     });
 </script>
 </body>
 </html>
-

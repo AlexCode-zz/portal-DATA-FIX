@@ -18,42 +18,68 @@
                     <i class="bi bi-moon-stars-fill"></i>
                 </button>
             </li>
-            <li><a href="registro.html">¿No tienes cuenta? Regístrate</a></li>
+            <li><a href="registro.html"><i class="bi bi-person-plus me-1"></i> Regístrate</a></li>
         </ul>
     </div>
 </nav>
 
-<div class="panel-formulario">
-    <div class="marca-formulario">DATA<span style="color:var(--azul)">FIX</span></div>
-    <h2>Bienvenido de nuevo</h2>
-    <p class="subtitulo">Ingresa para ver el estado de tus dispositivos</p>
-
-    <div class="alerta mensaje-formulario" style="display:none;"></div>
-
-    <form id="form-login">
-        <div class="campo">
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+<main style="min-height: calc(100vh - 100px); display: flex; align-items: center; justify-content: center; padding: 20px 16px;">
+    <div class="panel-formulario" style="margin: 0;">
+        <div class="marca-formulario">
+            <i class="bi bi-person-circle" style="color:var(--azul); margin-right:6px;"></i>
+            DATA<span style="color:var(--azul)">FIX</span>
         </div>
-        <div class="campo">
-            <label for="contrasena">Contraseña</label>
-            <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" id="btn-login">Ingresar</button>
-    </form>
+        <h2>Bienvenido de nuevo</h2>
+        <p class="subtitulo">Ingresa para ver el estado de tus dispositivos</p>
 
-    <div class="separador-o">o</div>
+        <div class="alerta mensaje-formulario" style="display:none;"></div>
 
-    <p class="enlace-secundario" style="margin-top:0;">
-        <a href="../admin/login.html">Acceder como administrador →</a>
-    </p>
-    <p class="enlace-secundario">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
-</div>
+        <form id="form-login">
+            <div class="campo">
+                <label for="correo"><i class="bi bi-envelope me-1"></i> Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+            </div>
+            <div class="campo campo-password">
+                <label for="contrasena"><i class="bi bi-key me-1"></i> Contraseña</label>
+                <div style="position:relative;">
+                    <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required style="padding-right: 44px;">
+                    <button type="button" id="toggle-pwd" class="toggle-password" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--texto-sec); cursor:pointer;" aria-label="Mostrar u ocultar contraseña">
+                        <i class="bi bi-eye" id="icono-pwd"></i>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primario btn-block" id="btn-login" style="margin-top:16px;">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Ingresar
+            </button>
+        </form>
+
+        <div class="separador-o">o</div>
+
+        <p class="enlace-secundario" style="margin-top:0;">
+            <a href="../admin/login.html"><i class="bi bi-shield-lock me-1"></i> Acceder como administrador →</a>
+        </p>
+        <p class="enlace-secundario">¿No tienes cuenta? <a href="registro.html"><i class="bi bi-person-plus me-1"></i> Regístrate aquí</a></p>
+    </div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>
 <script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
 <script>
+    // Toggle visibilidad contraseña
+    const btnToggle = document.getElementById('toggle-pwd');
+    const inputPwd = document.getElementById('contrasena');
+    const iconoPwd = document.getElementById('icono-pwd');
+
+    if (btnToggle && inputPwd && iconoPwd) {
+        btnToggle.addEventListener('click', function () {
+            const esPassword = inputPwd.type === 'password';
+            inputPwd.type = esPassword ? 'text' : 'password';
+            iconoPwd.className = esPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+        });
+    }
+
     // Redirigir si ya inició sesión
     obtenerSesionActual().then(sesion => {
         if (sesion) {
@@ -67,19 +93,18 @@
         const caja = document.querySelector('.mensaje-formulario');
         const btn = document.getElementById('btn-login');
         btn.disabled = true;
-        btn.textContent = 'Ingresando...';
+        btn.innerHTML = '<i class="bi bi-arrow-repeat spin me-2"></i> Ingresando...';
 
         const resultado = await iniciarSesion({
             correo: document.getElementById('correo').value.trim(),
             contrasena: document.getElementById('contrasena').value
         });
 
-        btn.disabled = false;
-        btn.textContent = 'Ingresar';
-
         if (resultado.ok) {
             window.location.href = 'dashboard.html';
         } else {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i> Ingresar';
             caja.textContent = resultado.mensaje;
             caja.className = 'alerta alerta-info mensaje-formulario';
             caja.style.display = 'flex';
@@ -88,4 +113,3 @@
 </script>
 </body>
 </html>
-
